@@ -67,7 +67,7 @@ export class ApplicationFormDialogComponent {
       source: app?.source ?? '',
       salary_range: app?.salary_range ?? '',
       job_url: app?.job_url ?? '',
-      applied_at: app?.applied_at ? new Date(app.applied_at) : null,
+      applied_at: app?.applied_at ? this.parseIsoDate(app.applied_at) : null,
       notes: app?.notes ?? '',
     });
   }
@@ -116,5 +116,15 @@ export class ApplicationFormDialogComponent {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
+  }
+
+  // `new Date("YYYY-MM-DD")` interpreta la cadena como medianoche UTC: en
+  // zonas horarias por detrás de UTC eso cae en el día anterior al
+  // mostrarla en local, y el datepicker acaba enseñando (y reguardando) un
+  // día equivocado. Construimos la fecha a partir de sus partes en horario
+  // local para que el viaje de ida y vuelta con toIsoDate() sea exacto.
+  private parseIsoDate(value: string): Date {
+    const [year, month, day] = value.split('-').map(Number);
+    return new Date(year, month - 1, day);
   }
 }
