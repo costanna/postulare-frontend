@@ -17,7 +17,7 @@ Este frontend se construye de forma incremental, en ramas por funcionalidad:
 - [x] `feature/applications` — tablero Kanban con drag & drop (`@angular/cdk`) entre estados, alta/edición de candidaturas en un diálogo compartido, vista de tabla con filtros (empresa, estado, rango de fechas) y paginación, y detalle de candidatura con línea de tiempo de eventos (entrevistas, seguimientos, notas)
 - [x] `feature/dashboard` — resumen numérico (candidaturas totales, enviadas, entrevistas, ofertas, tasa de respuesta) y gráficos de candidaturas por estado, por mes y por origen, consumiendo los endpoints `/stats/*` del backend
 - [x] `feature/matches` — ofertas recomendadas: buscar ofertas (Adzuna + scoring del backend), filtro por nuevas/convertidas/descartadas, tarjeta con score de afinidad y motivo, convertir en candidatura o descartar
-- [ ] Docker y despliegue
+- [x] `feature/docker` — `Dockerfile` + nginx para servir la SPA en contenedor; junto al backend se orquestan desde el [`docker-compose.yml`](../docker-compose.yml) de la carpeta raíz (ver ahí para levantar todo el stack local)
 
 ## Puesta en marcha local
 
@@ -57,6 +57,22 @@ npm test
 ```bash
 npm run build
 ```
+
+### Docker
+
+El [`Dockerfile`](Dockerfile) compila la SPA (configuración `development`,
+para que `apiUrl` apunte a `http://localhost:8000`) y la sirve con nginx
+([`nginx.conf`](nginx.conf), con fallback a `index.html` para el router de
+Angular). Pensado para levantarse junto al backend desde el
+[`docker-compose.yml`](../docker-compose.yml) de la carpeta raíz — ver ahí
+las instrucciones para todo el stack. Para construir solo esta imagen:
+
+```bash
+docker build -t postulare-frontend .
+docker run -p 4200:80 postulare-frontend
+```
+
+(el backend debe estar accesible en `http://localhost:8000` desde el navegador)
 
 ## Tema claro/oscuro e internacionalización
 
