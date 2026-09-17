@@ -13,6 +13,15 @@
   padding: 3rem 0;
 }
 
+.kanban-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 3rem 0;
+  color: var(--color-text-muted);
+}
+
 .kanban-board {
   display: flex;
   gap: 0.9rem;

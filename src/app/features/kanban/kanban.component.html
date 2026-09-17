@@ -7,6 +7,11 @@
     <div class="kanban-loading">
       <mat-spinner diameter="32"></mat-spinner>
     </div>
+  } @else if (loadError()) {
+    <div class="kanban-error">
+      <p>{{ 'common.error_generic' | translate }}</p>
+      <button mat-button type="button" (click)="retry()">{{ 'common.retry' | translate }}</button>
+    </div>
   } @else {
     <div class="kanban-board" cdkDropListGroup>
       @for (status of columns; track status) {

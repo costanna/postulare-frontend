@@ -7,7 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { TranslatePipe } from '@ngx-translate/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 import { ApplicationEvent, EVENT_TYPES, EventType } from '../../../core/models/event.model';
 import { EventsService } from '../../../core/services/events.service';
@@ -37,6 +38,8 @@ export class EventFormDialogComponent {
   private readonly fb = inject(FormBuilder);
   private readonly eventsService = inject(EventsService);
   private readonly dialogRef = inject(MatDialogRef<EventFormDialogComponent, ApplicationEvent | undefined>);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly translate = inject(TranslateService);
 
   readonly types = EVENT_TYPES;
   readonly saving = signal(false);
@@ -69,7 +72,10 @@ export class EventFormDialogComponent {
           this.saving.set(false);
           this.dialogRef.close(event);
         },
-        error: () => this.saving.set(false),
+        error: () => {
+          this.saving.set(false);
+          this.snackBar.open(this.translate.instant('common.error_generic'), undefined, { duration: 4000 });
+        },
       });
   }
 

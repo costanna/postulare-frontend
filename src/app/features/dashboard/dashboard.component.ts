@@ -1,4 +1,5 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
@@ -20,6 +21,7 @@ import { StatsService } from '../../core/services/stats.service';
   standalone: true,
   imports: [
     TranslatePipe,
+    MatButtonModule,
     MatProgressSpinnerModule,
     LucideClipboardList,
     LucideSend,
@@ -36,6 +38,7 @@ export class DashboardComponent implements OnInit {
   private readonly language = inject(LanguageService);
 
   readonly loading = signal(true);
+  readonly loadError = signal(false);
 
   readonly summary = signal<StatsSummary | null>(null);
   readonly byStatus = signal<StatusCount[]>([]);
@@ -47,18 +50,33 @@ export class DashboardComponent implements OnInit {
   readonly maxSourceCount = computed(() => Math.max(1, ...this.bySource().map((s) => s.count)));
 
   ngOnInit(): void {
+    this.load();
+  }
+
+  retry(): void {
+    this.load();
+  }
+
+  private load(): void {
     this.loading.set(true);
+    this.loadError.set(false);
     forkJoin({
       summary: this.statsService.getSummary(),
       byStatus: this.statsService.getByStatus(),
       timeline: this.statsService.getTimeline(),
       bySource: this.statsService.getBySource(),
-    }).subscribe(({ summary, byStatus, timeline, bySource }) => {
-      this.summary.set(summary);
-      this.byStatus.set(byStatus);
-      this.timeline.set(timeline);
-      this.bySource.set(bySource);
-      this.loading.set(false);
+    }).subscribe({
+      next: ({ summary, byStatus, timeline, bySource }) => {
+        this.summary.set(summary);
+        this.byStatus.set(byStatus);
+        this.timeline.set(timeline);
+        this.bySource.set(bySource);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.loading.set(false);
+        this.loadError.set(true);
+      },
     });
   }
 

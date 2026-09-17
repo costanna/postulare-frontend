@@ -61,6 +61,7 @@ export class ApplicationsListComponent implements OnInit {
 
   readonly statuses = APPLICATION_STATUSES;
   readonly loading = signal(true);
+  readonly loadError = signal(false);
   readonly page = signal<Page<Application> | null>(null);
   readonly currentPage = signal(1);
 
@@ -80,8 +81,13 @@ export class ApplicationsListComponent implements OnInit {
     });
   }
 
+  retry(): void {
+    this.load();
+  }
+
   private load(): void {
     this.loading.set(true);
+    this.loadError.set(false);
     const raw = this.filtersForm.getRawValue();
 
     this.applicationsService
@@ -93,9 +99,15 @@ export class ApplicationsListComponent implements OnInit {
         page: this.currentPage(),
         page_size: PAGE_SIZE,
       })
-      .subscribe((page) => {
-        this.page.set(page);
-        this.loading.set(false);
+      .subscribe({
+        next: (page) => {
+          this.page.set(page);
+          this.loading.set(false);
+        },
+        error: () => {
+          this.loading.set(false);
+          this.loadError.set(true);
+        },
       });
   }
 

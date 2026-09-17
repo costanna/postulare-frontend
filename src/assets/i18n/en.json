@@ -16,6 +16,7 @@
     "actions": "Actions",
     "previous": "Previous",
     "next": "Next",
+    "retry": "Retry",
     "confirm": "Confirm",
     "yes": "Yes",
     "no": "No",
@@ -122,7 +123,8 @@
     "timeline_title": "Applications by month",
     "no_timeline_data": "Not enough data yet",
     "by_source_title": "Applications by source",
-    "no_source_data": "No source data yet"
+    "no_source_data": "No source data yet",
+    "unknown_source": "No source"
   },
   "kanban": {
     "title": "Board",

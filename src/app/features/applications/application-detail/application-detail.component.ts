@@ -51,6 +51,7 @@ export class ApplicationDetailComponent implements OnInit {
   readonly application = signal<Application | null>(null);
   readonly events = signal<ApplicationEvent[]>([]);
   readonly eventsLoading = signal(true);
+  readonly eventsError = signal(false);
 
   ngOnInit(): void {
     this.load();
@@ -71,11 +72,22 @@ export class ApplicationDetailComponent implements OnInit {
     });
   }
 
+  retryEvents(): void {
+    this.loadEvents();
+  }
+
   private loadEvents(): void {
     this.eventsLoading.set(true);
-    this.eventsService.list(this.applicationId).subscribe((events) => {
-      this.events.set(events);
-      this.eventsLoading.set(false);
+    this.eventsError.set(false);
+    this.eventsService.list(this.applicationId).subscribe({
+      next: (events) => {
+        this.events.set(events);
+        this.eventsLoading.set(false);
+      },
+      error: () => {
+        this.eventsLoading.set(false);
+        this.eventsError.set(true);
+      },
     });
   }
 

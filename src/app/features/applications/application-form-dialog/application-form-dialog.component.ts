@@ -7,7 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { TranslatePipe } from '@ngx-translate/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 import { APPLICATION_STATUSES, Application, ApplicationStatus } from '../../../core/models/application.model';
 import { ApplicationsService } from '../../../core/services/applications.service';
@@ -38,6 +39,8 @@ export class ApplicationFormDialogComponent {
   private readonly fb = inject(FormBuilder);
   private readonly applicationsService = inject(ApplicationsService);
   private readonly dialogRef = inject(MatDialogRef<ApplicationFormDialogComponent, Application | undefined>);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly translate = inject(TranslateService);
 
   readonly statuses = APPLICATION_STATUSES;
   readonly saving = signal(false);
@@ -64,7 +67,7 @@ export class ApplicationFormDialogComponent {
       source: app?.source ?? '',
       salary_range: app?.salary_range ?? '',
       job_url: app?.job_url ?? '',
-      applied_at: app?.applied_at ? new Date(app.applied_at) : null,
+      applied_at: app?.applied_at ? this.parseIsoDate(app.applied_at) : null,
       notes: app?.notes ?? '',
     });
   }
@@ -97,7 +100,10 @@ export class ApplicationFormDialogComponent {
         this.saving.set(false);
         this.dialogRef.close(application);
       },
-      error: () => this.saving.set(false),
+      error: () => {
+        this.saving.set(false);
+        this.snackBar.open(this.translate.instant('common.error_generic'), undefined, { duration: 4000 });
+      },
     });
   }
 
@@ -110,5 +116,15 @@ export class ApplicationFormDialogComponent {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
+  }
+
+  // `new Date("YYYY-MM-DD")` interpreta la cadena como medianoche UTC: en
+  // zonas horarias por detrás de UTC eso cae en el día anterior al
+  // mostrarla en local, y el datepicker acaba enseñando (y reguardando) un
+  // día equivocado. Construimos la fecha a partir de sus partes en horario
+  // local para que el viaje de ida y vuelta con toIsoDate() sea exacto.
+  private parseIsoDate(value: string): Date {
+    const [year, month, day] = value.split('-').map(Number);
+    return new Date(year, month - 1, day);
   }
 }
