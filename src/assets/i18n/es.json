@@ -78,5 +78,23 @@
       "email_invalid": "Introduce un email válido",
       "password_min_length": "La contraseña debe tener al menos 8 caracteres"
     }
+  },
+  "profile": {
+    "subtitle": "Esta información es la base del matching: cuanto más completa esté, mejores serán las ofertas recomendadas.",
+    "welcome_banner": "¡Bienvenida! Completa tu perfil para empezar a recibir ofertas afines.",
+    "full_name": "Nombre completo",
+    "location": "Ubicación",
+    "desired_position": "Puesto deseado",
+    "seniority": "Seniority",
+    "seniority_junior": "Junior",
+    "seniority_mid": "Mid",
+    "seniority_senior": "Senior",
+    "min_salary": "Salario mínimo",
+    "min_salary_error": "El salario no puede ser negativo",
+    "preferred_language": "Idioma preferido",
+    "skills": "Skills",
+    "skills_placeholder": "Añade una skill y pulsa Enter",
+    "skills_hint": "Pulsa Enter o coma para añadir cada skill",
+    "save_success": "Perfil actualizado correctamente"
   }
 }

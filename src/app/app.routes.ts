@@ -70,9 +70,7 @@ export const routes: Routes = [
       },
       {
         path: 'profile',
-        data: { titleKey: 'nav.profile' },
-        loadComponent: () =>
-          import('./shared/pages/placeholder-page.component').then((m) => m.PlaceholderPageComponent),
+        loadComponent: () => import('./features/profile/profile.component').then((m) => m.ProfileComponent),
       },
     ],
   },
