@@ -1,0 +1,82 @@
+{
+  "app": {
+    "name": "Postulare"
+  },
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "back": "Volver",
+    "loading": "Cargando…",
+    "search": "Buscar",
+    "filters": "Filtros",
+    "all": "Todas",
+    "actions": "Acciones",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No",
+    "optional": "opcional",
+    "error_generic": "Algo ha ido mal. Inténtalo de nuevo.",
+    "error_network": "No se ha podido contactar con el servidor. Comprueba tu conexión.",
+    "required_field": "Este campo es obligatorio",
+    "coming_soon": "Esta sección está en construcción. Llegará en una próxima rama."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "kanban": "Tablero",
+    "applications": "Candidaturas",
+    "matches": "Ofertas recomendadas",
+    "profile": "Mi perfil",
+    "logout": "Cerrar sesión",
+    "toggle_theme": "Cambiar tema claro/oscuro",
+    "change_language": "Cambiar idioma",
+    "open_menu": "Abrir menú"
+  },
+  "auth": {
+    "login": {
+      "title": "Inicia sesión",
+      "subtitle": "Organiza tu búsqueda de empleo en un solo sitio",
+      "email": "Email",
+      "password": "Contraseña",
+      "submit": "Entrar",
+      "forgot_password": "¿Has olvidado tu contraseña?",
+      "no_account": "¿Aún no tienes cuenta?",
+      "register_link": "Regístrate",
+      "error_invalid_credentials": "Email o contraseña incorrectos"
+    },
+    "register": {
+      "title": "Crea tu cuenta",
+      "subtitle": "Empieza a organizar tus candidaturas en minutos",
+      "full_name": "Nombre completo",
+      "email": "Email",
+      "password": "Contraseña",
+      "password_hint": "Mínimo 8 caracteres",
+      "submit": "Crear cuenta",
+      "has_account": "¿Ya tienes cuenta?",
+      "login_link": "Inicia sesión",
+      "success": "Cuenta creada. Ya puedes iniciar sesión.",
+      "error_email_taken": "Ese email ya está registrado"
+    },
+    "forgot_password": {
+      "title": "Recupera tu contraseña",
+      "subtitle": "Te enviaremos un enlace para restablecerla",
+      "email": "Email",
+      "submit": "Enviar enlace",
+      "back_to_login": "Volver a iniciar sesión",
+      "success": "Si el email existe, recibirás instrucciones para restablecer tu contraseña."
+    },
+    "reset_password": {
+      "title": "Elige una nueva contraseña",
+      "new_password": "Nueva contraseña",
+      "submit": "Guardar contraseña",
+      "success": "Contraseña actualizada. Ya puedes iniciar sesión.",
+      "error_invalid_token": "El enlace no es válido o ha caducado. Solicita uno nuevo."
+    },
+    "validation": {
+      "email_invalid": "Introduce un email válido",
+      "password_min_length": "La contraseña debe tener al menos 8 caracteres"
+    }
+  }
+}

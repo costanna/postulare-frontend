@@ -1,0 +1,82 @@
+{
+  "app": {
+    "name": "Postulare"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "loading": "Loading…",
+    "search": "Search",
+    "filters": "Filters",
+    "all": "All",
+    "actions": "Actions",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "optional": "optional",
+    "error_generic": "Something went wrong. Please try again.",
+    "error_network": "Could not reach the server. Check your connection.",
+    "required_field": "This field is required",
+    "coming_soon": "This section is under construction. It's coming in a future branch."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "kanban": "Board",
+    "applications": "Applications",
+    "matches": "Recommended jobs",
+    "profile": "My profile",
+    "logout": "Log out",
+    "toggle_theme": "Toggle light/dark theme",
+    "change_language": "Change language",
+    "open_menu": "Open menu"
+  },
+  "auth": {
+    "login": {
+      "title": "Log in",
+      "subtitle": "Organize your job search in one place",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Log in",
+      "forgot_password": "Forgot your password?",
+      "no_account": "Don't have an account yet?",
+      "register_link": "Sign up",
+      "error_invalid_credentials": "Incorrect email or password"
+    },
+    "register": {
+      "title": "Create your account",
+      "subtitle": "Start organizing your applications in minutes",
+      "full_name": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "password_hint": "At least 8 characters",
+      "submit": "Create account",
+      "has_account": "Already have an account?",
+      "login_link": "Log in",
+      "success": "Account created. You can now log in.",
+      "error_email_taken": "That email is already registered"
+    },
+    "forgot_password": {
+      "title": "Reset your password",
+      "subtitle": "We'll send you a link to reset it",
+      "email": "Email",
+      "submit": "Send link",
+      "back_to_login": "Back to log in",
+      "success": "If that email exists, you'll receive instructions to reset your password."
+    },
+    "reset_password": {
+      "title": "Choose a new password",
+      "new_password": "New password",
+      "submit": "Save password",
+      "success": "Password updated. You can now log in.",
+      "error_invalid_token": "This link is invalid or has expired. Request a new one."
+    },
+    "validation": {
+      "email_invalid": "Enter a valid email",
+      "password_min_length": "Password must be at least 8 characters long"
+    }
+  }
+}

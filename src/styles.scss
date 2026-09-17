@@ -1,40 +1,125 @@
-
 // Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
+// For más información: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat.core();
 
-// Define the theme object.
+// Tema base de Angular Material (azure/blue): da comportamiento e
+// interacción (ripples, estados de foco, overlays...) a los componentes.
+// La identidad de marca de Postulare vive en las custom properties de
+// abajo, no aquí - así el ThemeService puede alternar claro/oscuro sin
+// tocar Angular Material.
 $postulare-frontend-theme: mat.define-theme((
   color: (
     theme-type: light,
     primary: mat.$azure-palette,
     tertiary: mat.$blue-palette,
   ),
+  typography: (
+    brand-family: 'Inter, "Helvetica Neue", Arial, sans-serif',
+    plain-family: 'Inter, "Helvetica Neue", Arial, sans-serif',
+  ),
   density: (
     scale: 0,
   )
 ));
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
 :root {
   @include mat.all-component-themes($postulare-frontend-theme);
 }
 
-// Comment out the line below if you want to use the pre-defined typography utility classes.
-// For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
-// @include mat.typography-hierarchy($postulare-frontend-theme);
+/* ---------------------------------------------------------------------
+ * Paleta de marca Postulare — CSS custom properties (spec sección 03).
+ * Tema claro por defecto en :root; tema oscuro vía prefers-color-scheme
+ * (primera visita) o [data-theme] (preferencia guardada, ThemeService).
+ * ------------------------------------------------------------------- */
+:root {
+  --color-brand: #0b3d66;
+  --color-accent: #2f6fed;
+  --color-accent-contrast: #ffffff;
+  --color-bg: #f5f8fc;
+  --color-surface: #ffffff;
+  --color-surface-hover: #eef3fa;
+  --color-border: #dce4f0;
+  --color-text: #1f2937;
+  --color-text-muted: #5b6b82;
 
-// Comment out the line below if you want to use the deprecated `color` inputs.
-// @include mat.color-variants-backwards-compatibility($postulare-frontend-theme);
-/* You can add global styles to this file, and also import other style files */
+  --color-status-saved-bg: #94a3b8;
+  --color-status-saved-fg: #1f2937;
+  --color-status-applied-bg: #3b82f6;
+  --color-status-applied-fg: #ffffff;
+  --color-status-interview-bg: #f5a623;
+  --color-status-interview-fg: #1f2937;
+  --color-status-offer-bg: #22c55e;
+  --color-status-offer-fg: #06301a;
+  --color-status-rejected-bg: #ef4444;
+  --color-status-rejected-fg: #ffffff;
+  --color-status-withdrawn-bg: #cbd5e1;
+  --color-status-withdrawn-fg: #1f2937;
+
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08);
+  color-scheme: light;
+}
+
+@mixin dark-theme-tokens {
+  --color-brand: #0b3d66;
+  --color-accent: #5b8def;
+  --color-accent-contrast: #0b1220;
+  --color-bg: #0b1220;
+  --color-surface: #111c2e;
+  --color-surface-hover: #17263d;
+  --color-border: #22314a;
+  --color-text: #e5eaf0;
+  --color-text-muted: #a7b3c4;
+
+  --color-status-saved-bg: #a8b6c7;
+  --color-status-saved-fg: #0b1220;
+  --color-status-applied-bg: #5a9bff;
+  --color-status-applied-fg: #0b1220;
+  --color-status-interview-bg: #ffb84d;
+  --color-status-interview-fg: #0b1220;
+  --color-status-offer-bg: #3ddc79;
+  --color-status-offer-fg: #06301a;
+  --color-status-rejected-bg: #ff6b6b;
+  --color-status-rejected-fg: #2b0a0a;
+  --color-status-withdrawn-bg: #46536a;
+  --color-status-withdrawn-fg: #e5eaf0;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
+}
+
+// El atributo [data-theme] lo pone ThemeService en <body> (no en <html>),
+// así que las overrides se enganchan ahí: las custom properties cascadean
+// igualmente a todos los descendientes de <body>, que es todo lo visible.
+
+// 1) primera visita, sin preferencia guardada: respeta el SO
+@media (prefers-color-scheme: dark) {
+  body:not([data-theme='light']) {
+    @include dark-theme-tokens;
+  }
+}
+
+// 2) preferencia guardada por el usuario (ThemeService -> localStorage)
+body[data-theme='dark'] {
+  @include dark-theme-tokens;
+}
+
+* { box-sizing: border-box; }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body {
+  margin: 0;
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+a { color: var(--color-accent); }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 6px; }
