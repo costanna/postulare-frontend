@@ -1,0 +1,50 @@
+<div class="kanban-page">
+  <header class="kanban-page__header">
+    <h1>{{ 'kanban.title' | translate }}</h1>
+  </header>
+
+  @if (loading()) {
+    <div class="kanban-loading">
+      <mat-spinner diameter="32"></mat-spinner>
+    </div>
+  } @else {
+    <div class="kanban-board" cdkDropListGroup>
+      @for (status of columns; track status) {
+        <section class="kanban-column">
+          <header class="kanban-column__header">
+            <app-status-badge [status]="status"></app-status-badge>
+            <span class="kanban-column__count">{{ board()[status].length }}</span>
+            <button
+              class="kanban-column__add"
+              mat-icon-button
+              type="button"
+              [attr.aria-label]="'kanban.add_button' | translate"
+              (click)="openCreateDialog(status)"
+            >
+              <svg lucidePlus></svg>
+            </button>
+          </header>
+
+          <div
+            class="kanban-column__list"
+            cdkDropList
+            [cdkDropListData]="board()[status]"
+            (cdkDropListDropped)="drop($event, status)"
+          >
+            @for (application of board()[status]; track application.id) {
+              <article class="kanban-card" cdkDrag (click)="openDetail(application)">
+                <h3 class="kanban-card__position">{{ application.position }}</h3>
+                <p class="kanban-card__company">{{ application.company_name }}</p>
+                @if (application.source) {
+                  <span class="kanban-card__source">{{ application.source }}</span>
+                }
+              </article>
+            } @empty {
+              <p class="kanban-column__empty">{{ 'kanban.empty_column' | translate }}</p>
+            }
+          </div>
+        </section>
+      }
+    </div>
+  }
+</div>
