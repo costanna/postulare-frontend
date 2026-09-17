@@ -11,7 +11,6 @@ import {
 } from '@lucide/angular';
 import { forkJoin } from 'rxjs';
 
-import { APPLICATION_STATUSES } from '../../core/models/application.model';
 import { SourceCount, StatsSummary, StatusCount, TimelinePoint } from '../../core/models/stats.model';
 import { LanguageService } from '../../core/services/language.service';
 import { StatsService } from '../../core/services/stats.service';
@@ -36,7 +35,6 @@ export class DashboardComponent implements OnInit {
   private readonly statsService = inject(StatsService);
   private readonly language = inject(LanguageService);
 
-  readonly statuses = APPLICATION_STATUSES;
   readonly loading = signal(true);
 
   readonly summary = signal<StatsSummary | null>(null);
