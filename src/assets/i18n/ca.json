@@ -107,6 +107,23 @@
     "rejected": "Rebutjada",
     "withdrawn": "Retirada"
   },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Resum de la teva cerca de feina",
+    "empty_title": "Encara no hi ha dades",
+    "empty_subtitle": "Afegeix la teva primera candidatura per començar a veure estadístiques.",
+    "stat_total": "Candidatures totals",
+    "stat_applied": "Enviades",
+    "stat_interviews": "Entrevistes",
+    "stat_offers": "Ofertes",
+    "stat_rejected": "Rebutjades",
+    "stat_response_rate": "Taxa de resposta",
+    "by_status_title": "Candidatures per estat",
+    "timeline_title": "Candidatures per mes",
+    "no_timeline_data": "Encara no hi ha prou dades",
+    "by_source_title": "Candidatures per origen",
+    "no_source_data": "Encara no hi ha dades d'origen"
+  },
   "kanban": {
     "title": "Tauler",
     "add_button": "Afegeix candidatura",

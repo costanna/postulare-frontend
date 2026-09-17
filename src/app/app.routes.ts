@@ -47,8 +47,7 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         data: { titleKey: 'nav.dashboard' },
-        loadComponent: () =>
-          import('./shared/pages/placeholder-page.component').then((m) => m.PlaceholderPageComponent),
+        loadComponent: () => import('./features/dashboard/dashboard.component').then((m) => m.DashboardComponent),
       },
       {
         path: 'kanban',

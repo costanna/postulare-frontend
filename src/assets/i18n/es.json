@@ -107,6 +107,23 @@
     "rejected": "Rechazada",
     "withdrawn": "Retirada"
   },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Resumen de tu búsqueda de empleo",
+    "empty_title": "Aún no hay datos que mostrar",
+    "empty_subtitle": "Añade tu primera candidatura para empezar a ver estadísticas.",
+    "stat_total": "Candidaturas totales",
+    "stat_applied": "Enviadas",
+    "stat_interviews": "Entrevistas",
+    "stat_offers": "Ofertas",
+    "stat_rejected": "Rechazadas",
+    "stat_response_rate": "Tasa de respuesta",
+    "by_status_title": "Candidaturas por estado",
+    "timeline_title": "Candidaturas por mes",
+    "no_timeline_data": "Sin datos suficientes todavía",
+    "by_source_title": "Candidaturas por origen",
+    "no_source_data": "Sin datos de origen todavía"
+  },
   "kanban": {
     "title": "Tablero",
     "add_button": "Añadir candidatura",
