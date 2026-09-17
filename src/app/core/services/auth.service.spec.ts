@@ -1,5 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { provideTranslateService } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment';
 import { AuthService } from './auth.service';
@@ -13,7 +14,7 @@ describe('AuthService', () => {
     localStorage.clear();
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [AuthService, TokenStorageService],
+      providers: [AuthService, TokenStorageService, provideTranslateService({ lang: 'es', fallbackLang: 'es' })],
     });
     service = TestBed.inject(AuthService);
     httpMock = TestBed.inject(HttpTestingController);

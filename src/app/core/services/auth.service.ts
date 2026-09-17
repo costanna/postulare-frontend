@@ -5,12 +5,14 @@ import { Observable, catchError, finalize, map, of, shareReplay, switchMap, tap,
 import { environment } from '../../../environments/environment';
 import { AccessTokenOnly, LoginPayload, RegisterPayload, TokenPair } from '../models/auth.model';
 import { User } from '../models/user.model';
+import { LanguageService } from './language.service';
 import { TokenStorageService } from './token-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly tokens = inject(TokenStorageService);
+  private readonly language = inject(LanguageService);
   private readonly baseUrl = environment.apiUrl;
 
   readonly currentUser = signal<User | null>(null);
@@ -39,7 +41,16 @@ export class AuthService {
   }
 
   loadCurrentUser(): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/auth/me`).pipe(tap((user) => this.currentUser.set(user)));
+    return this.http.get<User>(`${this.baseUrl}/auth/me`).pipe(
+      tap((user) => {
+        this.currentUser.set(user);
+        // El idioma guardado en el perfil manda: así se recuerda también
+        // entrando desde otro dispositivo, no solo por localStorage.
+        if (user.preferred_language !== this.language.current()) {
+          this.language.use(user.preferred_language);
+        }
+      })
+    );
   }
 
   forgotPassword(email: string): Observable<{ message: string }> {

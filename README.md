@@ -13,7 +13,7 @@ Este frontend se construye de forma incremental, en ramas por funcionalidad:
 
 - [x] `feature/scaffold` — proyecto Angular 18 standalone + Angular Material, ngx-charts, ngx-translate, @lucide/angular
 - [x] `feature/layout-auth` — tema claro/oscuro (CSS custom properties + `ThemeService`), i18n CA/ES/EN con `ngx-translate`, layout con barra superior responsive, autenticación (login/registro/recuperar contraseña) con guards e interceptor HTTP
-- [ ] Perfil de usuario
+- [x] `feature/profile` — perfil editable (skills como chips, ubicación, puesto deseado, seniority, salario mínimo, idioma preferido); el idioma guardado en el backend se sincroniza al iniciar sesión
 - [ ] Tablero Kanban (drag & drop)
 - [ ] Dashboard con gráficos
 - [ ] Vista de tabla con filtros

@@ -1,0 +1,94 @@
+@if (loading()) {
+  <div class="profile-loading">
+    <mat-spinner diameter="32"></mat-spinner>
+  </div>
+} @else {
+  <div class="profile-page">
+    <header class="profile-page__header">
+      <h1>{{ 'nav.profile' | translate }}</h1>
+      <p>{{ 'profile.subtitle' | translate }}</p>
+    </header>
+
+    @if (showWelcome()) {
+      <div class="profile-welcome">
+        <svg lucideSparkles></svg>
+        <span>{{ 'profile.welcome_banner' | translate }}</span>
+      </div>
+    }
+
+    <form class="profile-form" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="profile-form__grid">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'profile.full_name' | translate }}</mat-label>
+          <input matInput type="text" formControlName="full_name" autocomplete="name" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'profile.location' | translate }}</mat-label>
+          <input matInput type="text" formControlName="location" placeholder="Barcelona" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'profile.desired_position' | translate }}</mat-label>
+          <input matInput type="text" formControlName="desired_position" placeholder="Junior Full Stack Developer" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'profile.seniority' | translate }}</mat-label>
+          <mat-select formControlName="seniority">
+            @for (option of seniorityOptions; track option) {
+              <mat-option [value]="option">{{ 'profile.seniority_' + option | translate }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'profile.min_salary' | translate }}</mat-label>
+          <input matInput type="number" min="0" formControlName="min_salary" />
+          <span matTextSuffix>&euro;</span>
+          @if (form.controls.min_salary.hasError('min')) {
+            <mat-error>{{ 'profile.min_salary_error' | translate }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'profile.preferred_language' | translate }}</mat-label>
+          <mat-select formControlName="preferred_language" (selectionChange)="onLanguageSelected($event.value)">
+            @for (lang of languages; track lang) {
+              <mat-option [value]="lang">{{ languageLabels[lang] }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="profile-form__skills">
+        <label class="profile-form__skills-label">{{ 'profile.skills' | translate }}</label>
+        <mat-chip-grid #chipGrid [attr.aria-label]="'profile.skills' | translate">
+          @for (skill of skills(); track skill) {
+            <mat-chip-row (removed)="removeSkill(skill)">
+              {{ skill }}
+              <button matChipRemove [attr.aria-label]="'common.delete' | translate">
+                <svg lucideX></svg>
+              </button>
+            </mat-chip-row>
+          }
+          <input
+            [placeholder]="'profile.skills_placeholder' | translate"
+            [matChipInputFor]="chipGrid"
+            [matChipInputSeparatorKeyCodes]="[13, 188]"
+            (matChipInputTokenEnd)="addSkill($event)"
+          />
+        </mat-chip-grid>
+        <p class="profile-form__hint">{{ 'profile.skills_hint' | translate }}</p>
+      </div>
+
+      <button class="profile-form__submit" mat-flat-button color="primary" type="submit" [disabled]="saving()">
+        @if (saving()) {
+          <mat-spinner diameter="20"></mat-spinner>
+        } @else {
+          {{ 'common.save' | translate }}
+        }
+      </button>
+    </form>
+  </div>
+}

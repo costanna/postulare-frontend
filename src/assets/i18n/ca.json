@@ -78,5 +78,23 @@
       "email_invalid": "Introdueix un email vàlid",
       "password_min_length": "La contrasenya ha de tenir com a mínim 8 caràcters"
     }
+  },
+  "profile": {
+    "subtitle": "Aquesta informació és la base del matching: com més completa estigui, millors seran les ofertes recomanades.",
+    "welcome_banner": "Benvinguda! Completa el teu perfil per començar a rebre ofertes afins.",
+    "full_name": "Nom complet",
+    "location": "Ubicació",
+    "desired_position": "Lloc desitjat",
+    "seniority": "Seniority",
+    "seniority_junior": "Junior",
+    "seniority_mid": "Mid",
+    "seniority_senior": "Senior",
+    "min_salary": "Salari mínim",
+    "min_salary_error": "El salari no pot ser negatiu",
+    "preferred_language": "Idioma preferit",
+    "skills": "Skills",
+    "skills_placeholder": "Afegeix una skill i prem Enter",
+    "skills_hint": "Prem Enter o coma per afegir cada skill",
+    "save_success": "Perfil actualitzat correctament"
   }
 }
