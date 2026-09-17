@@ -16,7 +16,7 @@ Este frontend se construye de forma incremental, en ramas por funcionalidad:
 - [x] `feature/profile` — perfil editable (skills como chips, ubicación, puesto deseado, seniority, salario mínimo, idioma preferido); el idioma guardado en el backend se sincroniza al iniciar sesión
 - [x] `feature/applications` — tablero Kanban con drag & drop (`@angular/cdk`) entre estados, alta/edición de candidaturas en un diálogo compartido, vista de tabla con filtros (empresa, estado, rango de fechas) y paginación, y detalle de candidatura con línea de tiempo de eventos (entrevistas, seguimientos, notas)
 - [x] `feature/dashboard` — resumen numérico (candidaturas totales, enviadas, entrevistas, ofertas, tasa de respuesta) y gráficos de candidaturas por estado, por mes y por origen, consumiendo los endpoints `/stats/*` del backend
-- [ ] Ofertas recomendadas (matches)
+- [x] `feature/matches` — ofertas recomendadas: buscar ofertas (Adzuna + scoring del backend), filtro por nuevas/convertidas/descartadas, tarjeta con score de afinidad y motivo, convertir en candidatura o descartar
 - [ ] Docker y despliegue
 
 ## Puesta en marcha local
@@ -80,7 +80,7 @@ src/app/
 │   ├── dashboard/    resumen y gráficos (estado, mes, origen)
 │   ├── kanban/        tablero de candidaturas con drag & drop
 │   ├── applications/  tabla con filtros, formulario y detalle con eventos
-│   ├── matches/       (próximamente)
+│   ├── matches/       ofertas recomendadas con score y acciones
 │   └── profile/       perfil editable
 ├── shared/          # componentes/páginas reutilizables
 └── app.routes.ts

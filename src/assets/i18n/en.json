@@ -188,5 +188,28 @@
     "follow_up": "Follow-up",
     "note": "Note",
     "status_change": "Status change"
+  },
+  "matches": {
+    "title": "Recommended offers",
+    "subtitle": "Job offers scored against your profile",
+    "search_button": "Search offers",
+    "search_success": "{{new}} new offers and {{updated}} updated",
+    "search_no_new": "No new offers found",
+    "error_profile_incomplete": "Complete your profile (desired position or skills) before searching for offers",
+    "error_rate_limited": "You searched for offers recently. Wait a few minutes before trying again.",
+    "error_search_failed": "Could not search for offers. Please try again later.",
+    "filter_new": "New",
+    "filter_converted": "Converted",
+    "filter_dismissed": "Dismissed",
+    "empty_title": "No recommended offers yet",
+    "empty_subtitle": "Tap \"Search offers\" to find offers that match your profile.",
+    "empty_filtered": "No offers in this category",
+    "score_label": "Match",
+    "reasoning_title": "Why it matches",
+    "view_offer": "View offer",
+    "convert_button": "Convert to application",
+    "dismiss_button": "Dismiss",
+    "convert_success": "Application created from the offer",
+    "dismiss_success": "Offer dismissed"
   }
 }

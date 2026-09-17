@@ -188,5 +188,28 @@
     "follow_up": "Seguiment",
     "note": "Nota",
     "status_change": "Canvi d'estat"
+  },
+  "matches": {
+    "title": "Ofertes recomanades",
+    "subtitle": "Ofertes de feina puntuades segons el teu perfil",
+    "search_button": "Cerca ofertes",
+    "search_success": "{{new}} ofertes noves i {{updated}} actualitzades",
+    "search_no_new": "No s'han trobat ofertes noves",
+    "error_profile_incomplete": "Completa el teu perfil (lloc desitjat o skills) abans de cercar ofertes",
+    "error_rate_limited": "Has cercat ofertes fa poc. Espera uns minuts abans de tornar-ho a provar.",
+    "error_search_failed": "No s'han pogut cercar ofertes. Torna-ho a provar més tard.",
+    "filter_new": "Noves",
+    "filter_converted": "Convertides",
+    "filter_dismissed": "Descartades",
+    "empty_title": "Encara no hi ha ofertes recomanades",
+    "empty_subtitle": "Prem \"Cerca ofertes\" per trobar ofertes afins al teu perfil.",
+    "empty_filtered": "No hi ha ofertes en aquesta categoria",
+    "score_label": "Afinitat",
+    "reasoning_title": "Per què coincideix",
+    "view_offer": "Veure l'oferta",
+    "convert_button": "Converteix en candidatura",
+    "dismiss_button": "Descarta",
+    "convert_success": "Candidatura creada a partir de l'oferta",
+    "dismiss_success": "Oferta descartada"
   }
 }

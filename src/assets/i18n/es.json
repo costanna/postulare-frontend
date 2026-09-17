@@ -188,5 +188,28 @@
     "follow_up": "Seguimiento",
     "note": "Nota",
     "status_change": "Cambio de estado"
+  },
+  "matches": {
+    "title": "Ofertas recomendadas",
+    "subtitle": "Ofertas de empleo puntuadas según tu perfil",
+    "search_button": "Buscar ofertas",
+    "search_success": "{{new}} ofertas nuevas y {{updated}} actualizadas",
+    "search_no_new": "No se han encontrado ofertas nuevas",
+    "error_profile_incomplete": "Completa tu perfil (puesto deseado o skills) antes de buscar ofertas",
+    "error_rate_limited": "Has buscado ofertas hace poco. Espera unos minutos antes de volver a intentarlo.",
+    "error_search_failed": "No se han podido buscar ofertas. Inténtalo más tarde.",
+    "filter_new": "Nuevas",
+    "filter_converted": "Convertidas",
+    "filter_dismissed": "Descartadas",
+    "empty_title": "Aún no hay ofertas recomendadas",
+    "empty_subtitle": "Pulsa \"Buscar ofertas\" para encontrar ofertas afines a tu perfil.",
+    "empty_filtered": "No hay ofertas en esta categoría",
+    "score_label": "Afinidad",
+    "reasoning_title": "Por qué coincide",
+    "view_offer": "Ver oferta",
+    "convert_button": "Convertir en candidatura",
+    "dismiss_button": "Descartar",
+    "convert_success": "Candidatura creada a partir de la oferta",
+    "dismiss_success": "Oferta descartada"
   }
 }

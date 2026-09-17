@@ -1,0 +1,31 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { environment } from '../../../environments/environment';
+import { Application } from '../models/application.model';
+import { Match, MatchSearchResult, MatchStatus } from '../models/match.model';
+
+@Injectable({ providedIn: 'root' })
+export class MatchesService {
+  private readonly http = inject(HttpClient);
+  private readonly baseUrl = `${environment.apiUrl}/matches`;
+
+  search(): Observable<MatchSearchResult> {
+    return this.http.post<MatchSearchResult>(`${this.baseUrl}/search`, {});
+  }
+
+  list(status?: MatchStatus, limit = 50): Observable<Match[]> {
+    let params = new HttpParams().set('limit', limit);
+    if (status) params = params.set('status', status);
+    return this.http.get<Match[]>(this.baseUrl, { params });
+  }
+
+  convert(matchId: string): Observable<Application> {
+    return this.http.post<Application>(`${this.baseUrl}/${matchId}/convert`, {});
+  }
+
+  dismiss(matchId: string): Observable<Match> {
+    return this.http.post<Match>(`${this.baseUrl}/${matchId}/dismiss`, {});
+  }
+}
