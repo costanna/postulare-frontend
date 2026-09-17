@@ -13,117 +13,109 @@
       <p>{{ 'common.error_generic' | translate }}</p>
       <button mat-button type="button" (click)="retry()">{{ 'common.retry' | translate }}</button>
     </div>
+  } @else if (summary()!.total_applications === 0) {
+    <div class="dashboard-empty">
+      <h2>{{ 'dashboard.empty_title' | translate }}</h2>
+      <p>{{ 'dashboard.empty_subtitle' | translate }}</p>
+    </div>
   } @else {
-    @if (summary(); as s) {
-    @if (s.total_applications === 0) {
-      <div class="dashboard-empty">
-        <h2>{{ 'dashboard.empty_title' | translate }}</h2>
-        <p>{{ 'dashboard.empty_subtitle' | translate }}</p>
+    <div class="stat-tiles">
+      <div class="stat-tile">
+        <svg class="stat-tile__icon" lucideClipboardList></svg>
+        <span class="stat-tile__value">{{ summary()!.total_applications }}</span>
+        <span class="stat-tile__label">{{ 'dashboard.stat_total' | translate }}</span>
       </div>
-    } @else {
-      <div class="stat-tiles">
-        <div class="stat-tile">
-          <svg class="stat-tile__icon" lucideClipboardList></svg>
-          <span class="stat-tile__value">{{ s.total_applications }}</span>
-          <span class="stat-tile__label">{{ 'dashboard.stat_total' | translate }}</span>
-        </div>
-        <div class="stat-tile">
-          <svg class="stat-tile__icon" lucideSend></svg>
-          <span class="stat-tile__value">{{ s.total_applied }}</span>
-          <span class="stat-tile__label">{{ 'dashboard.stat_applied' | translate }}</span>
-        </div>
-        <div class="stat-tile" data-accent="interview">
-          <svg class="stat-tile__icon" lucideMessageSquare></svg>
-          <span class="stat-tile__value">{{ s.total_interviews }}</span>
-          <span class="stat-tile__label">{{ 'dashboard.stat_interviews' | translate }}</span>
-        </div>
-        <div class="stat-tile" data-accent="offer">
-          <svg class="stat-tile__icon" lucideAward></svg>
-          <span class="stat-tile__value">{{ s.total_offers }}</span>
-          <span class="stat-tile__label">{{ 'dashboard.stat_offers' | translate }}</span>
-        </div>
-        <div class="stat-tile" data-accent="rejected">
-          <svg class="stat-tile__icon" lucideXCircle></svg>
-          <span class="stat-tile__value">{{ s.total_rejected }}</span>
-          <span class="stat-tile__label">{{ 'dashboard.stat_rejected' | translate }}</span>
-        </div>
-        <div class="stat-tile" data-accent="rate">
-          <svg class="stat-tile__icon" lucideTrendingUp></svg>
-          <span class="stat-tile__value">{{ s.response_rate }}%</span>
-          <span class="stat-tile__label">{{ 'dashboard.stat_response_rate' | translate }}</span>
-        </div>
+      <div class="stat-tile">
+        <svg class="stat-tile__icon" lucideSend></svg>
+        <span class="stat-tile__value">{{ summary()!.total_applied }}</span>
+        <span class="stat-tile__label">{{ 'dashboard.stat_applied' | translate }}</span>
       </div>
+      <div class="stat-tile" data-accent="interview">
+        <svg class="stat-tile__icon" lucideMessageSquare></svg>
+        <span class="stat-tile__value">{{ summary()!.total_interviews }}</span>
+        <span class="stat-tile__label">{{ 'dashboard.stat_interviews' | translate }}</span>
+      </div>
+      <div class="stat-tile" data-accent="offer">
+        <svg class="stat-tile__icon" lucideAward></svg>
+        <span class="stat-tile__value">{{ summary()!.total_offers }}</span>
+        <span class="stat-tile__label">{{ 'dashboard.stat_offers' | translate }}</span>
+      </div>
+      <div class="stat-tile" data-accent="rejected">
+        <svg class="stat-tile__icon" lucideXCircle></svg>
+        <span class="stat-tile__value">{{ summary()!.total_rejected }}</span>
+        <span class="stat-tile__label">{{ 'dashboard.stat_rejected' | translate }}</span>
+      </div>
+      <div class="stat-tile" data-accent="rate">
+        <svg class="stat-tile__icon" lucideTrendingUp></svg>
+        <span class="stat-tile__value">{{ summary()!.response_rate }}%</span>
+        <span class="stat-tile__label">{{ 'dashboard.stat_response_rate' | translate }}</span>
+      </div>
+    </div>
 
-      <div class="dashboard-charts">
-        <section class="dashboard-card">
-          <h2>{{ 'dashboard.by_status_title' | translate }}</h2>
-          <ul class="status-chart">
-            @for (item of byStatus(); track item.status) {
-              <li class="status-chart__row">
-                <span class="status-chart__label">{{ 'status.' + item.status | translate }}</span>
+    <div class="dashboard-charts">
+      <section class="dashboard-card">
+        <h2>{{ 'dashboard.by_status_title' | translate }}</h2>
+        <ul class="status-chart">
+          @for (item of byStatus(); track item.status) {
+            <li class="status-chart__row">
+              <span class="status-chart__label">{{ 'status.' + item.status | translate }}</span>
+              <div
+                class="status-chart__track"
+                role="img"
+                [attr.aria-label]="('status.' + item.status | translate) + ': ' + item.count"
+              >
                 <div
-                  class="status-chart__track"
-                  role="img"
-                  [attr.aria-label]="('status.' + item.status | translate) + ': ' + item.count"
-                >
-                  <div
-                    class="status-chart__fill"
-                    [attr.data-status]="item.status"
-                    [style.width.%]="statusBarWidth(item.count)"
-                  ></div>
+                  class="status-chart__fill"
+                  [attr.data-status]="item.status"
+                  [style.width.%]="statusBarWidth(item.count)"
+                ></div>
+              </div>
+              <span class="status-chart__count">{{ item.count }}</span>
+            </li>
+          }
+        </ul>
+      </section>
+
+      <section class="dashboard-card">
+        <h2>{{ 'dashboard.timeline_title' | translate }}</h2>
+        @if (timeline().length === 0) {
+          <p class="dashboard-card__empty">{{ 'dashboard.no_timeline_data' | translate }}</p>
+        } @else {
+          <div class="timeline-chart">
+            @for (point of timeline(); track point.month) {
+              <div
+                class="timeline-chart__col"
+                role="img"
+                [attr.aria-label]="monthLabel(point.month) + ': ' + point.count"
+                [title]="monthLabel(point.month) + ': ' + point.count"
+              >
+                <span class="timeline-chart__value">{{ point.count }}</span>
+                <div class="timeline-chart__bar" [style.height.%]="timelineBarHeight(point.count)"></div>
+                <span class="timeline-chart__label">{{ monthLabel(point.month) }}</span>
+              </div>
+            }
+          </div>
+        }
+      </section>
+
+      <section class="dashboard-card">
+        <h2>{{ 'dashboard.by_source_title' | translate }}</h2>
+        @if (bySource().length === 0) {
+          <p class="dashboard-card__empty">{{ 'dashboard.no_source_data' | translate }}</p>
+        } @else {
+          <ul class="source-chart">
+            @for (item of bySource(); track item.source ?? 'unknown') {
+              <li class="source-chart__row">
+                <span class="source-chart__label">{{ item.source || ('dashboard.unknown_source' | translate) }}</span>
+                <div class="source-chart__track" role="img" [attr.aria-label]="(item.source || ('dashboard.unknown_source' | translate)) + ': ' + item.count">
+                  <div class="source-chart__fill" [style.width.%]="sourceBarWidth(item.count)"></div>
                 </div>
-                <span class="status-chart__count">{{ item.count }}</span>
+                <span class="source-chart__count">{{ item.count }}</span>
               </li>
             }
           </ul>
-        </section>
-
-        <section class="dashboard-card">
-          <h2>{{ 'dashboard.timeline_title' | translate }}</h2>
-          @if (timeline().length === 0) {
-            <p class="dashboard-card__empty">{{ 'dashboard.no_timeline_data' | translate }}</p>
-          } @else {
-            <div class="timeline-chart">
-              @for (point of timeline(); track point.month) {
-                <div
-                  class="timeline-chart__col"
-                  role="img"
-                  [attr.aria-label]="monthLabel(point.month) + ': ' + point.count"
-                  [title]="monthLabel(point.month) + ': ' + point.count"
-                >
-                  <span class="timeline-chart__value">{{ point.count }}</span>
-                  <div class="timeline-chart__bar" [style.height.%]="timelineBarHeight(point.count)"></div>
-                  <span class="timeline-chart__label">{{ monthLabel(point.month) }}</span>
-                </div>
-              }
-            </div>
-          }
-        </section>
-
-        <section class="dashboard-card">
-          <h2>{{ 'dashboard.by_source_title' | translate }}</h2>
-          @if (bySource().length === 0) {
-            <p class="dashboard-card__empty">{{ 'dashboard.no_source_data' | translate }}</p>
-          } @else {
-            <ul class="source-chart">
-              @for (item of bySource(); track item.source ?? 'unknown') {
-                <li class="source-chart__row">
-                  <span class="source-chart__label">{{ item.source || ('dashboard.unknown_source' | translate) }}</span>
-                  <div
-                    class="source-chart__track"
-                    role="img"
-                    [attr.aria-label]="(item.source || ('dashboard.unknown_source' | translate)) + ': ' + item.count"
-                  >
-                    <div class="source-chart__fill" [style.width.%]="sourceBarWidth(item.count)"></div>
-                  </div>
-                  <span class="source-chart__count">{{ item.count }}</span>
-                </li>
-              }
-            </ul>
-          }
-        </section>
-      </div>
-    }
-    }
+        }
+      </section>
+    </div>
   }
 </div>
