@@ -72,8 +72,7 @@ export const routes: Routes = [
       {
         path: 'matches',
         data: { titleKey: 'nav.matches' },
-        loadComponent: () =>
-          import('./shared/pages/placeholder-page.component').then((m) => m.PlaceholderPageComponent),
+        loadComponent: () => import('./features/matches/matches.component').then((m) => m.MatchesComponent),
       },
       {
         path: 'profile',

@@ -1,0 +1,125 @@
+<div class="matches-page">
+  <header class="matches-page__header">
+    <div>
+      <h1>{{ 'matches.title' | translate }}</h1>
+      <p>{{ 'matches.subtitle' | translate }}</p>
+    </div>
+    <button mat-flat-button color="primary" type="button" [disabled]="searching()" (click)="search()">
+      @if (searching()) {
+        <mat-spinner diameter="18"></mat-spinner>
+      } @else {
+        <svg lucideSearch></svg>
+        {{ 'matches.search_button' | translate }}
+      }
+    </button>
+  </header>
+
+  <mat-button-toggle-group class="matches-filters" [value]="filter()" (change)="setFilter($event.value)">
+    @for (f of filters; track f) {
+      <mat-button-toggle [value]="f">{{ 'matches.filter_' + f | translate }}</mat-button-toggle>
+    }
+  </mat-button-toggle-group>
+
+  @if (loading()) {
+    <div class="matches-loading">
+      <mat-spinner diameter="32"></mat-spinner>
+    </div>
+  } @else {
+    @if (matches().length === 0) {
+      <div class="matches-empty">
+        @if (filter() === 'new') {
+          <h2>{{ 'matches.empty_title' | translate }}</h2>
+          <p>{{ 'matches.empty_subtitle' | translate }}</p>
+        } @else {
+          <p>{{ 'matches.empty_filtered' | translate }}</p>
+        }
+      </div>
+    } @else {
+      <div class="matches-grid">
+        @for (match of matches(); track match.id) {
+          <article class="match-card">
+            <header class="match-card__header">
+              <h3 class="match-card__title">{{ match.job_offer.title }}</h3>
+              <div class="match-card__score" [attr.aria-label]="('matches.score_label' | translate) + ': ' + match.score + '%'">
+                <span class="match-card__score-value">{{ match.score }}%</span>
+                <div class="match-card__score-track">
+                  <div class="match-card__score-fill" [style.width.%]="match.score"></div>
+                </div>
+              </div>
+            </header>
+
+            <div class="match-card__meta">
+              @if (match.job_offer.company_name) {
+                <span class="match-card__meta-item">
+                  <svg lucideBuilding2></svg>
+                  {{ match.job_offer.company_name }}
+                </span>
+              }
+              @if (match.job_offer.location) {
+                <span class="match-card__meta-item">
+                  <svg lucideMapPin></svg>
+                  {{ match.job_offer.location }}
+                </span>
+              }
+              @if (match.job_offer.salary_range) {
+                <span class="match-card__meta-item">{{ match.job_offer.salary_range }}</span>
+              }
+            </div>
+
+            @if (match.reasoning) {
+              <p class="match-card__reasoning">
+                <strong>{{ 'matches.reasoning_title' | translate }}:</strong> {{ match.reasoning }}
+              </p>
+            }
+
+            @if (match.job_offer.description) {
+              <p class="match-card__description">{{ match.job_offer.description }}</p>
+            }
+
+            <footer class="match-card__actions">
+              @if (match.job_offer.url) {
+                <a
+                  class="match-card__link"
+                  [href]="match.job_offer.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg lucideExternalLink></svg>
+                  {{ 'matches.view_offer' | translate }}
+                </a>
+              }
+
+              @if (filter() === 'new') {
+                <div class="match-card__buttons">
+                  <button
+                    mat-button
+                    type="button"
+                    [disabled]="dismissingIds().has(match.id)"
+                    (click)="dismiss(match)"
+                  >
+                    <svg lucideX></svg>
+                    {{ 'matches.dismiss_button' | translate }}
+                  </button>
+                  <button
+                    mat-flat-button
+                    color="primary"
+                    type="button"
+                    [disabled]="convertingIds().has(match.id)"
+                    (click)="convert(match)"
+                  >
+                    @if (convertingIds().has(match.id)) {
+                      <mat-spinner diameter="16"></mat-spinner>
+                    } @else {
+                      <svg lucideCheck></svg>
+                      {{ 'matches.convert_button' | translate }}
+                    }
+                  </button>
+                </div>
+              }
+            </footer>
+          </article>
+        }
+      </div>
+    }
+  }
+</div>
