@@ -14,6 +14,8 @@
     "filters": "Filters",
     "all": "All",
     "actions": "Actions",
+    "previous": "Previous",
+    "next": "Next",
     "confirm": "Confirm",
     "yes": "Yes",
     "no": "No",

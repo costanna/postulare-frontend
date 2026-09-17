@@ -53,14 +53,22 @@ export const routes: Routes = [
       {
         path: 'kanban',
         data: { titleKey: 'nav.kanban' },
-        loadComponent: () =>
-          import('./shared/pages/placeholder-page.component').then((m) => m.PlaceholderPageComponent),
+        loadComponent: () => import('./features/kanban/kanban.component').then((m) => m.KanbanComponent),
       },
       {
         path: 'applications',
         data: { titleKey: 'nav.applications' },
         loadComponent: () =>
-          import('./shared/pages/placeholder-page.component').then((m) => m.PlaceholderPageComponent),
+          import('./features/applications/applications-list/applications-list.component').then(
+            (m) => m.ApplicationsListComponent
+          ),
+      },
+      {
+        path: 'applications/:id',
+        loadComponent: () =>
+          import('./features/applications/application-detail/application-detail.component').then(
+            (m) => m.ApplicationDetailComponent
+          ),
       },
       {
         path: 'matches',

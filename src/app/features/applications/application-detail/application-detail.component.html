@@ -1,0 +1,120 @@
+@if (loading()) {
+  <div class="detail-loading">
+    <mat-spinner diameter="32"></mat-spinner>
+  </div>
+} @else if (notFound()) {
+  <div class="detail-not-found">
+    <p>{{ 'application_detail.not_found' | translate }}</p>
+    <button mat-button type="button" (click)="back()">
+      <svg lucideArrowLeft></svg>
+      {{ 'application_detail.back' | translate }}
+    </button>
+  </div>
+} @else {
+  @if (application(); as app) {
+  <div class="application-detail">
+    <button class="detail-back" mat-button type="button" (click)="back()">
+      <svg lucideArrowLeft></svg>
+      {{ 'application_detail.back' | translate }}
+    </button>
+
+    <header class="detail-header">
+      <div class="detail-header__title">
+        <h1>{{ app.position }}</h1>
+        <p>{{ app.company_name }}</p>
+        <app-status-badge [status]="app.status"></app-status-badge>
+      </div>
+      <div class="detail-header__actions">
+        <button mat-stroked-button type="button" (click)="openEditDialog()">
+          <svg lucidePencil></svg>
+          {{ 'application_detail.edit' | translate }}
+        </button>
+        <button mat-stroked-button color="warn" type="button" (click)="deleteApplication()">
+          <svg lucideTrash2></svg>
+          {{ 'application_detail.delete' | translate }}
+        </button>
+      </div>
+    </header>
+
+    <section class="detail-info">
+      @if (app.source) {
+        <div class="detail-info__item">
+          <span class="detail-info__label">{{ 'applications.column_source' | translate }}</span>
+          <span class="detail-info__value">{{ app.source }}</span>
+        </div>
+      }
+      @if (app.salary_range) {
+        <div class="detail-info__item">
+          <span class="detail-info__label">{{ 'application_form.salary_range' | translate }}</span>
+          <span class="detail-info__value">{{ app.salary_range }}</span>
+        </div>
+      }
+      @if (app.applied_at) {
+        <div class="detail-info__item">
+          <span class="detail-info__label">{{ 'application_form.applied_at' | translate }}</span>
+          <span class="detail-info__value">{{ app.applied_at }}</span>
+        </div>
+      }
+      @if (app.job_url) {
+        <div class="detail-info__item">
+          <span class="detail-info__label">{{ 'application_form.job_url' | translate }}</span>
+          <a class="detail-info__value" [href]="app.job_url" target="_blank" rel="noopener noreferrer">
+            {{ 'application_detail.linked_offer' | translate }}
+            <svg lucideExternalLink></svg>
+          </a>
+        </div>
+      }
+      @if (app.notes) {
+        <div class="detail-info__item detail-info__item--full">
+          <span class="detail-info__label">{{ 'application_form.notes' | translate }}</span>
+          <p class="detail-info__notes">{{ app.notes }}</p>
+        </div>
+      }
+    </section>
+
+    <section class="detail-events">
+      <header class="detail-events__header">
+        <h2>{{ 'application_detail.events_title' | translate }}</h2>
+        <button mat-flat-button color="primary" type="button" (click)="openAddEventDialog()">
+          <svg lucidePlus></svg>
+          {{ 'application_detail.add_event' | translate }}
+        </button>
+      </header>
+
+      @if (eventsLoading()) {
+        <div class="detail-loading">
+          <mat-spinner diameter="24"></mat-spinner>
+        </div>
+      } @else if (events().length === 0) {
+        <p class="detail-events__empty">{{ 'application_detail.no_events' | translate }}</p>
+      } @else {
+        <ul class="detail-events__list">
+          @for (event of events(); track event.id) {
+            <li class="detail-event">
+              <div class="detail-event__marker" [attr.data-type]="event.type"></div>
+              <div class="detail-event__body">
+                <div class="detail-event__meta">
+                  <span class="detail-event__type">{{ 'event_type.' + event.type | translate }}</span>
+                  <span class="detail-event__date">{{ event.event_date | slice: 0 : 10 }}</span>
+                </div>
+                @if (event.description) {
+                  <p class="detail-event__description">{{ event.description }}</p>
+                }
+              </div>
+              <button
+                class="detail-event__delete"
+                mat-icon-button
+                type="button"
+                [attr.aria-label]="'common.delete' | translate"
+                (click)="deleteEvent(event)"
+              >
+                <svg lucideTrash2></svg>
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+  </div>
+  }
+}

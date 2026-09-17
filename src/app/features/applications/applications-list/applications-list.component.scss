@@ -1,0 +1,209 @@
+.applications-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+
+  h1 {
+    margin: 0;
+    color: var(--color-text);
+  }
+
+  button svg {
+    width: 18px;
+    height: 18px;
+    margin-right: 0.35rem;
+    vertical-align: middle;
+  }
+}
+
+.applications-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+
+  mat-form-field {
+    width: 180px;
+  }
+}
+
+.applications-filters__search {
+  width: 100% !important;
+
+  @media (min-width: 640px) {
+    width: 240px !important;
+  }
+}
+
+.applications-filters__clear {
+  align-self: center;
+  color: var(--color-text-muted);
+
+  svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 0.25rem;
+    vertical-align: middle;
+  }
+}
+
+.applications-loading {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0;
+}
+
+.applications-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  border: 1px dashed var(--color-border);
+  border-radius: 14px;
+  background: var(--color-surface);
+
+  h2 {
+    margin: 0 0 0.4rem;
+    color: var(--color-text);
+    font-size: 1.1rem;
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+}
+
+.applications-results-count {
+  margin: 0.5rem 0;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+.applications-table-wrap {
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-surface);
+  overflow: hidden;
+
+  @media (min-width: 720px) {
+    overflow-x: auto;
+  }
+}
+
+.applications-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--color-text-muted);
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    cursor: pointer;
+    border-bottom: 1px solid var(--color-border);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: var(--color-surface-hover);
+    }
+  }
+
+  td {
+    padding: 0.7rem 1rem;
+    color: var(--color-text);
+    font-size: 0.9rem;
+  }
+}
+
+.applications-table__actions-col {
+  text-align: right;
+}
+
+.applications-table__actions {
+  text-align: right;
+  white-space: nowrap;
+
+  button {
+    color: var(--color-text-muted);
+
+    &:hover {
+      color: var(--color-accent);
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+// Bajo 720px la tabla se convierte en una lista de tarjetas apiladas: cada
+// fila es una tarjeta y cada celda muestra su etiqueta de columna delante.
+@media (max-width: 719.98px) {
+  .applications-table {
+    thead {
+      display: none;
+    }
+
+    tbody,
+    tr,
+    td {
+      display: block;
+      width: 100%;
+    }
+
+    tr {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.3rem 1rem;
+      text-align: right;
+
+      &::before {
+        content: attr(data-label);
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--color-text-muted);
+        text-align: left;
+      }
+    }
+  }
+
+  .applications-table__actions-col {
+    display: none;
+  }
+}
+
+.applications-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+
+  button svg {
+    width: 18px;
+    height: 18px;
+  }
+}
