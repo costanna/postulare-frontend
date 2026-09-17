@@ -78,6 +78,10 @@ web_modules/
 .next
 out
 
+# Angular
+.angular/cache
+/dist
+
 # Nuxt.js build / generate output
 .nuxt
 dist
