@@ -1,0 +1,286 @@
+.dashboard-page__header {
+  margin-bottom: 1.25rem;
+
+  h1 {
+    margin: 0 0 0.2rem;
+    color: var(--color-text);
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+}
+
+.dashboard-loading {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0;
+}
+
+.dashboard-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  border: 1px dashed var(--color-border);
+  border-radius: 14px;
+  background: var(--color-surface);
+
+  h2 {
+    margin: 0 0 0.4rem;
+    color: var(--color-text);
+    font-size: 1.1rem;
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+}
+
+// --- Tiles de resumen (números clave) --------------------------------
+
+.stat-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 960px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.stat-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+}
+
+.stat-tile__icon {
+  width: 18px;
+  height: 18px;
+  color: var(--color-accent);
+}
+
+.stat-tile[data-accent='interview'] .stat-tile__icon {
+  color: var(--color-status-interview-bg);
+}
+.stat-tile[data-accent='offer'] .stat-tile__icon {
+  color: var(--color-status-offer-bg);
+}
+.stat-tile[data-accent='rejected'] .stat-tile__icon {
+  color: var(--color-status-rejected-bg);
+}
+.stat-tile[data-accent='rate'] .stat-tile__icon {
+  color: var(--color-status-applied-bg);
+}
+
+.stat-tile__value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.1;
+}
+
+.stat-tile__label {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+// --- Tarjetas de gráficos ---------------------------------------------
+
+.dashboard-charts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @media (min-width: 960px) {
+    grid-template-columns: 1fr 1fr;
+
+    // El gráfico de estados ocupa el ancho completo; timeline y origen
+    // se reparten la segunda fila.
+    .dashboard-card:first-child {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.dashboard-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 1.1rem 1.25rem;
+
+  h2 {
+    margin: 0 0 0.9rem;
+    font-size: 1rem;
+    color: var(--color-text);
+  }
+}
+
+.dashboard-card__empty {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+// --- Candidaturas por estado (barras horizontales) --------------------
+
+.status-chart {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.status-chart__row {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr 2rem;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.status-chart__label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.status-chart__track {
+  height: 10px;
+  border-radius: 6px;
+  background: var(--color-surface-hover);
+  overflow: hidden;
+}
+
+.status-chart__fill {
+  height: 100%;
+  border-radius: 6px;
+  min-width: 4px;
+  transition: width 0.2s ease;
+
+  &[data-status='saved'] {
+    background: var(--color-status-saved-bg);
+  }
+  &[data-status='applied'] {
+    background: var(--color-status-applied-bg);
+  }
+  &[data-status='interview'] {
+    background: var(--color-status-interview-bg);
+  }
+  &[data-status='offer'] {
+    background: var(--color-status-offer-bg);
+  }
+  &[data-status='rejected'] {
+    background: var(--color-status-rejected-bg);
+  }
+  &[data-status='withdrawn'] {
+    background: var(--color-status-withdrawn-bg);
+  }
+}
+
+.status-chart__count {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: right;
+}
+
+// --- Candidaturas por mes (barras verticales) --------------------------
+
+.timeline-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  height: 160px;
+  overflow-x: auto;
+  padding-bottom: 0.1rem;
+}
+
+.timeline-chart__col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.3rem;
+  height: 100%;
+  flex: 0 0 auto;
+  width: 2.4rem;
+}
+
+.timeline-chart__value {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.timeline-chart__bar {
+  width: 20px;
+  border-radius: 4px 4px 0 0;
+  background: var(--color-accent);
+  min-height: 4px;
+}
+
+.timeline-chart__label {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+// --- Candidaturas por origen (barras horizontales) ---------------------
+
+.source-chart {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.source-chart__row {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr 2rem;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.source-chart__label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.source-chart__track {
+  height: 10px;
+  border-radius: 6px;
+  background: var(--color-surface-hover);
+  overflow: hidden;
+}
+
+.source-chart__fill {
+  height: 100%;
+  border-radius: 6px;
+  min-width: 4px;
+  background: var(--color-accent);
+  transition: width 0.2s ease;
+}
+
+.source-chart__count {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: right;
+}

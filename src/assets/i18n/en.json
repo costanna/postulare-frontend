@@ -107,6 +107,23 @@
     "rejected": "Rejected",
     "withdrawn": "Withdrawn"
   },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Overview of your job search",
+    "empty_title": "No data yet",
+    "empty_subtitle": "Add your first application to start seeing statistics.",
+    "stat_total": "Total applications",
+    "stat_applied": "Applied",
+    "stat_interviews": "Interviews",
+    "stat_offers": "Offers",
+    "stat_rejected": "Rejected",
+    "stat_response_rate": "Response rate",
+    "by_status_title": "Applications by status",
+    "timeline_title": "Applications by month",
+    "no_timeline_data": "Not enough data yet",
+    "by_source_title": "Applications by source",
+    "no_source_data": "No source data yet"
+  },
   "kanban": {
     "title": "Board",
     "add_button": "Add application",

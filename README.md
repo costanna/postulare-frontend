@@ -15,7 +15,7 @@ Este frontend se construye de forma incremental, en ramas por funcionalidad:
 - [x] `feature/layout-auth` — tema claro/oscuro (CSS custom properties + `ThemeService`), i18n CA/ES/EN con `ngx-translate`, layout con barra superior responsive, autenticación (login/registro/recuperar contraseña) con guards e interceptor HTTP
 - [x] `feature/profile` — perfil editable (skills como chips, ubicación, puesto deseado, seniority, salario mínimo, idioma preferido); el idioma guardado en el backend se sincroniza al iniciar sesión
 - [x] `feature/applications` — tablero Kanban con drag & drop (`@angular/cdk`) entre estados, alta/edición de candidaturas en un diálogo compartido, vista de tabla con filtros (empresa, estado, rango de fechas) y paginación, y detalle de candidatura con línea de tiempo de eventos (entrevistas, seguimientos, notas)
-- [ ] Dashboard con gráficos
+- [x] `feature/dashboard` — resumen numérico (candidaturas totales, enviadas, entrevistas, ofertas, tasa de respuesta) y gráficos de candidaturas por estado, por mes y por origen, consumiendo los endpoints `/stats/*` del backend
 - [ ] Ofertas recomendadas (matches)
 - [ ] Docker y despliegue
 
@@ -77,7 +77,7 @@ src/app/
 ├── layout/          # shell con la barra superior y el menú responsive
 ├── features/
 │   ├── auth/        # login, registro, recuperar/restablecer contraseña
-│   ├── dashboard/    (próximamente)
+│   ├── dashboard/    resumen y gráficos (estado, mes, origen)
 │   ├── kanban/        tablero de candidaturas con drag & drop
 │   ├── applications/  tabla con filtros, formulario y detalle con eventos
 │   ├── matches/       (próximamente)
