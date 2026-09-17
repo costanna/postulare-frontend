@@ -1,1 +1,95 @@
-# postulare-frontend
+# Postulare — Frontend
+
+Frontend del proyecto **Postulare**: seguimiento de candidaturas de empleo con
+búsqueda y scoring automático de ofertas afines a tu perfil.
+
+Stack: **Angular 18 (standalone) · TypeScript · Angular Material · ngx-charts · ngx-translate · @lucide/angular**.
+
+> Backend (FastAPI) en un repositorio hermano: [postulare-backend](https://github.com/costanna/postulare-backend).
+
+## Estado del proyecto
+
+Este frontend se construye de forma incremental, en ramas por funcionalidad:
+
+- [x] `feature/scaffold` — proyecto Angular 18 standalone + Angular Material, ngx-charts, ngx-translate, @lucide/angular
+- [x] `feature/layout-auth` — tema claro/oscuro (CSS custom properties + `ThemeService`), i18n CA/ES/EN con `ngx-translate`, layout con barra superior responsive, autenticación (login/registro/recuperar contraseña) con guards e interceptor HTTP
+- [ ] Perfil de usuario
+- [ ] Tablero Kanban (drag & drop)
+- [ ] Dashboard con gráficos
+- [ ] Vista de tabla con filtros
+- [ ] Ofertas recomendadas (matches)
+- [ ] Docker y despliegue
+
+## Puesta en marcha local
+
+### Requisitos
+
+- Node.js 20+
+- El [backend](https://github.com/costanna/postulare-backend) corriendo en `http://localhost:8000` (ver su propio README)
+
+### Instalación
+
+```bash
+npm install
+```
+
+### Variables de entorno
+
+La URL de la API se configura en `src/environments/environment.ts` (desarrollo)
+y `environment.prod.ts` (producción, sustituido en el build de producción vía
+`fileReplacements` en `angular.json`).
+
+### Arrancar en desarrollo
+
+```bash
+npm start
+```
+
+Sirve la app en http://localhost:4200 con recarga en caliente.
+
+### Tests
+
+```bash
+npm test
+```
+
+### Build de producción
+
+```bash
+npm run build
+```
+
+## Tema claro/oscuro e internacionalización
+
+- **Tema**: variables CSS (`custom properties`) definidas en `src/styles.scss`,
+  alternadas por `ThemeService` mediante el atributo `[data-theme]` en `<body>`.
+  Respeta `prefers-color-scheme` en la primera visita y persiste la elección en
+  `localStorage`.
+- **Idiomas**: catalán, castellano e inglés en `src/assets/i18n/{ca,es,en}.json`.
+  `ngx-translate` cambia de idioma en caliente. Castellano es el idioma de
+  fallback si falta una clave. El idioma se detecta del navegador la primera
+  vez y luego se recuerda (ver `core/i18n/supported-languages.ts`).
+
+## Estructura del proyecto
+
+```
+src/app/
+├── core/            # servicios (auth, tema, idioma), guards, interceptor HTTP, modelos
+├── layout/          # shell con la barra superior y el menú responsive
+├── features/
+│   ├── auth/        # login, registro, recuperar/restablecer contraseña
+│   ├── dashboard/    (próximamente)
+│   ├── kanban/        (próximamente)
+│   ├── applications/  (próximamente)
+│   ├── matches/       (próximamente)
+│   └── profile/       (próximamente)
+├── shared/          # componentes/páginas reutilizables
+└── app.routes.ts
+src/assets/i18n/      # ca.json, es.json, en.json
+```
+
+## Diseño responsive
+
+Mobile-first: el listado, los formularios y la barra de navegación se adaptan
+desde ~360px de ancho. La navegación superior se colapsa en un menú lateral
+(`mat-sidenav`) por debajo de 900px de ancho.

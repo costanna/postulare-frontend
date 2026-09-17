@@ -1,0 +1,82 @@
+{
+  "app": {
+    "name": "Postulare"
+  },
+  "common": {
+    "save": "Desa",
+    "cancel": "Cancel·la",
+    "delete": "Elimina",
+    "edit": "Edita",
+    "close": "Tanca",
+    "back": "Torna",
+    "loading": "Carregant…",
+    "search": "Cerca",
+    "filters": "Filtres",
+    "all": "Totes",
+    "actions": "Accions",
+    "confirm": "Confirma",
+    "yes": "Sí",
+    "no": "No",
+    "optional": "opcional",
+    "error_generic": "Alguna cosa ha anat malament. Torna-ho a provar.",
+    "error_network": "No s'ha pogut contactar amb el servidor. Comprova la connexió.",
+    "required_field": "Aquest camp és obligatori",
+    "coming_soon": "Aquesta secció està en construcció. Arribarà en una propera branca."
+  },
+  "nav": {
+    "dashboard": "Tauler",
+    "kanban": "Tauler Kanban",
+    "applications": "Candidatures",
+    "matches": "Ofertes recomanades",
+    "profile": "El meu perfil",
+    "logout": "Tanca la sessió",
+    "toggle_theme": "Canvia el tema clar/fosc",
+    "change_language": "Canvia d'idioma",
+    "open_menu": "Obre el menú"
+  },
+  "auth": {
+    "login": {
+      "title": "Inicia sessió",
+      "subtitle": "Organitza la teva cerca de feina en un sol lloc",
+      "email": "Email",
+      "password": "Contrasenya",
+      "submit": "Entra",
+      "forgot_password": "Has oblidat la contrasenya?",
+      "no_account": "Encara no tens compte?",
+      "register_link": "Registra't",
+      "error_invalid_credentials": "Email o contrasenya incorrectes"
+    },
+    "register": {
+      "title": "Crea el teu compte",
+      "subtitle": "Comença a organitzar les teves candidatures en minuts",
+      "full_name": "Nom complet",
+      "email": "Email",
+      "password": "Contrasenya",
+      "password_hint": "Mínim 8 caràcters",
+      "submit": "Crea el compte",
+      "has_account": "Ja tens compte?",
+      "login_link": "Inicia sessió",
+      "success": "Compte creat. Ja pots iniciar sessió.",
+      "error_email_taken": "Aquest email ja està registrat"
+    },
+    "forgot_password": {
+      "title": "Recupera la contrasenya",
+      "subtitle": "T'enviarem un enllaç per restablir-la",
+      "email": "Email",
+      "submit": "Envia l'enllaç",
+      "back_to_login": "Torna a l'inici de sessió",
+      "success": "Si l'email existeix, rebràs instruccions per restablir la contrasenya."
+    },
+    "reset_password": {
+      "title": "Tria una nova contrasenya",
+      "new_password": "Nova contrasenya",
+      "submit": "Desa la contrasenya",
+      "success": "Contrasenya actualitzada. Ja pots iniciar sessió.",
+      "error_invalid_token": "L'enllaç no és vàlid o ha caducat. Sol·licita'n un de nou."
+    },
+    "validation": {
+      "email_invalid": "Introdueix un email vàlid",
+      "password_min_length": "La contrasenya ha de tenir com a mínim 8 caràcters"
+    }
+  }
+}

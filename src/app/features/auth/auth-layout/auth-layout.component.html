@@ -1,0 +1,48 @@
+<div class="auth-layout">
+  <aside class="auth-layout__brand">
+    <div class="auth-layout__brand-inner">
+      <span class="auth-layout__logo">Postulare</span>
+      <p class="auth-layout__tagline">
+        Organiza tu búsqueda de empleo, encuentra ofertas afines a tu perfil y
+        no vuelvas a perder el hilo de ninguna candidatura.
+      </p>
+    </div>
+  </aside>
+
+  <section class="auth-layout__form-area">
+    <div class="auth-layout__top-actions">
+      <button
+        class="auth-layout__icon-btn"
+        type="button"
+        [attr.aria-label]="'nav.change_language' | translate"
+        [matMenuTriggerFor]="langMenu"
+      >
+        <svg lucideGlobe></svg>
+      </button>
+      <mat-menu #langMenu="matMenu">
+        @for (lang of languages; track lang) {
+          <button mat-menu-item type="button" (click)="setLanguage(lang)" [class.is-active]="language.current() === lang">
+            {{ languageLabels[lang] }}
+          </button>
+        }
+      </mat-menu>
+
+      <button
+        class="auth-layout__icon-btn"
+        type="button"
+        [attr.aria-label]="'nav.toggle_theme' | translate"
+        (click)="theme.toggle()"
+      >
+        @if (theme.theme() === 'dark') {
+          <svg lucideSun></svg>
+        } @else {
+          <svg lucideMoon></svg>
+        }
+      </button>
+    </div>
+
+    <div class="auth-layout__form-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </section>
+</div>

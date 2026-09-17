@@ -1,0 +1,104 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav #drawer class="shell__drawer" mode="over" [fixedInViewport]="true" position="start">
+    <div class="shell__drawer-brand">Postulare</div>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="is-active" (click)="drawer.close()">
+        <svg lucideLayoutDashboard class="shell__nav-icon"></svg>
+        <span>{{ 'nav.dashboard' | translate }}</span>
+      </a>
+      <a mat-list-item routerLink="/kanban" routerLinkActive="is-active" (click)="drawer.close()">
+        <svg lucideKanban class="shell__nav-icon"></svg>
+        <span>{{ 'nav.kanban' | translate }}</span>
+      </a>
+      <a mat-list-item routerLink="/applications" routerLinkActive="is-active" (click)="drawer.close()">
+        <svg lucideBriefcase class="shell__nav-icon"></svg>
+        <span>{{ 'nav.applications' | translate }}</span>
+      </a>
+      <a mat-list-item routerLink="/matches" routerLinkActive="is-active" (click)="drawer.close()">
+        <svg lucideSparkles class="shell__nav-icon"></svg>
+        <span>{{ 'nav.matches' | translate }}</span>
+      </a>
+      <mat-divider></mat-divider>
+      <a mat-list-item routerLink="/profile" routerLinkActive="is-active" (click)="drawer.close()">
+        <svg lucideUser class="shell__nav-icon"></svg>
+        <span>{{ 'nav.profile' | translate }}</span>
+      </a>
+      <a mat-list-item (click)="drawer.close(); logout()">
+        <svg lucideLogOut class="shell__nav-icon"></svg>
+        <span>{{ 'nav.logout' | translate }}</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="shell__content-wrapper">
+    <header class="topbar">
+      <button
+        class="topbar__menu-btn"
+        mat-icon-button
+        type="button"
+        [attr.aria-label]="'nav.open_menu' | translate"
+        (click)="drawer.toggle()"
+      >
+        <svg lucideMenu></svg>
+      </button>
+
+      <a class="topbar__brand" routerLink="/dashboard">Postulare</a>
+
+      <nav class="topbar__nav" aria-label="Navegación principal">
+        <a routerLink="/dashboard" routerLinkActive="is-active">{{ 'nav.dashboard' | translate }}</a>
+        <a routerLink="/kanban" routerLinkActive="is-active">{{ 'nav.kanban' | translate }}</a>
+        <a routerLink="/applications" routerLinkActive="is-active">{{ 'nav.applications' | translate }}</a>
+        <a routerLink="/matches" routerLinkActive="is-active">{{ 'nav.matches' | translate }}</a>
+      </nav>
+
+      <div class="topbar__actions">
+        <button
+          mat-icon-button
+          type="button"
+          [attr.aria-label]="'nav.change_language' | translate"
+          [matMenuTriggerFor]="langMenu"
+        >
+          <svg lucideGlobe></svg>
+        </button>
+        <mat-menu #langMenu="matMenu">
+          @for (lang of languages; track lang) {
+            <button mat-menu-item type="button" (click)="setLanguage(lang)" [class.is-active]="language.current() === lang">
+              {{ languageLabels[lang] }}
+            </button>
+          }
+        </mat-menu>
+
+        <button
+          mat-icon-button
+          type="button"
+          [attr.aria-label]="'nav.toggle_theme' | translate"
+          (click)="theme.toggle()"
+        >
+          @if (theme.theme() === 'dark') {
+            <svg lucideSun></svg>
+          } @else {
+            <svg lucideMoon></svg>
+          }
+        </button>
+
+        <button mat-icon-button type="button" [matMenuTriggerFor]="userMenu" aria-label="Menú de usuario">
+          <svg lucideUser></svg>
+        </button>
+        <mat-menu #userMenu="matMenu">
+          <a mat-menu-item routerLink="/profile">
+            <svg lucideUser class="shell__nav-icon"></svg>
+            <span>{{ 'nav.profile' | translate }}</span>
+          </a>
+          <button mat-menu-item type="button" (click)="logout()">
+            <svg lucideLogOut class="shell__nav-icon"></svg>
+            <span>{{ 'nav.logout' | translate }}</span>
+          </button>
+        </mat-menu>
+      </div>
+    </header>
+
+    <main class="shell__content">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

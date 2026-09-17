@@ -1,0 +1,125 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.shell {
+  height: 100%;
+  background: var(--color-bg);
+}
+
+.shell__drawer {
+  width: 260px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+}
+
+.shell__drawer-brand {
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--color-brand);
+  padding: 1rem 1.25rem;
+}
+
+.shell__nav-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.shell__content-wrapper {
+  min-height: 100%;
+  background: var(--color-bg);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  height: 64px;
+  padding: 0 1rem;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: var(--color-brand);
+  color: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+.topbar__menu-btn {
+  color: #ffffff;
+  display: inline-flex;
+
+  @media (min-width: 900px) {
+    display: none;
+  }
+}
+
+.topbar__brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #ffffff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.topbar__nav {
+  display: none;
+  gap: 1.25rem;
+  margin-left: 1rem;
+  flex: 1;
+
+  @media (min-width: 900px) {
+    display: flex;
+  }
+
+  a {
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.4rem 0.1rem;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+
+    &:hover {
+      color: #ffffff;
+    }
+
+    &.is-active {
+      color: #ffffff;
+      border-bottom-color: var(--color-accent);
+    }
+  }
+}
+
+.topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
+
+  button {
+    color: #ffffff;
+  }
+}
+
+.shell__content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 2.5rem;
+  padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
+
+  @media (min-width: 640px) {
+    padding: 1.75rem 1.5rem 3rem;
+  }
+}
+
+::ng-deep .mat-mdc-menu-item.is-active {
+  color: var(--color-accent);
+  font-weight: 600;
+}
