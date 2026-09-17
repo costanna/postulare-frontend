@@ -7,11 +7,6 @@ export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
 
   {
-    path: 'bugtest',
-    loadComponent: () => import('./_bugtest/bugtest.component').then((m) => m.BugtestComponent),
-  },
-
-  {
     path: 'auth',
     canActivate: [guestGuard],
     loadComponent: () =>

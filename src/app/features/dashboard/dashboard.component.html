@@ -104,7 +104,7 @@
           <p class="dashboard-card__empty">{{ 'dashboard.no_source_data' | translate }}</p>
         } @else {
           <ul class="source-chart">
-            @for (item of bySource(); track item.source ?? 'unknown') {
+            @for (item of bySource(); track item.source || 'unknown') {
               <li class="source-chart__row">
                 <span class="source-chart__label">{{ item.source || ('dashboard.unknown_source' | translate) }}</span>
                 <div class="source-chart__track" role="img" [attr.aria-label]="(item.source || ('dashboard.unknown_source' | translate)) + ': ' + item.count">
