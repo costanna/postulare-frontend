@@ -11,7 +11,6 @@
     </button>
   </div>
 } @else {
-  @if (application(); as app) {
   <div class="application-detail">
     <button class="detail-back" mat-button type="button" (click)="back()">
       <svg lucideArrowLeft></svg>
@@ -20,9 +19,9 @@
 
     <header class="detail-header">
       <div class="detail-header__title">
-        <h1>{{ app.position }}</h1>
-        <p>{{ app.company_name }}</p>
-        <app-status-badge [status]="app.status"></app-status-badge>
+        <h1>{{ application()!.position }}</h1>
+        <p>{{ application()!.company_name }}</p>
+        <app-status-badge [status]="application()!.status"></app-status-badge>
       </div>
       <div class="detail-header__actions">
         <button mat-stroked-button type="button" (click)="openEditDialog()">
@@ -37,37 +36,37 @@
     </header>
 
     <section class="detail-info">
-      @if (app.source) {
+      @if (application()!.source) {
         <div class="detail-info__item">
           <span class="detail-info__label">{{ 'applications.column_source' | translate }}</span>
-          <span class="detail-info__value">{{ app.source }}</span>
+          <span class="detail-info__value">{{ application()!.source }}</span>
         </div>
       }
-      @if (app.salary_range) {
+      @if (application()!.salary_range) {
         <div class="detail-info__item">
           <span class="detail-info__label">{{ 'application_form.salary_range' | translate }}</span>
-          <span class="detail-info__value">{{ app.salary_range }}</span>
+          <span class="detail-info__value">{{ application()!.salary_range }}</span>
         </div>
       }
-      @if (app.applied_at) {
+      @if (application()!.applied_at) {
         <div class="detail-info__item">
           <span class="detail-info__label">{{ 'application_form.applied_at' | translate }}</span>
-          <span class="detail-info__value">{{ app.applied_at }}</span>
+          <span class="detail-info__value">{{ application()!.applied_at }}</span>
         </div>
       }
-      @if (app.job_url) {
+      @if (application()!.job_url) {
         <div class="detail-info__item">
           <span class="detail-info__label">{{ 'application_form.job_url' | translate }}</span>
-          <a class="detail-info__value" [href]="app.job_url" target="_blank" rel="noopener noreferrer">
+          <a class="detail-info__value" [href]="application()!.job_url" target="_blank" rel="noopener noreferrer">
             {{ 'application_detail.linked_offer' | translate }}
             <svg lucideExternalLink></svg>
           </a>
         </div>
       }
-      @if (app.notes) {
+      @if (application()!.notes) {
         <div class="detail-info__item detail-info__item--full">
           <span class="detail-info__label">{{ 'application_form.notes' | translate }}</span>
-          <p class="detail-info__notes">{{ app.notes }}</p>
+          <p class="detail-info__notes">{{ application()!.notes }}</p>
         </div>
       }
     </section>
@@ -121,5 +120,4 @@
       }
     </section>
   </div>
-  }
 }
