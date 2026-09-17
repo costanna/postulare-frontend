@@ -16,6 +16,7 @@
     "actions": "Accions",
     "previous": "Anterior",
     "next": "Següent",
+    "retry": "Reintenta",
     "confirm": "Confirma",
     "yes": "Sí",
     "no": "No",
@@ -122,7 +123,8 @@
     "timeline_title": "Candidatures per mes",
     "no_timeline_data": "Encara no hi ha prou dades",
     "by_source_title": "Candidatures per origen",
-    "no_source_data": "Encara no hi ha dades d'origen"
+    "no_source_data": "Encara no hi ha dades d'origen",
+    "unknown_source": "Sense origen"
   },
   "kanban": {
     "title": "Tauler",

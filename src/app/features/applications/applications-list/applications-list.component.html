@@ -49,6 +49,11 @@
     <div class="applications-loading">
       <mat-spinner diameter="32"></mat-spinner>
     </div>
+  } @else if (loadError()) {
+    <div class="applications-error">
+      <p>{{ 'common.error_generic' | translate }}</p>
+      <button mat-button type="button" (click)="retry()">{{ 'common.retry' | translate }}</button>
+    </div>
   } @else {
     @if (page(); as p) {
       @if (p.items.length === 0) {

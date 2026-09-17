@@ -8,6 +8,11 @@
     <div class="dashboard-loading">
       <mat-spinner diameter="32"></mat-spinner>
     </div>
+  } @else if (loadError()) {
+    <div class="dashboard-error">
+      <p>{{ 'common.error_generic' | translate }}</p>
+      <button mat-button type="button" (click)="retry()">{{ 'common.retry' | translate }}</button>
+    </div>
   } @else {
     @if (summary(); as s) {
     @if (s.total_applications === 0) {
@@ -101,13 +106,13 @@
             <p class="dashboard-card__empty">{{ 'dashboard.no_source_data' | translate }}</p>
           } @else {
             <ul class="source-chart">
-              @for (item of bySource(); track item.source) {
+              @for (item of bySource(); track item.source ?? 'unknown') {
                 <li class="source-chart__row">
-                  <span class="source-chart__label">{{ item.source }}</span>
+                  <span class="source-chart__label">{{ item.source || ('dashboard.unknown_source' | translate) }}</span>
                   <div
                     class="source-chart__track"
                     role="img"
-                    [attr.aria-label]="item.source + ': ' + item.count"
+                    [attr.aria-label]="(item.source || ('dashboard.unknown_source' | translate)) + ': ' + item.count"
                   >
                     <div class="source-chart__fill" [style.width.%]="sourceBarWidth(item.count)"></div>
                   </div>

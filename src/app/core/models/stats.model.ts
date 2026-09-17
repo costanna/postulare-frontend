@@ -20,6 +20,6 @@ export interface TimelinePoint {
 }
 
 export interface SourceCount {
-  source: string;
+  source: string | null;
   count: number;
 }

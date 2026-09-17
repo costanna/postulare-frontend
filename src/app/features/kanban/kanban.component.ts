@@ -41,25 +41,37 @@ export class KanbanComponent implements OnInit {
 
   readonly columns = KANBAN_STATUSES;
   readonly loading = signal(true);
+  readonly loadError = signal(false);
   readonly board = signal<Record<ApplicationStatus, Application[]>>(this.emptyBoard());
 
   ngOnInit(): void {
     this.load();
   }
 
+  retry(): void {
+    this.load();
+  }
+
   private load(): void {
     this.loading.set(true);
+    this.loadError.set(false);
     // Sube el page_size al máximo permitido por la API: el tablero muestra
     // el conjunto completo, no está paginado.
-    this.applicationsService.list({ page_size: 100 }).subscribe((page) => {
-      const board = this.emptyBoard();
-      for (const app of page.items) {
-        if (app.status in board) {
-          board[app.status].push(app);
+    this.applicationsService.list({ page_size: 100 }).subscribe({
+      next: (page) => {
+        const board = this.emptyBoard();
+        for (const app of page.items) {
+          if (app.status in board) {
+            board[app.status].push(app);
+          }
         }
-      }
-      this.board.set(board);
-      this.loading.set(false);
+        this.board.set(board);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.loading.set(false);
+        this.loadError.set(true);
+      },
     });
   }
 

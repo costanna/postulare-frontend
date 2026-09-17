@@ -57,6 +57,15 @@
   padding: 3rem 0;
 }
 
+.applications-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 3rem 0;
+  color: var(--color-text-muted);
+}
+
 .applications-empty {
   text-align: center;
   padding: 3rem 1rem;

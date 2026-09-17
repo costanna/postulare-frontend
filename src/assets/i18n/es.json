@@ -16,6 +16,7 @@
     "actions": "Acciones",
     "previous": "Anterior",
     "next": "Siguiente",
+    "retry": "Reintentar",
     "confirm": "Confirmar",
     "yes": "Sí",
     "no": "No",
@@ -122,7 +123,8 @@
     "timeline_title": "Candidaturas por mes",
     "no_timeline_data": "Sin datos suficientes todavía",
     "by_source_title": "Candidaturas por origen",
-    "no_source_data": "Sin datos de origen todavía"
+    "no_source_data": "Sin datos de origen todavía",
+    "unknown_source": "Sin origen"
   },
   "kanban": {
     "title": "Tablero",

@@ -50,6 +50,7 @@ export class ProfileComponent implements OnInit {
   readonly languageLabels = LANGUAGE_LABELS;
 
   readonly loading = signal(true);
+  readonly loadError = signal(false);
   readonly saving = signal(false);
   readonly skills = signal<string[]>([]);
   readonly showWelcome = signal(this.route.snapshot.queryParamMap.get('welcome') === '1');
@@ -64,17 +65,33 @@ export class ProfileComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.profileService.getProfile().subscribe((profile) => {
-      this.form.patchValue({
-        full_name: profile.full_name ?? '',
-        location: profile.location ?? '',
-        desired_position: profile.desired_position ?? '',
-        seniority: profile.seniority,
-        min_salary: profile.min_salary,
-        preferred_language: profile.preferred_language,
-      });
-      this.skills.set(profile.skills ?? []);
-      this.loading.set(false);
+    this.load();
+  }
+
+  retry(): void {
+    this.load();
+  }
+
+  private load(): void {
+    this.loading.set(true);
+    this.loadError.set(false);
+    this.profileService.getProfile().subscribe({
+      next: (profile) => {
+        this.form.patchValue({
+          full_name: profile.full_name ?? '',
+          location: profile.location ?? '',
+          desired_position: profile.desired_position ?? '',
+          seniority: profile.seniority,
+          min_salary: profile.min_salary,
+          preferred_language: profile.preferred_language,
+        });
+        this.skills.set(profile.skills ?? []);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.loading.set(false);
+        this.loadError.set(true);
+      },
     });
   }
 

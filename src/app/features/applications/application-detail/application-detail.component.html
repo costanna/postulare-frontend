@@ -85,6 +85,11 @@
         <div class="detail-loading">
           <mat-spinner diameter="24"></mat-spinner>
         </div>
+      } @else if (eventsError()) {
+        <div class="detail-events__error">
+          <p>{{ 'common.error_generic' | translate }}</p>
+          <button mat-button type="button" (click)="retryEvents()">{{ 'common.retry' | translate }}</button>
+        </div>
       } @else if (events().length === 0) {
         <p class="detail-events__empty">{{ 'application_detail.no_events' | translate }}</p>
       } @else {
