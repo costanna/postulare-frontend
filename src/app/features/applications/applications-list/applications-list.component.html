@@ -1,0 +1,134 @@
+<div class="applications-page">
+  <header class="applications-page__header">
+    <h1>{{ 'applications.title' | translate }}</h1>
+    <button mat-flat-button color="primary" type="button" (click)="openCreateDialog()">
+      <svg lucidePlus></svg>
+      {{ 'applications.add_button' | translate }}
+    </button>
+  </header>
+
+  <form class="applications-filters" [formGroup]="filtersForm">
+    <mat-form-field appearance="outline" class="applications-filters__search">
+      <mat-label>{{ 'common.search' | translate }}</mat-label>
+      <input matInput type="text" formControlName="company" [placeholder]="'applications.search_placeholder' | translate" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'applications.filter_status' | translate }}</mat-label>
+      <mat-select formControlName="status">
+        <mat-option [value]="null">{{ 'common.all' | translate }}</mat-option>
+        @for (s of statuses; track s) {
+          <mat-option [value]="s">{{ 'status.' + s | translate }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'applications.filter_date_from' | translate }}</mat-label>
+      <input matInput [matDatepicker]="fromPicker" formControlName="date_from" />
+      <mat-datepicker-toggle matIconSuffix [for]="fromPicker"></mat-datepicker-toggle>
+      <mat-datepicker #fromPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'applications.filter_date_to' | translate }}</mat-label>
+      <input matInput [matDatepicker]="toPicker" formControlName="date_to" />
+      <mat-datepicker-toggle matIconSuffix [for]="toPicker"></mat-datepicker-toggle>
+      <mat-datepicker #toPicker></mat-datepicker>
+    </mat-form-field>
+
+    @if (hasActiveFilters()) {
+      <button class="applications-filters__clear" mat-button type="button" (click)="clearFilters()">
+        <svg lucideX></svg>
+        {{ 'applications.clear_filters' | translate }}
+      </button>
+    }
+  </form>
+
+  @if (loading()) {
+    <div class="applications-loading">
+      <mat-spinner diameter="32"></mat-spinner>
+    </div>
+  } @else {
+    @if (page(); as p) {
+      @if (p.items.length === 0) {
+        <div class="applications-empty">
+          <h2>{{ 'applications.empty_title' | translate }}</h2>
+          <p>{{ 'applications.empty_subtitle' | translate }}</p>
+        </div>
+      } @else {
+        <p class="applications-results-count">{{ 'applications.results_count' | translate: { count: p.total } }}</p>
+
+        <div class="applications-table-wrap">
+          <table class="applications-table">
+            <thead>
+              <tr>
+                <th>{{ 'applications.column_company' | translate }}</th>
+                <th>{{ 'applications.column_position' | translate }}</th>
+                <th>{{ 'applications.column_status' | translate }}</th>
+                <th>{{ 'applications.column_source' | translate }}</th>
+                <th>{{ 'applications.column_applied_at' | translate }}</th>
+                <th class="applications-table__actions-col">{{ 'applications.column_actions' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (application of p.items; track application.id) {
+                <tr (click)="viewDetail(application)">
+                  <td [attr.data-label]="'applications.column_company' | translate">{{ application.company_name }}</td>
+                  <td [attr.data-label]="'applications.column_position' | translate">{{ application.position }}</td>
+                  <td [attr.data-label]="'applications.column_status' | translate">
+                    <app-status-badge [status]="application.status"></app-status-badge>
+                  </td>
+                  <td [attr.data-label]="'applications.column_source' | translate">{{ application.source || '—' }}</td>
+                  <td [attr.data-label]="'applications.column_applied_at' | translate">{{ application.applied_at || '—' }}</td>
+                  <td class="applications-table__actions" [attr.data-label]="'applications.column_actions' | translate">
+                    <button
+                      mat-icon-button
+                      type="button"
+                      [attr.aria-label]="'common.edit' | translate"
+                      (click)="openEditDialog(application, $event)"
+                    >
+                      <svg lucidePencil></svg>
+                    </button>
+                    <button
+                      mat-icon-button
+                      type="button"
+                      [attr.aria-label]="'common.delete' | translate"
+                      (click)="deleteApplication(application, $event)"
+                    >
+                      <svg lucideTrash2></svg>
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        @if (p.pages > 1) {
+          <div class="applications-pagination">
+            <button
+              mat-icon-button
+              type="button"
+              [disabled]="currentPage() <= 1"
+              [attr.aria-label]="'common.previous' | translate"
+              (click)="goToPage(-1)"
+            >
+              <svg lucideChevronLeft></svg>
+            </button>
+            <span>{{ currentPage() }} / {{ p.pages }}</span>
+            <button
+              mat-icon-button
+              type="button"
+              [disabled]="currentPage() >= p.pages"
+              [attr.aria-label]="'common.next' | translate"
+              (click)="goToPage(1)"
+            >
+              <svg lucideChevronRight></svg>
+            </button>
+          </div>
+        }
+      }
+    }
+  }
+</div>

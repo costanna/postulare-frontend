@@ -14,6 +14,8 @@
     "filters": "Filters",
     "all": "All",
     "actions": "Actions",
+    "previous": "Previous",
+    "next": "Next",
     "confirm": "Confirm",
     "yes": "Yes",
     "no": "No",
@@ -96,5 +98,78 @@
     "skills_placeholder": "Add a skill and press Enter",
     "skills_hint": "Press Enter or comma to add each skill",
     "save_success": "Profile updated successfully"
+  },
+  "status": {
+    "saved": "Saved",
+    "applied": "Applied",
+    "interview": "Interview",
+    "offer": "Offer",
+    "rejected": "Rejected",
+    "withdrawn": "Withdrawn"
+  },
+  "kanban": {
+    "title": "Board",
+    "add_button": "Add application",
+    "empty_column": "No applications",
+    "drop_hint": "Drag a card here to change its status"
+  },
+  "applications": {
+    "title": "Applications",
+    "add_button": "Add application",
+    "search_placeholder": "Search by company…",
+    "filter_status": "Status",
+    "filter_date_from": "From",
+    "filter_date_to": "To",
+    "clear_filters": "Clear filters",
+    "empty_title": "You don't have any applications yet",
+    "empty_subtitle": "Add your first application or search for jobs that match your profile.",
+    "column_company": "Company",
+    "column_position": "Position",
+    "column_status": "Status",
+    "column_source": "Source",
+    "column_applied_at": "Date",
+    "column_actions": "Actions",
+    "view_detail": "View detail",
+    "confirm_delete_title": "Delete application",
+    "confirm_delete_message": "Are you sure you want to delete the application for {{position}} at {{company}}? This can't be undone.",
+    "results_count": "{{count}} applications"
+  },
+  "application_form": {
+    "title_create": "New application",
+    "title_edit": "Edit application",
+    "company_name": "Company",
+    "position": "Position",
+    "status": "Status",
+    "source": "Source",
+    "source_hint": "LinkedIn, InfoJobs, referral, company website…",
+    "salary_range": "Salary range",
+    "job_url": "Job posting link",
+    "notes": "Notes",
+    "applied_at": "Application date",
+    "submit_create": "Create application",
+    "submit_edit": "Save changes"
+  },
+  "application_detail": {
+    "back": "Back to applications",
+    "edit": "Edit",
+    "delete": "Delete",
+    "not_found": "Application not found",
+    "events_title": "Events & follow-ups",
+    "add_event": "Add event",
+    "no_events": "No events logged yet for this application",
+    "linked_offer": "View original job posting"
+  },
+  "event_form": {
+    "title": "Add event",
+    "type": "Type",
+    "description": "Description",
+    "event_date": "Date",
+    "submit": "Add"
+  },
+  "event_type": {
+    "interview": "Interview",
+    "follow_up": "Follow-up",
+    "note": "Note",
+    "status_change": "Status change"
   }
 }

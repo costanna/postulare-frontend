@@ -14,6 +14,8 @@
     "filters": "Filtros",
     "all": "Todas",
     "actions": "Acciones",
+    "previous": "Anterior",
+    "next": "Siguiente",
     "confirm": "Confirmar",
     "yes": "Sí",
     "no": "No",
@@ -96,5 +98,78 @@
     "skills_placeholder": "Añade una skill y pulsa Enter",
     "skills_hint": "Pulsa Enter o coma para añadir cada skill",
     "save_success": "Perfil actualizado correctamente"
+  },
+  "status": {
+    "saved": "Guardada",
+    "applied": "Enviada",
+    "interview": "Entrevista",
+    "offer": "Oferta",
+    "rejected": "Rechazada",
+    "withdrawn": "Retirada"
+  },
+  "kanban": {
+    "title": "Tablero",
+    "add_button": "Añadir candidatura",
+    "empty_column": "Sin candidaturas",
+    "drop_hint": "Arrastra una tarjeta aquí para cambiar su estado"
+  },
+  "applications": {
+    "title": "Candidaturas",
+    "add_button": "Añadir candidatura",
+    "search_placeholder": "Buscar por empresa…",
+    "filter_status": "Estado",
+    "filter_date_from": "Desde",
+    "filter_date_to": "Hasta",
+    "clear_filters": "Limpiar filtros",
+    "empty_title": "Aún no tienes candidaturas",
+    "empty_subtitle": "Añade la primera candidatura o busca ofertas recomendadas para tu perfil.",
+    "column_company": "Empresa",
+    "column_position": "Puesto",
+    "column_status": "Estado",
+    "column_source": "Origen",
+    "column_applied_at": "Fecha",
+    "column_actions": "Acciones",
+    "view_detail": "Ver detalle",
+    "confirm_delete_title": "Eliminar candidatura",
+    "confirm_delete_message": "¿Seguro que quieres eliminar la candidatura de {{position}} en {{company}}? Esta acción no se puede deshacer.",
+    "results_count": "{{count}} candidaturas"
+  },
+  "application_form": {
+    "title_create": "Nueva candidatura",
+    "title_edit": "Editar candidatura",
+    "company_name": "Empresa",
+    "position": "Puesto",
+    "status": "Estado",
+    "source": "Origen",
+    "source_hint": "LinkedIn, InfoJobs, referido, web propia…",
+    "salary_range": "Rango salarial",
+    "job_url": "Enlace a la oferta",
+    "notes": "Notas",
+    "applied_at": "Fecha de aplicación",
+    "submit_create": "Crear candidatura",
+    "submit_edit": "Guardar cambios"
+  },
+  "application_detail": {
+    "back": "Volver a candidaturas",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "not_found": "Candidatura no encontrada",
+    "events_title": "Eventos y seguimiento",
+    "add_event": "Añadir evento",
+    "no_events": "Aún no hay eventos registrados para esta candidatura",
+    "linked_offer": "Ver oferta original"
+  },
+  "event_form": {
+    "title": "Añadir evento",
+    "type": "Tipo",
+    "description": "Descripción",
+    "event_date": "Fecha",
+    "submit": "Añadir"
+  },
+  "event_type": {
+    "interview": "Entrevista",
+    "follow_up": "Seguimiento",
+    "note": "Nota",
+    "status_change": "Cambio de estado"
   }
 }

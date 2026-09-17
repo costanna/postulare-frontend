@@ -14,6 +14,8 @@
     "filters": "Filtres",
     "all": "Totes",
     "actions": "Accions",
+    "previous": "Anterior",
+    "next": "Següent",
     "confirm": "Confirma",
     "yes": "Sí",
     "no": "No",
@@ -96,5 +98,78 @@
     "skills_placeholder": "Afegeix una skill i prem Enter",
     "skills_hint": "Prem Enter o coma per afegir cada skill",
     "save_success": "Perfil actualitzat correctament"
+  },
+  "status": {
+    "saved": "Desada",
+    "applied": "Enviada",
+    "interview": "Entrevista",
+    "offer": "Oferta",
+    "rejected": "Rebutjada",
+    "withdrawn": "Retirada"
+  },
+  "kanban": {
+    "title": "Tauler",
+    "add_button": "Afegeix candidatura",
+    "empty_column": "Sense candidatures",
+    "drop_hint": "Arrossega una targeta aquí per canviar-ne l'estat"
+  },
+  "applications": {
+    "title": "Candidatures",
+    "add_button": "Afegeix candidatura",
+    "search_placeholder": "Cerca per empresa…",
+    "filter_status": "Estat",
+    "filter_date_from": "Des de",
+    "filter_date_to": "Fins a",
+    "clear_filters": "Neteja els filtres",
+    "empty_title": "Encara no tens candidatures",
+    "empty_subtitle": "Afegeix la primera candidatura o cerca ofertes recomanades per al teu perfil.",
+    "column_company": "Empresa",
+    "column_position": "Lloc",
+    "column_status": "Estat",
+    "column_source": "Origen",
+    "column_applied_at": "Data",
+    "column_actions": "Accions",
+    "view_detail": "Veure detall",
+    "confirm_delete_title": "Elimina la candidatura",
+    "confirm_delete_message": "Segur que vols eliminar la candidatura de {{position}} a {{company}}? Aquesta acció no es pot desfer.",
+    "results_count": "{{count}} candidatures"
+  },
+  "application_form": {
+    "title_create": "Nova candidatura",
+    "title_edit": "Edita la candidatura",
+    "company_name": "Empresa",
+    "position": "Lloc",
+    "status": "Estat",
+    "source": "Origen",
+    "source_hint": "LinkedIn, InfoJobs, referit, web pròpia…",
+    "salary_range": "Rang salarial",
+    "job_url": "Enllaç a l'oferta",
+    "notes": "Notes",
+    "applied_at": "Data d'aplicació",
+    "submit_create": "Crea la candidatura",
+    "submit_edit": "Desa els canvis"
+  },
+  "application_detail": {
+    "back": "Torna a candidatures",
+    "edit": "Edita",
+    "delete": "Elimina",
+    "not_found": "Candidatura no trobada",
+    "events_title": "Esdeveniments i seguiment",
+    "add_event": "Afegeix un esdeveniment",
+    "no_events": "Encara no hi ha esdeveniments registrats per a aquesta candidatura",
+    "linked_offer": "Veure l'oferta original"
+  },
+  "event_form": {
+    "title": "Afegeix un esdeveniment",
+    "type": "Tipus",
+    "description": "Descripció",
+    "event_date": "Data",
+    "submit": "Afegeix"
+  },
+  "event_type": {
+    "interview": "Entrevista",
+    "follow_up": "Seguiment",
+    "note": "Nota",
+    "status_change": "Canvi d'estat"
   }
 }
