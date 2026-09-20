@@ -26,7 +26,7 @@
       <div class="detail-header__actions">
         @if (application()!.status === 'saved') {
           <button mat-flat-button color="primary" type="button" [disabled]="markingApplied()" (click)="markApplied()">
-            <svg lucideCheck></svg>
+            <svg lucideSend></svg>
             {{ 'application_detail.mark_applied' | translate }}
           </button>
         }
