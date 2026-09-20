@@ -129,7 +129,7 @@
     </form>
   </mat-expansion-panel>
 
-  <mat-button-toggle-group class="matches-filters" [value]="filter()" (change)="setFilter($event.value)">
+  <mat-button-toggle-group class="matches-filters" hideSingleSelectionIndicator [value]="filter()" (change)="setFilter($event.value)">
     @for (f of filters; track f) {
       <mat-button-toggle [value]="f">{{ 'matches.filter_' + f | translate }}</mat-button-toggle>
     }
@@ -246,16 +246,15 @@
                     {{ 'matches.convert_button' | translate }}
                   </button>
                   <button
-                    mat-flat-button
-                    color="primary"
+                    mat-stroked-button
                     type="button"
+                    [attr.title]="'matches.applied_hint' | translate"
                     [disabled]="convertingIds().has(match.id)"
                     (click)="convert(match, true)"
                   >
                     @if (convertingIds().has(match.id)) {
                       <mat-spinner diameter="16"></mat-spinner>
                     } @else {
-                      <svg lucideSend></svg>
                       {{ 'matches.applied_button' | translate }}
                     }
                   </button>

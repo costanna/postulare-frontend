@@ -16,7 +16,6 @@ import { Router } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {
   LucideBuilding2,
-  LucideSend,
   LucideExternalLink,
   LucideFileText,
   LucideMapPin,
@@ -59,7 +58,6 @@ const SOURCE_LABELS: Record<string, string> = { adzuna: 'Adzuna', infojobs: 'Inf
     LucideSlidersHorizontal,
     LucideSearch,
     LucideExternalLink,
-    LucideSend,
     LucideX,
     LucideMapPin,
     LucideBuilding2,

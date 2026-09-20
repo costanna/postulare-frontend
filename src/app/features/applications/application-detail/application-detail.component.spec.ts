@@ -61,12 +61,12 @@ describe('ApplicationDetailComponent', () => {
 
   it('offers "I applied" only while the application is still saved', () => {
     load(application('saved'));
-    expect(fixture.nativeElement.querySelector('.detail-header__actions .mat-mdc-unelevated-button')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('.detail-header__mark-applied')).not.toBeNull();
   });
 
   it('hides "I applied" once it is not saved anymore', () => {
     load(application('interview', '2026-01-15'));
-    expect(fixture.nativeElement.querySelector('.detail-header__actions .mat-mdc-unelevated-button')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.detail-header__mark-applied')).toBeNull();
   });
 
   it('markApplied() sends status + local date, shows the result and reloads the timeline', () => {

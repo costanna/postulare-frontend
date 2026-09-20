@@ -258,7 +258,8 @@
     "disability_any": "Indiferente",
     "disability_require": "Solo las que mencionan discapacidad",
     "disability_exclude": "Excluir las que la mencionan",
-    "filter_disability_hint": "Se mira el título, la empresa y el extracto de la oferta: si la menciona solo en el texto completo, puede no aparecer."
+    "filter_disability_hint": "Se mira el título, la empresa y el extracto de la oferta: si la menciona solo en el texto completo, puede no aparecer.",
+    "applied_hint": "Úsalo cuando ya hayas enviado tu candidatura en la web de la oferta"
   },
   "demo": {
     "banner": "Estás en una cuenta demo con datos de ejemplo. Se borrará sola pasado un día.",
