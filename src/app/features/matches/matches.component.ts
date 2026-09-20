@@ -28,7 +28,7 @@ import {
 } from '@lucide/angular';
 import { Observable, of, switchMap, tap } from 'rxjs';
 
-import { CoverLetter, Match, MatchStatus, SearchFilters, SearchFiltersState } from '../../core/models/match.model';
+import { CoverLetter, DisabilityFilter, Match, MatchStatus, SearchFilters, SearchFiltersState } from '../../core/models/match.model';
 import { MatchesService } from '../../core/services/matches.service';
 import { keywordTokens, toggleTerm } from '../../core/data/programming-keywords';
 import { todayIso } from '../../core/utils/iso-date';
@@ -87,6 +87,7 @@ export class MatchesComponent implements OnInit {
 
   readonly radiusOptions = [10, 30, 50, 100];
   readonly daysOptions: (number | null)[] = [null, 7, 14, 30, 60];
+  readonly disabilityOptions: DisabilityFilter[] = ['any', 'require', 'exclude'];
 
   readonly searchForm = this.fb.group({
     keywords: [''],
@@ -94,6 +95,7 @@ export class MatchesComponent implements OnInit {
     radius_km: [30],
     exclude: [''],
     exclude_other_levels: [true],
+    disability: ['any' as DisabilityFilter],
     max_days_old: [null as number | null],
     min_score: [0],
   });
@@ -132,6 +134,7 @@ export class MatchesComponent implements OnInit {
         radius_km: f.radius_km,
         exclude: f.exclude ?? '',
         exclude_other_levels: f.exclude_other_levels,
+        disability: f.disability ?? 'any',
         max_days_old: f.max_days_old,
         min_score: f.min_score,
       });
@@ -148,6 +151,7 @@ export class MatchesComponent implements OnInit {
       radius_km: v.radius_km ?? 30,
       exclude: v.exclude?.trim() || null,
       exclude_other_levels: v.exclude_other_levels ?? true,
+      disability: v.disability ?? 'any',
       max_days_old: v.max_days_old,
       min_score: v.min_score ?? 0,
     };
@@ -186,6 +190,7 @@ export class MatchesComponent implements OnInit {
       radius_km: 30,
       exclude: '',
       exclude_other_levels: true,
+      disability: 'any',
       max_days_old: null,
       min_score: 0,
     });

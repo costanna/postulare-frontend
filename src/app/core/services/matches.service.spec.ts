@@ -34,6 +34,7 @@ describe('MatchesService', () => {
       radius_km: 50,
       exclude: 'php',
       exclude_other_levels: true,
+      disability: 'any' as const,
       max_days_old: 14,
       min_score: 30,
     };

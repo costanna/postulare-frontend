@@ -63,12 +63,16 @@ export interface CoverLetterRequest {
   regenerate?: boolean;
 }
 
+export type DisabilityFilter = 'any' | 'require' | 'exclude';
+
 export interface SearchFilters {
   keywords: string | null;
   location: string | null;
   radius_km: number;
   exclude: string | null;
   exclude_other_levels: boolean;
+  /** Ofertas que mencionan la discapacidad: any = no filtrar, require = solo esas, exclude = descartarlas. */
+  disability: DisabilityFilter;
   max_days_old: number | null;
   min_score: number;
 }
