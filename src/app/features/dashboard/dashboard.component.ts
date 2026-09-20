@@ -96,6 +96,9 @@ export class DashboardComponent implements OnInit {
   monthLabel(month: string): string {
     const [year, monthIndex] = month.split('-').map(Number);
     const date = new Date(year, (monthIndex || 1) - 1, 1);
-    return new Intl.DateTimeFormat(this.language.current(), { month: 'short', year: '2-digit' }).format(date);
+    // "jul '26" (compacto): con `{ month: 'short', year: '2-digit' }` catalán
+    // da "jul. del 26", demasiado ancho y las etiquetas se pisan.
+    const monthName = new Intl.DateTimeFormat(this.language.current(), { month: 'short' }).format(date).replace('.', '');
+    return `${monthName} '${String(year).slice(2)}`;
   }
 }

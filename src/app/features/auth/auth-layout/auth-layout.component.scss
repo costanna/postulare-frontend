@@ -57,9 +57,27 @@
 
 .auth-layout__top-actions {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
   gap: 0.25rem;
   margin-bottom: 1rem;
+}
+
+// La franja de marca de la izquierda solo existe >= 900px; en pantallas
+// más pequeñas el logo pasa a la fila superior, a la izquierda.
+.auth-layout__mobile-brand {
+  margin-right: auto;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-brand);
+
+  @media (min-width: 900px) {
+    display: none;
+  }
+}
+
+:host-context(body[data-theme='dark']) .auth-layout__mobile-brand {
+  color: var(--color-text);
 }
 
 .auth-layout__icon-btn {

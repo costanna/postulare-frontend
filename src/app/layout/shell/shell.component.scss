@@ -30,8 +30,12 @@
   flex-shrink: 0;
 }
 
+// Columna flex: el contenido crece y empuja el footer al final aunque la
+// página sea corta.
 .shell__content-wrapper {
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
   background: var(--color-bg);
 }
 
@@ -109,6 +113,8 @@
 }
 
 .shell__content {
+  flex: 1 0 auto;
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
   padding: 1.25rem 1rem 2.5rem;

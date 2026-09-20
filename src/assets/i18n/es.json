@@ -37,7 +37,11 @@
     "change_language": "Cambiar idioma",
     "open_menu": "Abrir menú"
   },
+  "footer": {
+    "made_by": "Hecho por"
+  },
   "auth": {
+    "brand_tagline": "Organiza tu búsqueda de empleo, encuentra ofertas afines a tu perfil y no vuelvas a perder el hilo de ninguna candidatura.",
     "login": {
       "title": "Inicia sesión",
       "subtitle": "Organiza tu búsqueda de empleo en un solo sitio",

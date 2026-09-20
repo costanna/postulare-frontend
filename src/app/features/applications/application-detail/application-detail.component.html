@@ -51,7 +51,7 @@
       @if (application()!.applied_at) {
         <div class="detail-info__item">
           <span class="detail-info__label">{{ 'application_form.applied_at' | translate }}</span>
-          <span class="detail-info__value">{{ application()!.applied_at }}</span>
+          <span class="detail-info__value">{{ application()!.applied_at | localDate }}</span>
         </div>
       }
       @if (application()!.job_url) {
@@ -99,7 +99,7 @@
               <div class="detail-event__body">
                 <div class="detail-event__meta">
                   <span class="detail-event__type">{{ 'event_type.' + event.type | translate }}</span>
-                  <span class="detail-event__date">{{ event.event_date | slice: 0 : 10 }}</span>
+                  <span class="detail-event__date">{{ event.event_date | localDate }}</span>
                 </div>
                 @if (event.description) {
                   <p class="detail-event__description">{{ event.description }}</p>

@@ -22,6 +22,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 import { APPLICATION_STATUSES, Application, ApplicationStatus, Page } from '../../../core/models/application.model';
 import { ApplicationsService } from '../../../core/services/applications.service';
+import { LocalDatePipe } from '../../../shared/pipes/local-date.pipe';
 import { StatusBadgeComponent } from '../../../shared/ui/status-badge/status-badge.component';
 import { ConfirmDialogComponent, ConfirmDialogData } from '../../../shared/ui/confirm-dialog/confirm-dialog.component';
 import { ApplicationFormDialogComponent } from '../application-form-dialog/application-form-dialog.component';
@@ -41,6 +42,7 @@ const PAGE_SIZE = 20;
     MatButtonModule,
     MatProgressSpinnerModule,
     StatusBadgeComponent,
+    LocalDatePipe,
     LucidePlus,
     LucidePencil,
     LucideTrash2,

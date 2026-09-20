@@ -28,6 +28,18 @@ $postulare-frontend-theme: mat.define-theme((
   @include mat.all-component-themes($postulare-frontend-theme);
 }
 
+// Variante oscura de Material: sin ella los campos de formulario, selects,
+// datepickers y menús siguen pintando texto/etiquetas para fondo claro (gris
+// oscuro sobre azul casi negro = ilegible). Solo se aplica bajo los mismos
+// selectores que activan los tokens oscuros de más abajo.
+$postulare-dark-material-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+));
+
 /* ---------------------------------------------------------------------
  * Paleta de marca Postulare — CSS custom properties (spec sección 03).
  * Tema claro por defecto en :root; tema oscuro vía prefers-color-scheme
@@ -89,6 +101,8 @@ $postulare-frontend-theme: mat.define-theme((
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
   color-scheme: dark;
+
+  @include mat.all-component-colors($postulare-dark-material-theme);
 }
 
 // El atributo [data-theme] lo pone ThemeService en <body> (no en <html>),

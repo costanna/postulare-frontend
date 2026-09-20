@@ -24,6 +24,7 @@ import { AppLanguage, LANGUAGE_LABELS, SUPPORTED_LANGUAGES } from '../../core/i1
 import { AuthService } from '../../core/services/auth.service';
 import { LanguageService } from '../../core/services/language.service';
 import { ThemeService } from '../../core/services/theme.service';
+import { AppFooterComponent } from '../../shared/ui/app-footer/app-footer.component';
 
 @Component({
   selector: 'app-shell',
@@ -39,6 +40,7 @@ import { ThemeService } from '../../core/services/theme.service';
     MatSidenavModule,
     MatListModule,
     MatDividerModule,
+    AppFooterComponent,
     LucideMenu,
     LucideLayoutDashboard,
     LucideKanban,

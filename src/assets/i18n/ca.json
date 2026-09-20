@@ -27,7 +27,7 @@
     "coming_soon": "Aquesta secció està en construcció. Arribarà en una propera branca."
   },
   "nav": {
-    "dashboard": "Tauler",
+    "dashboard": "Dashboard",
     "kanban": "Tauler Kanban",
     "applications": "Candidatures",
     "matches": "Ofertes recomanades",
@@ -37,7 +37,11 @@
     "change_language": "Canvia d'idioma",
     "open_menu": "Obre el menú"
   },
+  "footer": {
+    "made_by": "Fet per"
+  },
   "auth": {
+    "brand_tagline": "Organitza la teva cerca de feina, troba ofertes afins al teu perfil i no tornis a perdre el fil de cap candidatura.",
     "login": {
       "title": "Inicia sessió",
       "subtitle": "Organitza la teva cerca de feina en un sol lloc",
@@ -127,7 +131,7 @@
     "unknown_source": "Sense origen"
   },
   "kanban": {
-    "title": "Tauler",
+    "title": "Tauler Kanban",
     "add_button": "Afegeix candidatura",
     "empty_column": "Sense candidatures",
     "drop_hint": "Arrossega una targeta aquí per canviar-ne l'estat"
