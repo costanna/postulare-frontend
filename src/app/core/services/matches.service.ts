@@ -4,12 +4,20 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { Application } from '../models/application.model';
-import { Match, MatchSearchResult, MatchStatus } from '../models/match.model';
+import { Match, MatchSearchResult, MatchStatus, SearchFilters, SearchFiltersState } from '../models/match.model';
 
 @Injectable({ providedIn: 'root' })
 export class MatchesService {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = `${environment.apiUrl}/matches`;
+
+  getFilters(): Observable<SearchFiltersState> {
+    return this.http.get<SearchFiltersState>(`${this.baseUrl}/filters`);
+  }
+
+  saveFilters(filters: SearchFilters): Observable<SearchFiltersState> {
+    return this.http.put<SearchFiltersState>(`${this.baseUrl}/filters`, filters);
+  }
 
   search(): Observable<MatchSearchResult> {
     return this.http.post<MatchSearchResult>(`${this.baseUrl}/search`, {});

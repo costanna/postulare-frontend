@@ -14,20 +14,129 @@
     </button>
   </header>
 
+  <mat-expansion-panel class="search-filters">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <svg lucideSlidersHorizontal class="search-filters__icon"></svg>
+        {{ 'matches.filters_title' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <form class="search-filters__form" [formGroup]="searchForm" (ngSubmit)="saveFilters()">
+      <p class="search-filters__intro">{{ 'matches.filters_intro' | translate }}</p>
+
+      <div class="search-filters__grid">
+        <mat-form-field appearance="outline" class="search-filters__wide">
+          <mat-label>{{ 'matches.filter_keywords' | translate }}</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="keywords"
+            maxlength="200"
+            [placeholder]="searchState()?.effective_query ?? ''"
+          />
+          <mat-hint>{{ 'matches.filter_keywords_hint' | translate }}</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'matches.filter_location' | translate }}</mat-label>
+          <input matInput type="text" formControlName="location" maxlength="100" placeholder="Barcelona" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'matches.filter_radius' | translate }}</mat-label>
+          <mat-select formControlName="radius_km">
+            @for (km of radiusOptions; track km) {
+              <mat-option [value]="km">{{ km }} km</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'matches.filter_exclude' | translate }}</mat-label>
+          <input matInput type="text" formControlName="exclude" maxlength="200" placeholder="php, sap, comercial" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'matches.filter_max_days' | translate }}</mat-label>
+          <mat-select formControlName="max_days_old">
+            @for (days of daysOptions; track days) {
+              <mat-option [value]="days">
+                @if (days === null) {
+                  {{ 'matches.filter_any_date' | translate }}
+                } @else {
+                  {{ 'matches.filter_last_days' | translate: { days: days } }}
+                }
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-slide-toggle formControlName="exclude_other_levels">
+        {{ 'matches.filter_exclude_levels' | translate }}
+      </mat-slide-toggle>
+
+      <div class="search-filters__score">
+        <span class="search-filters__score-label">
+          {{ 'matches.filter_min_score' | translate }}: <strong>{{ searchForm.controls.min_score.value }}%</strong>
+        </span>
+        <mat-slider min="0" max="100" step="5" discrete>
+          <input matSliderThumb formControlName="min_score" [attr.aria-label]="'matches.filter_min_score' | translate" />
+        </mat-slider>
+      </div>
+
+      @if (searchState(); as state) {
+        <p class="search-filters__preview">
+          {{ 'matches.filters_preview' | translate }}
+          <code>{{ state.effective_query || '—' }}</code>
+          @if (state.effective_location) {
+            · {{ state.effective_location }}
+          }
+        </p>
+        @if (state.daily_remaining !== null) {
+          <p class="search-filters__quota">
+            {{ 'matches.searches_left_today' | translate: { count: state.daily_remaining } }}
+          </p>
+        }
+      }
+
+      <div class="search-filters__actions">
+        <button mat-button type="button" (click)="resetFilters()" [disabled]="savingFilters()">
+          <svg lucideRotateCcw></svg>
+          {{ 'matches.filters_reset' | translate }}
+        </button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="savingFilters()">
+          @if (savingFilters()) {
+            <mat-spinner diameter="18"></mat-spinner>
+          } @else {
+            {{ 'matches.filters_save' | translate }}
+          }
+        </button>
+      </div>
+    </form>
+  </mat-expansion-panel>
+
   <mat-button-toggle-group class="matches-filters" [value]="filter()" (change)="setFilter($event.value)">
     @for (f of filters; track f) {
       <mat-button-toggle [value]="f">{{ 'matches.filter_' + f | translate }}</mat-button-toggle>
     }
   </mat-button-toggle-group>
 
+  @if (hiddenCount() > 0) {
+    <p class="matches-hidden">{{ 'matches.hidden_by_score' | translate: { count: hiddenCount(), score: minScore() } }}</p>
+  }
+
   @if (loading()) {
     <div class="matches-loading">
       <mat-spinner diameter="32"></mat-spinner>
     </div>
   } @else {
-    @if (matches().length === 0) {
+    @if (visibleMatches().length === 0) {
       <div class="matches-empty">
-        @if (filter() === 'new') {
+        @if (matches().length > 0) {
+          <p>{{ 'matches.all_hidden_by_score' | translate }}</p>
+        } @else if (filter() === 'new') {
           <h2>{{ 'matches.empty_title' | translate }}</h2>
           <p>{{ 'matches.empty_subtitle' | translate }}</p>
         } @else {
@@ -36,7 +145,7 @@
       </div>
     } @else {
       <div class="matches-grid">
-        @for (match of matches(); track match.id) {
+        @for (match of visibleMatches(); track match.id) {
           <article class="match-card">
             <header class="match-card__header">
               <h3 class="match-card__title">{{ match.job_offer.title }}</h3>
