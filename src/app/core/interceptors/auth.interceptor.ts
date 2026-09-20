@@ -19,10 +19,19 @@ function isAuthFreePath(url: string): boolean {
 /** Añade el access token a las peticiones a nuestra API y, si el backend
  * responde 401, intenta renovarlo una vez y repite la petición original. */
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  // Lo que no es de nuestra API (p. ej. los JSON de traducciones en
+  // /assets/i18n) no lleva token ni refresco: se deja pasar sin ni siquiera
+  // resolver AuthService. Es necesario para evitar un ciclo de inyección al
+  // arrancar: AuthService -> LanguageService -> TranslateService -> loader
+  // HTTP -> HttpClient -> este interceptor -> AuthService.
+  if (!isApiRequest(req.url)) {
+    return next(req);
+  }
+
   const auth = inject(AuthService);
   const router = inject(Router);
 
-  const shouldAttachToken = isApiRequest(req.url) && !isAuthFreePath(req.url);
+  const shouldAttachToken = !isAuthFreePath(req.url);
   const accessToken = auth.getAccessToken();
 
   const authorizedReq = shouldAttachToken && accessToken

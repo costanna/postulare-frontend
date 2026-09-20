@@ -17,8 +17,13 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideNativeDateAdapter(),
     provideHttpClient(withInterceptors([authInterceptor])),
-    provideTranslateHttpLoader({ prefix: '/assets/i18n/', suffix: '.json' }),
+    // El loader HTTP tiene que pasarse DENTRO de la config de
+    // provideTranslateService: si va como proveedor suelto, el
+    // TranslateNoOpLoader que registra por defecto lo pisa (gana el
+    // último proveedor del token) y no se llega a pedir ningún JSON -
+    // el pipe `translate` acaba mostrando las claves tal cual.
     provideTranslateService({
+      loader: provideTranslateHttpLoader({ prefix: '/assets/i18n/', suffix: '.json' }),
       lang: resolveInitialLanguage(),
       fallbackLang: FALLBACK_LANGUAGE,
     }),
