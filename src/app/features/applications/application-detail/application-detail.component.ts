@@ -10,8 +10,8 @@ import { LucideArrowLeft, LucideExternalLink, LucidePencil, LucidePlus, LucideTr
 import { Application } from '../../../core/models/application.model';
 import { ApplicationEvent } from '../../../core/models/event.model';
 import { ApplicationsService } from '../../../core/services/applications.service';
+import { ApplyFlowService } from '../../../core/services/apply-flow.service';
 import { EventsService } from '../../../core/services/events.service';
-import { todayIso } from '../../../core/utils/iso-date';
 import { LocalDatePipe } from '../../../shared/pipes/local-date.pipe';
 import { StatusBadgeComponent } from '../../../shared/ui/status-badge/status-badge.component';
 import { ConfirmDialogComponent, ConfirmDialogData } from '../../../shared/ui/confirm-dialog/confirm-dialog.component';
@@ -44,13 +44,13 @@ export class ApplicationDetailComponent implements OnInit {
   private readonly dialog = inject(MatDialog);
   private readonly translate = inject(TranslateService);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly applyFlow = inject(ApplyFlowService);
 
   private readonly applicationId = this.route.snapshot.paramMap.get('id')!;
 
   readonly loading = signal(true);
   readonly notFound = signal(false);
   readonly application = signal<Application | null>(null);
-  readonly markingApplied = signal(false);
   readonly events = signal<ApplicationEvent[]>([]);
   readonly eventsLoading = signal(true);
   readonly eventsError = signal(false);
@@ -97,22 +97,27 @@ export class ApplicationDetailComponent implements OnInit {
     this.router.navigate(['/applications']);
   }
 
-  markApplied(): void {
+  /** Abre la página de la oferta y pregunta si ya se ha aplicado; solo entonces pasa a "aplicada". */
+  apply(): void {
     const application = this.application();
-    if (!application || this.markingApplied()) return;
+    if (!application) return;
 
-    this.markingApplied.set(true);
-    const changes = { status: 'applied' as const, applied_at: application.applied_at ?? todayIso() };
-    this.applicationsService.update(application.id, changes).subscribe({
+    if (!this.applyFlow.openOffer(application.job_url)) {
+      this.snackBar.open(this.translate.instant('matches.popup_blocked'), undefined, { duration: 5000 });
+    }
+    this.applyFlow.confirmApplied(application).subscribe({
       next: (updated) => {
-        this.application.set(updated);
-        this.markingApplied.set(false);
-        this.loadEvents();
+        if (updated) {
+          this.application.set(updated);
+          this.loadEvents();
+        }
+        this.snackBar.open(
+          this.translate.instant(updated ? 'apply_dialog.marked' : 'apply_dialog.kept_saved'),
+          undefined,
+          { duration: 4000 }
+        );
       },
-      error: () => {
-        this.markingApplied.set(false);
-        this.snackBar.open(this.translate.instant('common.error_generic'), undefined, { duration: 4000 });
-      },
+      error: () => this.snackBar.open(this.translate.instant('common.error_generic'), undefined, { duration: 4000 }),
     });
   }
 

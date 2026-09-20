@@ -189,7 +189,7 @@
     "add_event": "Afegeix un esdeveniment",
     "no_events": "Encara no hi ha esdeveniments registrats per a aquesta candidatura",
     "linked_offer": "Veure l'oferta original",
-    "mark_applied": "Marca com a aplicada"
+    "apply": "Aplica"
   },
   "event_form": {
     "title": "Afegeix un esdeveniment",
@@ -252,14 +252,14 @@
     "already_tracked": "Ja tens una candidatura amb aquesta oferta",
     "write_letter": "Carta de presentació",
     "view_letter": "Veure la meva carta",
-    "applied_button": "Marca com a aplicada",
-    "convert_applied_success": "Candidatura creada i marcada com a enviada",
     "filter_disability": "Empreses i discapacitat",
     "disability_any": "Indiferent",
     "disability_require": "Només les que esmenten discapacitat",
     "disability_exclude": "Excloure les que l'esmenten",
     "filter_disability_hint": "Es mira el títol, l'empresa i l'extracte de l'oferta: si només l'esmenta al text complet, pot no sortir.",
-    "applied_hint": "Fes-ho servir quan ja hagis enviat la teva candidatura a la web de l'oferta"
+    "apply_button": "Aplica",
+    "apply_hint": "S'obre la pàgina de l'oferta i queda desada a les teves candidatures",
+    "popup_blocked": "El navegador ha bloquejat la pestanya. Fes servir «Veure l'oferta» per obrir-la."
   },
   "demo": {
     "banner": "Ets en un compte demo amb dades d'exemple. S'esborrarà sol passat un dia.",
@@ -296,5 +296,13 @@
     "group_devops": "Cloud i DevOps",
     "group_mobile": "Mòbil",
     "group_testing": "Testing i QA"
+  },
+  "apply_dialog": {
+    "title": "Ja has aplicat a l'oferta?",
+    "message": "«{{position}}» a {{company}} està desada a les teves candidatures. Quan hagis enviat la teva candidatura a la seva web, confirma-ho i passarà a «Enviada».",
+    "yes": "Sí, ja he aplicat",
+    "no": "Encara no",
+    "marked": "Marcada com a aplicada",
+    "kept_saved": "Queda desada. Pots tornar a aplicar des de la candidatura."
   }
 }

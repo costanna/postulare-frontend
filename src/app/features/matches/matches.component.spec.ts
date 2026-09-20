@@ -3,10 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { Match } from '../../core/models/match.model';
-import { todayIso } from '../../core/utils/iso-date';
+import { ApplyFlowService } from '../../core/services/apply-flow.service';
 import { MatchesComponent } from './matches.component';
 
 const API = environment.apiUrl;
@@ -69,26 +70,79 @@ describe('MatchesComponent convert actions', () => {
     expect(fixture.componentInstance.matches().map((m) => m.id)).toEqual(['m2']);
   });
 
-  it('"I applied" creates the application as sent, with the local date', () => {
-    fixture.componentInstance.convert(fixture.componentInstance.matches()[0], true);
-    const req = httpMock.expectOne(`${API}/matches/m1/convert`);
-    expect(req.request.body).toEqual({ applied: true, applied_at: todayIso() });
-    req.flush({});
-    expect(fixture.componentInstance.matches().map((m) => m.id)).toEqual(['m2']);
-    expect(fixture.componentInstance.convertingIds().size).toBe(0);
-  });
+  describe('apply', () => {
+    let applyFlow: ApplyFlowService;
 
-  it('keeps the card and re-enables the buttons when converting fails', () => {
-    fixture.componentInstance.convert(fixture.componentInstance.matches()[0], true);
-    httpMock.expectOne(`${API}/matches/m1/convert`).flush('x', { status: 409, statusText: 'Conflict' });
-    expect(fixture.componentInstance.matches().length).toBe(2);
-    expect(fixture.componentInstance.convertingIds().size).toBe(0);
-  });
+    beforeEach(() => {
+      applyFlow = TestBed.inject(ApplyFlowService);
+    });
 
-  it('renders both actions on each new card', () => {
-    fixture.detectChanges();
-    const buttons = fixture.nativeElement.querySelectorAll('.match-card:first-child .match-card__buttons button');
-    expect(buttons.length).toBe(3);
+    const offerWithUrl = () => ({
+      ...fixture.componentInstance.matches()[0],
+      job_offer: { ...fixture.componentInstance.matches()[0].job_offer, url: 'https://jobs.example.com/1' },
+    });
+
+    it('opens the offer page, saves it as an application (not as applied) and then asks whether you applied', () => {
+      const open = spyOn(applyFlow, 'openOffer').and.returnValue(true);
+      const confirm = spyOn(applyFlow, 'confirmApplied').and.returnValue(of(null));
+
+      fixture.componentInstance.apply(offerWithUrl());
+
+      expect(open).toHaveBeenCalledWith('https://jobs.example.com/1');
+      const req = httpMock.expectOne(`${API}/matches/m1/convert`);
+      expect(req.request.body).toEqual({});
+      expect(confirm).not.toHaveBeenCalled();
+      req.flush({ id: 'a1', company_name: 'TechCorp', position: 'Angular Dev', status: 'saved' });
+
+      expect(confirm).toHaveBeenCalledTimes(1);
+      expect(confirm.calls.mostRecent().args[0].id).toBe('a1');
+      expect(fixture.componentInstance.matches().map((m) => m.id)).toEqual(['m2']);
+      expect(fixture.componentInstance.convertingIds().size).toBe(0);
+    });
+
+    it('opens the page BEFORE the request finishes, so the browser does not treat it as a popup', () => {
+      const order: string[] = [];
+      spyOn(applyFlow, 'openOffer').and.callFake(() => (order.push('open'), true));
+      spyOn(applyFlow, 'confirmApplied').and.returnValue(of(null));
+
+      fixture.componentInstance.apply(offerWithUrl());
+      order.push('request pending');
+      httpMock.expectOne(`${API}/matches/m1/convert`).flush({ id: 'a1' });
+
+      expect(order).toEqual(['open', 'request pending']);
+    });
+
+    it('still saves the offer when the browser blocks the new tab', () => {
+      spyOn(applyFlow, 'openOffer').and.returnValue(false);
+      spyOn(applyFlow, 'confirmApplied').and.returnValue(of(null));
+
+      fixture.componentInstance.apply(offerWithUrl());
+      httpMock.expectOne(`${API}/matches/m1/convert`).flush({ id: 'a1' });
+
+      expect(fixture.componentInstance.matches().map((m) => m.id)).toEqual(['m2']);
+    });
+
+    it('does not ask anything when saving fails, and keeps the card', () => {
+      spyOn(applyFlow, 'openOffer').and.returnValue(true);
+      const confirm = spyOn(applyFlow, 'confirmApplied');
+
+      fixture.componentInstance.apply(offerWithUrl());
+      httpMock.expectOne(`${API}/matches/m1/convert`).flush('x', { status: 409, statusText: 'Conflict' });
+
+      expect(confirm).not.toHaveBeenCalled();
+      expect(fixture.componentInstance.matches().length).toBe(2);
+      expect(fixture.componentInstance.convertingIds().size).toBe(0);
+    });
+
+    it('shows Apply, Save and Dismiss on each new card and no "mark as applied"', () => {
+      fixture.detectChanges();
+      const labels = Array.from<HTMLButtonElement>(
+        fixture.nativeElement.querySelectorAll('.match-card:first-child .match-card__buttons button')
+      ).map((b) => b.textContent?.trim());
+      expect(labels.length).toBe(3);
+      expect(labels).toContain('matches.apply_button');
+      expect(labels.join(' ')).not.toContain('applied_button');
+    });
   });
 
   describe('keyword suggestions', () => {

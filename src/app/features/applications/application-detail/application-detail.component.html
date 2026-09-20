@@ -24,16 +24,17 @@
         <app-status-badge [status]="application()!.status"></app-status-badge>
       </div>
       <div class="detail-header__actions">
-        @if (application()!.status === 'saved') {
+        @if (application()!.status === 'saved' && application()!.job_url) {
           <button
-            class="detail-header__mark-applied"
-            mat-stroked-button
+            class="detail-header__apply"
+            mat-flat-button
+            color="primary"
             type="button"
-            [attr.title]="'matches.applied_hint' | translate"
-            [disabled]="markingApplied()"
-            (click)="markApplied()"
+            [attr.title]="'matches.apply_hint' | translate"
+            (click)="apply()"
           >
-            {{ 'application_detail.mark_applied' | translate }}
+            <svg lucideExternalLink></svg>
+            {{ 'application_detail.apply' | translate }}
           </button>
         }
         <button mat-stroked-button type="button" (click)="openEditDialog()">

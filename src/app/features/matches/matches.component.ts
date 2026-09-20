@@ -27,10 +27,11 @@ import {
 } from '@lucide/angular';
 import { Observable, of, switchMap, tap } from 'rxjs';
 
+import { Application } from '../../core/models/application.model';
 import { CoverLetter, DisabilityFilter, Match, MatchStatus, SearchFilters, SearchFiltersState } from '../../core/models/match.model';
+import { ApplyFlowService } from '../../core/services/apply-flow.service';
 import { MatchesService } from '../../core/services/matches.service';
 import { keywordTokens, toggleTerm } from '../../core/data/programming-keywords';
-import { todayIso } from '../../core/utils/iso-date';
 import { KeywordSuggestionsComponent } from '../../shared/ui/keyword-suggestions/keyword-suggestions.component';
 import { CoverLetterDialogComponent, CoverLetterDialogData } from './cover-letter-dialog/cover-letter-dialog.component';
 
@@ -73,6 +74,7 @@ export class MatchesComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
   private readonly dialog = inject(MatDialog);
+  private readonly applyFlow = inject(ApplyFlowService);
   private readonly translate = inject(TranslateService);
 
   readonly filters = FILTERS;
@@ -290,25 +292,40 @@ export class MatchesComponent implements OnInit {
     });
   }
 
-  convert(match: Match, applied = false): void {
+  convert(match: Match): void {
+    this.saveAsApplication(match, () => this.notify('matches.convert_success'));
+  }
+
+  /** Abre la página de la oferta, la deja guardada como candidatura y pregunta si ya se ha aplicado. */
+  apply(match: Match): void {
+    if (!this.applyFlow.openOffer(match.job_offer.url)) {
+      this.notify('matches.popup_blocked');
+    }
+    this.saveAsApplication(match, (application) =>
+      this.applyFlow.confirmApplied(application).subscribe({
+        next: (updated) => this.notify(updated ? 'apply_dialog.marked' : 'apply_dialog.kept_saved'),
+        error: () => this.notify('common.error_generic'),
+      })
+    );
+  }
+
+  private saveAsApplication(match: Match, done: (application: Application) => void): void {
     this.convertingIds.update((ids) => new Set(ids).add(match.id));
-    const options = applied ? { applied: true, applied_at: todayIso() } : {};
-    this.matchesService.convert(match.id, options).subscribe({
-      next: () => {
-        this.convertingIds.update((ids) => {
-          const next = new Set(ids);
-          next.delete(match.id);
-          return next;
-        });
+    const finish = () =>
+      this.convertingIds.update((ids) => {
+        const next = new Set(ids);
+        next.delete(match.id);
+        return next;
+      });
+
+    this.matchesService.convert(match.id).subscribe({
+      next: (application) => {
+        finish();
         this.matches.update((current) => current.filter((m) => m.id !== match.id));
-        this.notify(applied ? 'matches.convert_applied_success' : 'matches.convert_success');
+        done(application);
       },
       error: () => {
-        this.convertingIds.update((ids) => {
-          const next = new Set(ids);
-          next.delete(match.id);
-          return next;
-        });
+        finish();
         this.notify('common.error_generic');
       },
     });
@@ -344,7 +361,7 @@ export class MatchesComponent implements OnInit {
         data,
         width: '640px',
         maxWidth: '95vw',
-        autoFocus: false,
+        autoFocus: 'dialog',
       })
       .afterClosed()
       .subscribe((letter) => {

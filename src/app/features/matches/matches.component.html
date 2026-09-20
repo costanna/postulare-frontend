@@ -246,16 +246,18 @@
                     {{ 'matches.convert_button' | translate }}
                   </button>
                   <button
-                    mat-stroked-button
+                    mat-flat-button
+                    color="primary"
                     type="button"
-                    [attr.title]="'matches.applied_hint' | translate"
+                    [attr.title]="'matches.apply_hint' | translate"
                     [disabled]="convertingIds().has(match.id)"
-                    (click)="convert(match, true)"
+                    (click)="apply(match)"
                   >
                     @if (convertingIds().has(match.id)) {
                       <mat-spinner diameter="16"></mat-spinner>
                     } @else {
-                      {{ 'matches.applied_button' | translate }}
+                      <svg lucideExternalLink></svg>
+                      {{ 'matches.apply_button' | translate }}
                     }
                   </button>
                 </div>

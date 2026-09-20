@@ -189,7 +189,7 @@
     "add_event": "Add event",
     "no_events": "No events logged yet for this application",
     "linked_offer": "View original job posting",
-    "mark_applied": "Mark as applied"
+    "apply": "Apply"
   },
   "event_form": {
     "title": "Add event",
@@ -252,14 +252,14 @@
     "already_tracked": "You already have an application for this offer",
     "write_letter": "Cover letter",
     "view_letter": "View my letter",
-    "applied_button": "Mark as applied",
-    "convert_applied_success": "Application created and marked as sent",
     "filter_disability": "Companies and disability",
     "disability_any": "Don't filter",
     "disability_require": "Only those that mention disability",
     "disability_exclude": "Exclude those that mention it",
     "filter_disability_hint": "The title, company and excerpt of the offer are checked: if it only mentions it in the full text, it may not show up.",
-    "applied_hint": "Use it once you have sent your application on the offer's website"
+    "apply_button": "Apply",
+    "apply_hint": "Opens the offer's page and saves it in your applications",
+    "popup_blocked": "The browser blocked the tab. Use \"View the offer\" to open it."
   },
   "demo": {
     "banner": "You are in a demo account with sample data. It deletes itself after a day.",
@@ -296,5 +296,13 @@
     "group_devops": "Cloud and DevOps",
     "group_mobile": "Mobile",
     "group_testing": "Testing and QA"
+  },
+  "apply_dialog": {
+    "title": "Have you already applied?",
+    "message": "\"{{position}}\" at {{company}} is saved in your applications. Once you have sent your application on their website, confirm it and it will change to \"Applied\".",
+    "yes": "Yes, I applied",
+    "no": "Not yet",
+    "marked": "Marked as applied",
+    "kept_saved": "It stays saved. You can apply again from the application."
   }
 }
