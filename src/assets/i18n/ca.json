@@ -85,7 +85,13 @@
       "email_invalid": "Introdueix un email vàlid",
       "password_min_length": "La contrasenya ha de tenir com a mínim 8 caràcters"
     },
-    "error_too_many_requests": "Massa intents des de la teva connexió. Espera uns minuts i torna-ho a provar."
+    "error_too_many_requests": "Massa intents des de la teva connexió. Espera uns minuts i torna-ho a provar.",
+    "demo": {
+      "or": "o",
+      "button": "Prova la demo",
+      "hint": "Compte temporal amb dades d'exemple, sense registre.",
+      "error_unavailable": "Avui s'han creat massa comptes demo. Torna-ho a provar demà o crea un compte."
+    }
   },
   "profile": {
     "subtitle": "Aquesta informació és la base del matching: com més completa estigui, millors seran les ofertes recomanades.",
@@ -103,7 +109,16 @@
     "skills": "Skills",
     "skills_placeholder": "Afegeix una skill i prem Enter",
     "skills_hint": "Prem Enter o coma per afegir cada skill",
-    "save_success": "Perfil actualitzat correctament"
+    "save_success": "Perfil actualitzat correctament",
+    "import_title": "Importa el teu CV",
+    "import_hint": "Puja el teu CV en PDF i omplim el perfil per tu. El PDF es llegeix a l'instant i no es desa; tu revises les dades abans de desar.",
+    "import_button": "Puja el CV (PDF)",
+    "import_done": "Hem omplert el formulari amb les dades del teu CV. Revisa'ls i prem Desa per aplicar-los.",
+    "import_error_not_pdf": "El fitxer ha de ser un PDF.",
+    "import_error_size": "El PDF pesa massa (màxim 2 MB).",
+    "import_error_no_text": "No hem pogut llegir text en aquest PDF (és un escaneig?). Prova amb un PDF exportat des d'un editor de text.",
+    "about": "Resum professional",
+    "about_hint": "Opcional. S'usa per escriure les teves cartes de presentació."
   },
   "status": {
     "saved": "Desada",
@@ -129,7 +144,13 @@
     "no_timeline_data": "Encara no hi ha prou dades",
     "by_source_title": "Candidatures per origen",
     "no_source_data": "Encara no hi ha dades d'origen",
-    "unknown_source": "Sense origen"
+    "unknown_source": "Sense origen",
+    "follow_ups_title": "Toca fer seguiment",
+    "follow_ups_intro": "Aquestes candidatures porten dies sense novetats. Un missatge curt a l'empresa sol ajudar.",
+    "follow_up_days": "Dies sense novetats: {{count}}",
+    "follow_up_button": "Ja he fet seguiment",
+    "follow_up_event": "Seguiment fet",
+    "follow_up_done": "Seguiment anotat"
   },
   "kanban": {
     "title": "Tauler Kanban",
@@ -156,7 +177,8 @@
     "view_detail": "Veure detall",
     "confirm_delete_title": "Elimina la candidatura",
     "confirm_delete_message": "Segur que vols eliminar la candidatura de {{position}} a {{company}}? Aquesta acció no es pot desfer.",
-    "results_count": "{{count}} candidatures"
+    "results_count": "{{count}} candidatures",
+    "export_csv": "Exporta CSV"
   },
   "application_form": {
     "title_create": "Nova candidatura",
@@ -237,6 +259,36 @@
     "filters_save": "Desa els filtres",
     "filters_saved": "Filtres desats",
     "hidden_by_score": "{{count}} ofertes amagades per tenir menys d'un {{score}}% de puntuació",
-    "all_hidden_by_score": "Totes les ofertes noves tenen menys puntuació que el mínim triat. Baixa'l per veure-les."
+    "all_hidden_by_score": "Totes les ofertes noves tenen menys puntuació que el mínim triat. Baixa'l per veure-les.",
+    "search_only_duplicates": "No hi ha ofertes noves: {{skipped}} ja les tenies o estaven repetides",
+    "search_success_with_duplicates": "{{new}} ofertes noves i {{updated}} actualitzades ({{skipped}} repetides descartades)",
+    "error_demo_search": "El compte demo no pot cercar ofertes reals. Crea un compte per fer servir la cerca.",
+    "already_tracked": "Ja tens una candidatura amb aquesta oferta",
+    "write_letter": "Carta de presentació",
+    "view_letter": "Veure la meva carta"
+  },
+  "demo": {
+    "banner": "Ets en un compte demo amb dades d'exemple. S'esborrarà sol passat un dia.",
+    "create_account": "Crea el teu compte"
+  },
+  "cover_letter": {
+    "title": "Carta de presentació",
+    "writing": "Escrivint la teva carta…",
+    "error": "No s'ha pogut generar la carta.",
+    "retry": "Torna-ho a provar",
+    "source_ai": "Escrita amb IA",
+    "source_template": "Plantilla",
+    "language": "Idioma",
+    "reason_no_key": "És una plantilla amb les dades del teu perfil i de l'oferta. La redacció amb IA no està activada en aquest servidor.",
+    "reason_demo": "El compte demo fa servir sempre la plantilla. Crea un compte per provar la redacció amb IA.",
+    "reason_user_limit": "Has arribat al límit diari de cartes amb IA, així que et deixem una plantilla. Demà en podràs generar més.",
+    "reason_global_limit": "Avui s'ha esgotat el límit de cartes amb IA d'aquesta aplicació, així que et deixem una plantilla.",
+    "reason_ai_error": "La IA no ha respost, així que et deixem una plantilla. Ho pots tornar a provar amb «Regenera».",
+    "edit_hint": "La pots editar abans de copiar-la. Revisa sempre que tot sigui correcte abans d'enviar-la.",
+    "ai_left_today": "Cartes amb IA que queden avui: {{count}}",
+    "regenerate": "Regenera",
+    "copy": "Copia",
+    "copied": "Copiada",
+    "copy_failed": "No s'ha pogut copiar. Selecciona el text i copia'l a mà."
   }
 }

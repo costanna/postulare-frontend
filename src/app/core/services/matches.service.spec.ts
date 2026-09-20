@@ -82,4 +82,19 @@ describe('MatchesService', () => {
     expect(req.request.method).toBe('POST');
     req.flush({});
   });
+
+  it('coverLetter() POSTs the language and regenerate flag to /matches/{id}/cover-letter', () => {
+    service.coverLetter('match-1', { language: 'ca', regenerate: true }).subscribe();
+    const req = httpMock.expectOne(`${baseUrl}/match-1/cover-letter`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({ language: 'ca', regenerate: true });
+    req.flush({});
+  });
+
+  it('coverLetter() sends an empty body when no options are given', () => {
+    service.coverLetter('match-1').subscribe();
+    const req = httpMock.expectOne(`${baseUrl}/match-1/cover-letter`);
+    expect(req.request.body).toEqual({});
+    req.flush({});
+  });
 });

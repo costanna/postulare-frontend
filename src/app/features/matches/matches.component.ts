@@ -3,6 +3,7 @@ import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDialog } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -17,16 +18,19 @@ import {
   LucideBuilding2,
   LucideCheck,
   LucideExternalLink,
+  LucideFileText,
   LucideMapPin,
   LucideRotateCcw,
   LucideSearch,
   LucideSlidersHorizontal,
+  LucideTriangleAlert,
   LucideX,
 } from '@lucide/angular';
 import { Observable, of, switchMap, tap } from 'rxjs';
 
-import { Match, MatchStatus, SearchFilters, SearchFiltersState } from '../../core/models/match.model';
+import { CoverLetter, Match, MatchStatus, SearchFilters, SearchFiltersState } from '../../core/models/match.model';
 import { MatchesService } from '../../core/services/matches.service';
+import { CoverLetterDialogComponent, CoverLetterDialogData } from './cover-letter-dialog/cover-letter-dialog.component';
 
 const FILTERS: MatchStatus[] = ['new', 'converted', 'dismissed'];
 
@@ -53,6 +57,8 @@ const FILTERS: MatchStatus[] = ['new', 'converted', 'dismissed'];
     LucideX,
     LucideMapPin,
     LucideBuilding2,
+    LucideFileText,
+    LucideTriangleAlert,
   ],
   templateUrl: './matches.component.html',
   styleUrl: './matches.component.scss',
@@ -62,6 +68,7 @@ export class MatchesComponent implements OnInit {
   private readonly matchesService = inject(MatchesService);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly dialog = inject(MatDialog);
   private readonly translate = inject(TranslateService);
 
   readonly filters = FILTERS;
@@ -203,7 +210,15 @@ export class MatchesComponent implements OnInit {
       next: (result) => {
         this.searching.set(false);
         if (result.new_matches === 0 && result.updated_matches === 0) {
-          this.notify('matches.search_no_new');
+          this.notify(result.skipped_duplicates > 0 ? 'matches.search_only_duplicates' : 'matches.search_no_new', {
+            skipped: result.skipped_duplicates,
+          });
+        } else if (result.skipped_duplicates > 0) {
+          this.notify('matches.search_success_with_duplicates', {
+            new: result.new_matches,
+            updated: result.updated_matches,
+            skipped: result.skipped_duplicates,
+          });
         } else {
           this.notify('matches.search_success', { new: result.new_matches, updated: result.updated_matches });
         }
@@ -227,6 +242,11 @@ export class MatchesComponent implements OnInit {
         })
         .onAction()
         .subscribe(() => this.router.navigate(['/profile']));
+      return;
+    }
+    if (err.status === 403) {
+      // Cuenta demo: no puede gastar la cuota real de Adzuna.
+      this.notify('matches.error_demo_search');
       return;
     }
     if (err.status === 429) {
@@ -296,6 +316,34 @@ export class MatchesComponent implements OnInit {
         this.notify('common.error_generic');
       },
     });
+  }
+
+  openCoverLetter(match: Match): void {
+    const data: CoverLetterDialogData = { match };
+    this.dialog
+      .open<CoverLetterDialogComponent, CoverLetterDialogData, CoverLetter | undefined>(CoverLetterDialogComponent, {
+        data,
+        width: '640px',
+        maxWidth: '95vw',
+        autoFocus: false,
+      })
+      .afterClosed()
+      .subscribe((letter) => {
+        if (!letter) return;
+        // La carta queda guardada en el servidor: se refleja aquí para que la tarjeta lo indique.
+        this.matches.update((current) =>
+          current.map((m) =>
+            m.id === match.id
+              ? {
+                  ...m,
+                  cover_letter: letter.cover_letter,
+                  cover_letter_source: letter.source,
+                  cover_letter_at: letter.generated_at,
+                }
+              : m
+          )
+        );
+      });
   }
 
   private notify(key: string, params?: Record<string, unknown>): void {

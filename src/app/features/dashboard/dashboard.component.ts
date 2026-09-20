@@ -1,9 +1,12 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { TranslatePipe } from '@ngx-translate/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouterLink } from '@angular/router';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {
   LucideAward,
+  LucideBellRing,
   LucideClipboardList,
   LucideMessageSquare,
   LucideSend,
@@ -12,7 +15,10 @@ import {
 } from '@lucide/angular';
 import { forkJoin } from 'rxjs';
 
+import { FollowUp } from '../../core/models/application.model';
 import { SourceCount, StatsSummary, StatusCount, TimelinePoint } from '../../core/models/stats.model';
+import { ApplicationsService } from '../../core/services/applications.service';
+import { EventsService } from '../../core/services/events.service';
 import { LanguageService } from '../../core/services/language.service';
 import { StatsService } from '../../core/services/stats.service';
 
@@ -20,6 +26,7 @@ import { StatsService } from '../../core/services/stats.service';
   selector: 'app-dashboard',
   standalone: true,
   imports: [
+    RouterLink,
     TranslatePipe,
     MatButtonModule,
     MatProgressSpinnerModule,
@@ -29,6 +36,7 @@ import { StatsService } from '../../core/services/stats.service';
     LucideAward,
     LucideXCircle,
     LucideTrendingUp,
+    LucideBellRing,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
@@ -36,6 +44,10 @@ import { StatsService } from '../../core/services/stats.service';
 export class DashboardComponent implements OnInit {
   private readonly statsService = inject(StatsService);
   private readonly language = inject(LanguageService);
+  private readonly applicationsService = inject(ApplicationsService);
+  private readonly eventsService = inject(EventsService);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly translate = inject(TranslateService);
 
   readonly loading = signal(true);
   readonly loadError = signal(false);
@@ -44,6 +56,9 @@ export class DashboardComponent implements OnInit {
   readonly byStatus = signal<StatusCount[]>([]);
   readonly timeline = signal<TimelinePoint[]>([]);
   readonly bySource = signal<SourceCount[]>([]);
+  /** Candidaturas abiertas que llevan días sin novedades (recordatorios de seguimiento). */
+  readonly followUps = signal<FollowUp[]>([]);
+  readonly followingUpIds = signal<Set<string>>(new Set());
 
   readonly maxStatusCount = computed(() => Math.max(1, ...this.byStatus().map((s) => s.count)));
   readonly maxTimelineCount = computed(() => Math.max(1, ...this.timeline().map((t) => t.count)));
@@ -57,9 +72,47 @@ export class DashboardComponent implements OnInit {
     this.load();
   }
 
+  private loadFollowUps(): void {
+    // Secundario: si falla, el dashboard se ve igual, solo sin la tarjeta de recordatorios.
+    this.applicationsService.followUps().subscribe({
+      next: (items) => this.followUps.set(items),
+      error: () => this.followUps.set([]),
+    });
+  }
+
+  /** Registra un evento "seguimiento": reinicia la cuenta y la candidatura sale de la lista. */
+  markFollowedUp(item: FollowUp): void {
+    const id = item.application.id;
+    if (this.followingUpIds().has(id)) return;
+    this.followingUpIds.update((ids) => new Set(ids).add(id));
+
+    this.eventsService
+      .create(id, { type: 'follow_up', description: this.translate.instant('dashboard.follow_up_event') })
+      .subscribe({
+        next: () => {
+          this.followUps.update((items) => items.filter((f) => f.application.id !== id));
+          this.followingUpIds.update((ids) => {
+            const next = new Set(ids);
+            next.delete(id);
+            return next;
+          });
+          this.snackBar.open(this.translate.instant('dashboard.follow_up_done'), undefined, { duration: 3000 });
+        },
+        error: () => {
+          this.followingUpIds.update((ids) => {
+            const next = new Set(ids);
+            next.delete(id);
+            return next;
+          });
+          this.snackBar.open(this.translate.instant('common.error_generic'), undefined, { duration: 4000 });
+        },
+      });
+  }
+
   private load(): void {
     this.loading.set(true);
     this.loadError.set(false);
+    this.loadFollowUps();
     forkJoin({
       summary: this.statsService.getSummary(),
       byStatus: this.statsService.getByStatus(),

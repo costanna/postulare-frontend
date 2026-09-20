@@ -21,6 +21,32 @@
       </div>
     }
 
+    <section class="cv-import">
+      <div class="cv-import__text">
+        <h2>{{ 'profile.import_title' | translate }}</h2>
+        <p>{{ 'profile.import_hint' | translate }}</p>
+      </div>
+      <input #cvInput type="file" accept="application/pdf,.pdf" hidden (change)="onCvSelected($event)" />
+      <button mat-stroked-button type="button" [disabled]="importing()" (click)="cvInput.click()">
+        @if (importing()) {
+          <mat-spinner diameter="18"></mat-spinner>
+        } @else {
+          <svg lucideFileText></svg>
+          {{ 'profile.import_button' | translate }}
+        }
+      </button>
+    </section>
+
+    @if (importError()) {
+      <p class="cv-import__error" role="alert">{{ importError() | translate }}</p>
+    }
+    @if (cvApplied()) {
+      <div class="profile-welcome" role="status">
+        <svg lucideCircleCheck></svg>
+        <span>{{ 'profile.import_done' | translate }}</span>
+      </div>
+    }
+
     <form class="profile-form" [formGroup]="form" (ngSubmit)="submit()">
       <div class="profile-form__grid">
         <mat-form-field appearance="outline">
@@ -65,6 +91,12 @@
           </mat-select>
         </mat-form-field>
       </div>
+
+      <mat-form-field appearance="outline" class="profile-form__about">
+        <mat-label>{{ 'profile.about' | translate }}</mat-label>
+        <textarea matInput rows="4" maxlength="2000" formControlName="about"></textarea>
+        <mat-hint>{{ 'profile.about_hint' | translate }}</mat-hint>
+      </mat-form-field>
 
       <div class="profile-form__skills">
         <label class="profile-form__skills-label">{{ 'profile.skills' | translate }}</label>

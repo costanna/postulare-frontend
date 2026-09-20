@@ -81,4 +81,21 @@ describe('ApplicationsService', () => {
     expect(req.request.method).toBe('DELETE');
     req.flush(null);
   });
+
+  it('followUps() GETs /applications/follow-ups', () => {
+    service.followUps().subscribe();
+    const req = httpMock.expectOne(`${baseUrl}/follow-ups`);
+    expect(req.request.method).toBe('GET');
+    req.flush([]);
+  });
+
+  it('exportCsv() GETs /applications/export as a blob', () => {
+    let received: Blob | undefined;
+    service.exportCsv().subscribe((blob) => (received = blob));
+    const req = httpMock.expectOne(`${baseUrl}/export`);
+    expect(req.request.method).toBe('GET');
+    expect(req.request.responseType).toBe('blob');
+    req.flush(new Blob(['company,position\n'], { type: 'text/csv' }));
+    expect(received?.type).toBe('text/csv');
+  });
 });

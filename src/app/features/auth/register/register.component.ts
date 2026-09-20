@@ -10,6 +10,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { LucideCircleAlert, LucideEye, LucideEyeOff, LucideLock, LucideMail, LucideUser } from '@lucide/angular';
 
 import { AuthService } from '../../../core/services/auth.service';
+import { DemoButtonComponent } from '../demo-button/demo-button.component';
 
 @Component({
   selector: 'app-register',
@@ -18,6 +19,7 @@ import { AuthService } from '../../../core/services/auth.service';
     ReactiveFormsModule,
     RouterLink,
     TranslatePipe,
+    DemoButtonComponent,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,

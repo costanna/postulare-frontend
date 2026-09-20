@@ -78,4 +78,22 @@ describe('AuthService', () => {
       done();
     });
   });
+
+  it('startDemo() creates the temporary account in the given language, stores tokens and loads the user', () => {
+    let demoUser: { is_demo: boolean } | undefined;
+    service.startDemo('ca').subscribe((user) => (demoUser = user));
+
+    const demoReq = httpMock.expectOne(`${environment.apiUrl}/auth/demo`);
+    expect(demoReq.request.method).toBe('POST');
+    expect(demoReq.request.body).toEqual({ language: 'ca' });
+    demoReq.flush({ access_token: 'demo-access', refresh_token: 'demo-refresh', token_type: 'bearer' });
+
+    httpMock
+      .expectOne(`${environment.apiUrl}/auth/me`)
+      .flush({ id: '1', email: 'demo-1@example.com', preferred_language: 'ca', skills: [], is_demo: true });
+
+    expect(service.getAccessToken()).toBe('demo-access');
+    expect(service.currentUser()?.is_demo).toBeTrue();
+    expect(demoUser?.is_demo).toBeTrue();
+  });
 });

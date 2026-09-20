@@ -19,6 +19,38 @@
       <p>{{ 'dashboard.empty_subtitle' | translate }}</p>
     </div>
   } @else {
+    @if (followUps().length > 0) {
+      <section class="follow-ups" aria-labelledby="follow-ups-title">
+        <h2 id="follow-ups-title">
+          <svg lucideBellRing></svg>
+          {{ 'dashboard.follow_ups_title' | translate }}
+        </h2>
+        <p class="follow-ups__intro">{{ 'dashboard.follow_ups_intro' | translate }}</p>
+        <ul class="follow-ups__list">
+          @for (item of followUps(); track item.application.id) {
+            <li class="follow-ups__item">
+              <div class="follow-ups__info">
+                <a class="follow-ups__link" [routerLink]="['/applications', item.application.id]">
+                  {{ item.application.company_name }} — {{ item.application.position }}
+                </a>
+                <span class="follow-ups__days">
+                  {{ 'dashboard.follow_up_days' | translate: { count: item.days_waiting } }}
+                </span>
+              </div>
+              <button
+                mat-stroked-button
+                type="button"
+                [disabled]="followingUpIds().has(item.application.id)"
+                (click)="markFollowedUp(item)"
+              >
+                {{ 'dashboard.follow_up_button' | translate }}
+              </button>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+
     <div class="stat-tiles">
       <div class="stat-tile">
         <svg class="stat-tile__icon" lucideClipboardList></svg>

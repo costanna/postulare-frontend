@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
@@ -15,6 +15,7 @@ import {
   LucideLogOut,
   LucideMenu,
   LucideMoon,
+  LucideFlaskConical,
   LucideSparkles,
   LucideSun,
   LucideUser,
@@ -46,6 +47,7 @@ import { AppFooterComponent } from '../../shared/ui/app-footer/app-footer.compon
     LucideKanban,
     LucideBriefcase,
     LucideSparkles,
+    LucideFlaskConical,
     LucideGlobe,
     LucideSun,
     LucideMoon,
@@ -62,11 +64,20 @@ export class ShellComponent {
   readonly theme = inject(ThemeService);
   readonly language = inject(LanguageService);
 
+  /** Cuenta temporal de "Prueba la demo": se muestra un aviso y una salida hacia el registro. */
+  readonly isDemo = computed(() => this.auth.currentUser()?.is_demo ?? false);
+
   readonly languages = SUPPORTED_LANGUAGES;
   readonly languageLabels = LANGUAGE_LABELS;
 
   setLanguage(lang: AppLanguage): void {
     this.language.use(lang);
+  }
+
+  /** Sale de la demo (sus datos se descartan) y lleva a crear una cuenta real. */
+  createRealAccount(): void {
+    this.auth.logout();
+    this.router.navigate(['/auth/register']);
   }
 
   logout(): void {

@@ -4,7 +4,15 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { Application } from '../models/application.model';
-import { Match, MatchSearchResult, MatchStatus, SearchFilters, SearchFiltersState } from '../models/match.model';
+import {
+  CoverLetter,
+  CoverLetterRequest,
+  Match,
+  MatchSearchResult,
+  MatchStatus,
+  SearchFilters,
+  SearchFiltersState,
+} from '../models/match.model';
 
 @Injectable({ providedIn: 'root' })
 export class MatchesService {
@@ -35,5 +43,10 @@ export class MatchesService {
 
   dismiss(matchId: string): Observable<Match> {
     return this.http.post<Match>(`${this.baseUrl}/${matchId}/dismiss`, {});
+  }
+
+  /** Carta de presentación para la oferta (IA si hay cuota; si no, plantilla). */
+  coverLetter(matchId: string, request: CoverLetterRequest = {}): Observable<CoverLetter> {
+    return this.http.post<CoverLetter>(`${this.baseUrl}/${matchId}/cover-letter`, request);
   }
 }

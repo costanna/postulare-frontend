@@ -175,6 +175,13 @@
               }
             </div>
 
+            @if (match.already_tracked && match.status === 'new') {
+              <p class="match-card__tracked">
+                <svg lucideTriangleAlert></svg>
+                {{ 'matches.already_tracked' | translate }}
+              </p>
+            }
+
             @if (match.reasoning) {
               <p class="match-card__reasoning">
                 <strong>{{ 'matches.reasoning_title' | translate }}:</strong> {{ match.reasoning }}
@@ -196,6 +203,13 @@
                   <svg lucideExternalLink></svg>
                   {{ 'matches.view_offer' | translate }}
                 </a>
+              }
+
+              @if (filter() !== 'dismissed') {
+                <button class="match-card__letter" mat-stroked-button type="button" (click)="openCoverLetter(match)">
+                  <svg lucideFileText></svg>
+                  {{ (match.cover_letter ? 'matches.view_letter' : 'matches.write_letter') | translate }}
+                </button>
               }
 
               @if (filter() === 'new') {
