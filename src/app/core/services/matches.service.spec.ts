@@ -35,6 +35,7 @@ describe('MatchesService', () => {
       exclude: 'php',
       exclude_other_levels: true,
       disability: 'any' as const,
+      work_mode: 'any' as const,
       max_days_old: 14,
       min_score: 30,
     };

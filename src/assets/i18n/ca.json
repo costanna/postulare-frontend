@@ -259,7 +259,13 @@
     "filter_disability_hint": "Es mira el títol, l'empresa i l'extracte de l'oferta: si només l'esmenta al text complet, pot no sortir.",
     "apply_button": "Aplica",
     "apply_hint": "S'obre la pàgina de l'oferta i queda desada a les teves candidatures",
-    "popup_blocked": "El navegador ha bloquejat la pestanya. Fes servir «Veure l'oferta» per obrir-la."
+    "popup_blocked": "El navegador ha bloquejat la pestanya. Fes servir «Veure l'oferta» per obrir-la.",
+    "filter_work_mode": "Modalitat",
+    "work_mode_any": "Qualsevol",
+    "work_mode_remote": "Remot",
+    "work_mode_hybrid": "Híbrid",
+    "work_mode_onsite": "Presencial",
+    "filter_work_mode_hint": "«Remot» i «Híbrid» només mostren ofertes que ho indiquen; «Presencial» inclou les que no ho diuen."
   },
   "demo": {
     "banner": "Ets en un compte demo amb dades d'exemple. S'esborrarà sol passat un dia.",

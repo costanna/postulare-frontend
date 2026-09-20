@@ -28,7 +28,7 @@ import {
 import { Observable, of, switchMap, tap } from 'rxjs';
 
 import { Application } from '../../core/models/application.model';
-import { CoverLetter, DisabilityFilter, Match, MatchStatus, SearchFilters, SearchFiltersState } from '../../core/models/match.model';
+import { CoverLetter, DisabilityFilter, WorkModeFilter, Match, MatchStatus, SearchFilters, SearchFiltersState } from '../../core/models/match.model';
 import { ApplyFlowService } from '../../core/services/apply-flow.service';
 import { MatchesService } from '../../core/services/matches.service';
 import { keywordTokens, toggleTerm } from '../../core/data/programming-keywords';
@@ -88,6 +88,7 @@ export class MatchesComponent implements OnInit {
   readonly radiusOptions = [10, 30, 50, 100];
   readonly daysOptions: (number | null)[] = [null, 7, 14, 30, 60];
   readonly disabilityOptions: DisabilityFilter[] = ['any', 'require', 'exclude'];
+  readonly workModeOptions: WorkModeFilter[] = ['any', 'remote', 'hybrid', 'onsite'];
 
   readonly searchForm = this.fb.group({
     keywords: [''],
@@ -96,6 +97,7 @@ export class MatchesComponent implements OnInit {
     exclude: [''],
     exclude_other_levels: [true],
     disability: ['any' as DisabilityFilter],
+    work_mode: ['any' as WorkModeFilter],
     max_days_old: [null as number | null],
     min_score: [0],
   });
@@ -135,6 +137,7 @@ export class MatchesComponent implements OnInit {
         exclude: f.exclude ?? '',
         exclude_other_levels: f.exclude_other_levels,
         disability: f.disability ?? 'any',
+        work_mode: f.work_mode ?? 'any',
         max_days_old: f.max_days_old,
         min_score: f.min_score,
       });
@@ -152,6 +155,7 @@ export class MatchesComponent implements OnInit {
       exclude: v.exclude?.trim() || null,
       exclude_other_levels: v.exclude_other_levels ?? true,
       disability: v.disability ?? 'any',
+      work_mode: v.work_mode ?? 'any',
       max_days_old: v.max_days_old,
       min_score: v.min_score ?? 0,
     };
@@ -191,6 +195,7 @@ export class MatchesComponent implements OnInit {
       exclude: '',
       exclude_other_levels: true,
       disability: 'any',
+      work_mode: 'any',
       max_days_old: null,
       min_score: 0,
     });
