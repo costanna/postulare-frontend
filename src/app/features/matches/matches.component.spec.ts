@@ -29,6 +29,7 @@ function match(id: string): Match {
       salary_range: null,
       url: null,
       fetched_at: '2026-01-01T00:00:00Z',
+      work_mode: null,
     },
     cover_letter: null,
     cover_letter_source: null,
@@ -53,7 +54,7 @@ describe('MatchesComponent convert actions', () => {
     fixture.detectChanges();
     httpMock.expectOne((r) => r.url === `${API}/matches` && r.params.get('status') === 'new').flush([match('m1'), match('m2')]);
     httpMock.expectOne(`${API}/matches/filters`).flush({
-      filters: { keywords: null, location: null, radius_km: 30, exclude: null, exclude_other_levels: true, disability: 'any', max_days_old: null, min_score: 0 },
+      filters: { keywords: null, location: null, radius_km: 30, exclude: null, exclude_other_levels: true, disability: 'any', work_mode: 'any', max_days_old: null, min_score: 0 },
       effective_query: 'angular',
       effective_location: null,
       daily_remaining: null,
@@ -205,6 +206,45 @@ describe('MatchesComponent convert actions', () => {
 
     it('offers the three choices in the filters panel', () => {
       expect(fixture.componentInstance.disabilityOptions).toEqual(['any', 'require', 'exclude']);
+    });
+  });
+
+  describe('work mode filter', () => {
+    it('is off by default and offers remote, hybrid and on-site', () => {
+      expect(fixture.componentInstance.searchForm.controls.work_mode.value).toBe('any');
+      expect(fixture.componentInstance.workModeOptions).toEqual(['any', 'remote', 'hybrid', 'onsite']);
+    });
+
+    it('is saved with the rest of the filters', () => {
+      fixture.componentInstance.searchForm.controls.work_mode.setValue('hybrid');
+      fixture.componentInstance.saveFilters();
+      const req = httpMock.expectOne(`${API}/matches/filters`);
+      expect(req.request.body.work_mode).toBe('hybrid');
+      req.flush({ filters: { ...req.request.body }, effective_query: 'angular', effective_location: null, daily_remaining: null });
+      expect(fixture.componentInstance.searchForm.controls.work_mode.value).toBe('hybrid');
+    });
+
+    it('older saved filters without the field load as "any", and "Reset" clears it', () => {
+      fixture.componentInstance.searchForm.controls.work_mode.setValue('remote');
+      fixture.componentInstance.resetFilters();
+      const req = httpMock.expectOne(`${API}/matches/filters`);
+      expect(req.request.body.work_mode).toBe('any');
+      const { work_mode: _omitted, ...withoutField } = req.request.body;
+      req.flush({ filters: withoutField, effective_query: '', effective_location: null, daily_remaining: null });
+      expect(fixture.componentInstance.searchForm.controls.work_mode.value).toBe('any');
+    });
+
+    it('shows a badge only on offers that say how you would work', () => {
+      const [first, second] = fixture.componentInstance.matches();
+      fixture.componentInstance.matches.set([
+        { ...first, job_offer: { ...first.job_offer, work_mode: 'remote' } },
+        { ...second, job_offer: { ...second.job_offer, work_mode: null } },
+      ]);
+      fixture.detectChanges();
+
+      const badges = fixture.nativeElement.querySelectorAll('.match-card__mode');
+      expect(badges.length).toBe(1);
+      expect(badges[0].textContent.trim()).toBe('matches.work_mode_remote');
     });
   });
 });

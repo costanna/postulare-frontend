@@ -259,7 +259,13 @@
     "filter_disability_hint": "The title, company and excerpt of the offer are checked: if it only mentions it in the full text, it may not show up.",
     "apply_button": "Apply",
     "apply_hint": "Opens the offer's page and saves it in your applications",
-    "popup_blocked": "The browser blocked the tab. Use \"View the offer\" to open it."
+    "popup_blocked": "The browser blocked the tab. Use \"View the offer\" to open it.",
+    "filter_work_mode": "Work mode",
+    "work_mode_any": "Any",
+    "work_mode_remote": "Remote",
+    "work_mode_hybrid": "Hybrid",
+    "work_mode_onsite": "On-site",
+    "filter_work_mode_hint": "\"Remote\" and \"Hybrid\" only show offers that say so; \"On-site\" also includes those that say nothing."
   },
   "demo": {
     "banner": "You are in a demo account with sample data. It deletes itself after a day.",

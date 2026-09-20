@@ -10,6 +10,8 @@ export interface JobOffer {
   salary_range: string | null;
   url: string | null;
   fetched_at: string;
+  /** Modalidad que dice la oferta; null si no lo dice. */
+  work_mode: DetectedWorkMode | null;
 }
 
 export type CoverLetterSource = 'ai' | 'template';
@@ -65,6 +67,10 @@ export interface CoverLetterRequest {
 
 export type DisabilityFilter = 'any' | 'require' | 'exclude';
 
+export type DetectedWorkMode = 'remote' | 'hybrid' | 'onsite';
+
+export type WorkModeFilter = 'any' | DetectedWorkMode;
+
 export interface SearchFilters {
   keywords: string | null;
   location: string | null;
@@ -73,6 +79,8 @@ export interface SearchFilters {
   exclude_other_levels: boolean;
   /** Ofertas que mencionan la discapacidad: any = no filtrar, require = solo esas, exclude = descartarlas. */
   disability: DisabilityFilter;
+  /** remote / hybrid piden que la oferta lo diga; onsite incluye las que no dicen nada. */
+  work_mode: WorkModeFilter;
   max_days_old: number | null;
   min_score: number;
 }

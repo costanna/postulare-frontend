@@ -81,6 +81,16 @@
           </mat-select>
           <mat-hint>{{ 'matches.filter_disability_hint' | translate }}</mat-hint>
         </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'matches.filter_work_mode' | translate }}</mat-label>
+          <mat-select formControlName="work_mode">
+            @for (option of workModeOptions; track option) {
+              <mat-option [value]="option">{{ 'matches.work_mode_' + option | translate }}</mat-option>
+            }
+          </mat-select>
+          <mat-hint>{{ 'matches.filter_work_mode_hint' | translate }}</mat-hint>
+        </mat-form-field>
       </div>
 
       <app-keyword-suggestions [selected]="keywordSelection()" (picked)="toggleKeyword($event)"></app-keyword-suggestions>
@@ -184,6 +194,9 @@
               }
               @if (match.job_offer.salary_range) {
                 <span class="match-card__meta-item">{{ match.job_offer.salary_range }}</span>
+              }
+              @if (match.job_offer.work_mode; as mode) {
+                <span class="match-card__mode">{{ 'matches.work_mode_' + mode | translate }}</span>
               }
               <span class="match-card__source">{{ sourceLabel(match.job_offer.source) }}</span>
             </div>
