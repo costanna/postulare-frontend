@@ -20,6 +20,30 @@ describe('MatchesService', () => {
 
   afterEach(() => httpMock.verify());
 
+  it('getFilters() GETs /matches/filters', () => {
+    service.getFilters().subscribe();
+    const req = httpMock.expectOne(`${baseUrl}/filters`);
+    expect(req.request.method).toBe('GET');
+    req.flush({});
+  });
+
+  it('saveFilters() PUTs the filters to /matches/filters', () => {
+    const filters = {
+      keywords: 'angular react',
+      location: null,
+      radius_km: 50,
+      exclude: 'php',
+      exclude_other_levels: true,
+      max_days_old: 14,
+      min_score: 30,
+    };
+    service.saveFilters(filters).subscribe();
+    const req = httpMock.expectOne(`${baseUrl}/filters`);
+    expect(req.request.method).toBe('PUT');
+    expect(req.request.body).toEqual(filters);
+    req.flush({});
+  });
+
   it('search() POSTs to /matches/search with an empty body', () => {
     service.search().subscribe();
     const req = httpMock.expectOne(`${baseUrl}/search`);

@@ -61,7 +61,11 @@ export class LoginComponent {
       error: (err: HttpErrorResponse) => {
         this.loading.set(false);
         this.errorMessage.set(
-          err.status === 401 ? 'auth.login.error_invalid_credentials' : 'common.error_generic'
+          err.status === 401
+            ? 'auth.login.error_invalid_credentials'
+            : err.status === 429
+              ? 'auth.error_too_many_requests'
+              : 'common.error_generic'
         );
       },
     });

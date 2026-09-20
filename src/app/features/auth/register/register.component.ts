@@ -67,7 +67,11 @@ export class RegisterComponent {
       },
       error: (err: HttpErrorResponse) => {
         this.loading.set(false);
-        this.errorMessage.set(err.status === 409 ? 'auth.register.error_email_taken' : 'common.error_generic');
+        this.errorMessage.set(err.status === 409
+            ? 'auth.register.error_email_taken'
+            : err.status === 429
+              ? 'auth.error_too_many_requests'
+              : 'common.error_generic');
       },
     });
   }

@@ -84,7 +84,8 @@
     "validation": {
       "email_invalid": "Introduce un email válido",
       "password_min_length": "La contraseña debe tener al menos 8 caracteres"
-    }
+    },
+    "error_too_many_requests": "Demasiados intentos desde tu conexión. Espera unos minutos e inténtalo de nuevo."
   },
   "profile": {
     "subtitle": "Esta información es la base del matching: cuanto más completa esté, mejores serán las ofertas recomendadas.",
@@ -216,6 +217,26 @@
     "convert_button": "Convertir en candidatura",
     "dismiss_button": "Descartar",
     "convert_success": "Candidatura creada a partir de la oferta",
-    "dismiss_success": "Oferta descartada"
+    "dismiss_success": "Oferta descartada",
+    "error_daily_limit": "Se ha alcanzado el límite diario de búsquedas de esta demo. Vuelve mañana.",
+    "filters_title": "Filtros de búsqueda",
+    "filters_intro": "Sin tocar nada, la búsqueda se construye sola con tu perfil (puesto deseado y skills). Aquí puedes cambiarla a tu gusto; \"Buscar ofertas\" usa lo que ves en pantalla.",
+    "filter_keywords": "Palabras clave",
+    "filter_keywords_hint": "Basta con que aparezca alguna. Vacío = las de tu perfil.",
+    "filter_location": "Ubicación",
+    "filter_radius": "Radio",
+    "filter_exclude": "Excluir palabras",
+    "filter_max_days": "Publicadas",
+    "filter_any_date": "Cualquier fecha",
+    "filter_last_days": "Últimos {{days}} días",
+    "filter_exclude_levels": "Descartar ofertas de otro nivel (según tu seniority)",
+    "filter_min_score": "Puntuación mínima",
+    "filters_preview": "Se buscará:",
+    "searches_left_today": "Búsquedas reales que quedan hoy en esta demo: {{count}}",
+    "filters_reset": "Restablecer",
+    "filters_save": "Guardar filtros",
+    "filters_saved": "Filtros guardados",
+    "hidden_by_score": "{{count}} ofertas ocultas por tener menos de {{score}}% de puntuación",
+    "all_hidden_by_score": "Todas las ofertas nuevas tienen menos puntuación que el mínimo elegido. Bájalo para verlas."
   }
 }

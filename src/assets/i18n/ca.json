@@ -84,7 +84,8 @@
     "validation": {
       "email_invalid": "Introdueix un email vàlid",
       "password_min_length": "La contrasenya ha de tenir com a mínim 8 caràcters"
-    }
+    },
+    "error_too_many_requests": "Massa intents des de la teva connexió. Espera uns minuts i torna-ho a provar."
   },
   "profile": {
     "subtitle": "Aquesta informació és la base del matching: com més completa estigui, millors seran les ofertes recomanades.",
@@ -216,6 +217,26 @@
     "convert_button": "Converteix en candidatura",
     "dismiss_button": "Descarta",
     "convert_success": "Candidatura creada a partir de l'oferta",
-    "dismiss_success": "Oferta descartada"
+    "dismiss_success": "Oferta descartada",
+    "error_daily_limit": "S'ha assolit el límit diari de cerques d'aquesta demo. Torna demà.",
+    "filters_title": "Filtres de cerca",
+    "filters_intro": "Sense tocar res, la cerca es construeix sola amb el teu perfil (lloc desitjat i skills). Aquí la pots canviar al teu gust; \"Cerca ofertes\" usa el que veus en pantalla.",
+    "filter_keywords": "Paraules clau",
+    "filter_keywords_hint": "N'hi ha prou que aparegui alguna. Buit = les del teu perfil.",
+    "filter_location": "Ubicació",
+    "filter_radius": "Radi",
+    "filter_exclude": "Exclou paraules",
+    "filter_max_days": "Publicades",
+    "filter_any_date": "Qualsevol data",
+    "filter_last_days": "Últims {{days}} dies",
+    "filter_exclude_levels": "Descarta ofertes d'un altre nivell (segons el teu seniority)",
+    "filter_min_score": "Puntuació mínima",
+    "filters_preview": "Es cercarà:",
+    "searches_left_today": "Cerques reals que queden avui en aquesta demo: {{count}}",
+    "filters_reset": "Restableix",
+    "filters_save": "Desa els filtres",
+    "filters_saved": "Filtres desats",
+    "hidden_by_score": "{{count}} ofertes amagades per tenir menys d'un {{score}}% de puntuació",
+    "all_hidden_by_score": "Totes les ofertes noves tenen menys puntuació que el mínim triat. Baixa'l per veure-les."
   }
 }

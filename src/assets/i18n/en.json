@@ -84,7 +84,8 @@
     "validation": {
       "email_invalid": "Enter a valid email",
       "password_min_length": "Password must be at least 8 characters long"
-    }
+    },
+    "error_too_many_requests": "Too many attempts from your connection. Wait a few minutes and try again."
   },
   "profile": {
     "subtitle": "This information is the base of the matching: the more complete it is, the better the recommended jobs will be.",
@@ -216,6 +217,26 @@
     "convert_button": "Convert to application",
     "dismiss_button": "Dismiss",
     "convert_success": "Application created from the offer",
-    "dismiss_success": "Offer dismissed"
+    "dismiss_success": "Offer dismissed",
+    "error_daily_limit": "This demo's daily search limit has been reached. Come back tomorrow.",
+    "filters_title": "Search filters",
+    "filters_intro": "By default the search is built from your profile (desired position and skills). Change it here as you like; \"Search offers\" uses what you see on screen.",
+    "filter_keywords": "Keywords",
+    "filter_keywords_hint": "Any one of them is enough. Empty = the ones from your profile.",
+    "filter_location": "Location",
+    "filter_radius": "Radius",
+    "filter_exclude": "Exclude words",
+    "filter_max_days": "Posted",
+    "filter_any_date": "Any date",
+    "filter_last_days": "Last {{days}} days",
+    "filter_exclude_levels": "Skip offers for another level (based on your seniority)",
+    "filter_min_score": "Minimum score",
+    "filters_preview": "Will search:",
+    "searches_left_today": "Real searches left today on this demo: {{count}}",
+    "filters_reset": "Reset",
+    "filters_save": "Save filters",
+    "filters_saved": "Filters saved",
+    "hidden_by_score": "{{count}} offers hidden for scoring below {{score}}%",
+    "all_hidden_by_score": "All new offers score below your chosen minimum. Lower it to see them."
   }
 }
