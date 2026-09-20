@@ -27,6 +27,7 @@ function letter(overrides: Partial<CoverLetter> = {}): CoverLetter {
   return {
     cover_letter: 'Hola equipo',
     source: 'template',
+    language: null,
     generated_at: '2026-01-01T00:00:00Z',
     template_reason: 'no_key',
     ai_available: false,
@@ -135,5 +136,19 @@ describe('CoverLetterDialogComponent', () => {
 
     fixture.componentInstance.close();
     expect(dialogRef.close).toHaveBeenCalledWith(generated);
+  });
+
+  it('shows the language the saved letter was written in, not the interface language', () => {
+    fixture.detectChanges();
+    const written = fixture.componentInstance.language() === 'ca' ? 'en' : 'ca';
+    httpMock.expectOne(URL).flush(letter({ language: written }));
+    expect(fixture.componentInstance.language()).toBe(written);
+  });
+
+  it('keeps the interface language for old letters that have no stored language', () => {
+    fixture.detectChanges();
+    const before = fixture.componentInstance.language();
+    httpMock.expectOne(URL).flush(letter({ language: null }));
+    expect(fixture.componentInstance.language()).toBe(before);
   });
 });

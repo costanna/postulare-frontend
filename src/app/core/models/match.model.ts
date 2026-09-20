@@ -26,6 +26,7 @@ export interface Match {
   job_offer: JobOffer;
   cover_letter: string | null;
   cover_letter_source: CoverLetterSource | null;
+  cover_letter_language: 'ca' | 'es' | 'en' | null;
   cover_letter_at: string | null;
   /** Ya tienes una candidatura con esta misma oferta. */
   already_tracked: boolean;
@@ -42,6 +43,8 @@ export interface MatchSearchResult {
 export interface CoverLetter {
   cover_letter: string;
   source: CoverLetterSource;
+  /** Idioma en que está escrita la carta guardada (null en cartas antiguas). */
+  language: 'ca' | 'es' | 'en' | null;
   generated_at: string;
   template_reason: TemplateReason | null;
   ai_available: boolean;

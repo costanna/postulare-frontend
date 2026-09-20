@@ -15,7 +15,9 @@ import { LucideCircleCheck, LucideFileText, LucideSparkles, LucideX } from '@luc
 import { AppLanguage, LANGUAGE_LABELS, SUPPORTED_LANGUAGES } from '../../core/i18n/supported-languages';
 import { LanguageService } from '../../core/services/language.service';
 import { ProfileService } from '../../core/services/profile.service';
+import { toggleTerm } from '../../core/data/programming-keywords';
 import { CvImportResult, Seniority } from '../../core/models/user.model';
+import { KeywordSuggestionsComponent } from '../../shared/ui/keyword-suggestions/keyword-suggestions.component';
 
 const SENIORITY_OPTIONS: Seniority[] = ['junior', 'mid', 'senior'];
 
@@ -28,6 +30,7 @@ export const CV_MAX_BYTES = 2_000_000;
   imports: [
     ReactiveFormsModule,
     TranslatePipe,
+    KeywordSuggestionsComponent,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
@@ -111,6 +114,10 @@ export class ProfileComponent implements OnInit {
       this.skills.update((current) => [...current, value]);
     }
     event.chipInput?.clear();
+  }
+
+  toggleSkill(term: string): void {
+    this.skills.update((current) => toggleTerm(current, term));
   }
 
   removeSkill(skill: string): void {

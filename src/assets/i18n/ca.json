@@ -278,5 +278,17 @@
     "copy": "Copia",
     "copied": "Copiada",
     "copy_failed": "No s'ha pogut copiar. Selecciona el text i copia'l a mà."
+  },
+  "keywords": {
+    "title": "Paraules clau habituals en programació",
+    "hint": "Prem per afegir o treure. La cerca accepta ofertes que continguin qualsevol d'elles.",
+    "group_roles": "Llocs",
+    "group_languages": "Llenguatges",
+    "group_frontend": "Frontend",
+    "group_backend": "Backend",
+    "group_data": "Dades i bases de dades",
+    "group_devops": "Cloud i DevOps",
+    "group_mobile": "Mòbil",
+    "group_testing": "Testing i QA"
   }
 }

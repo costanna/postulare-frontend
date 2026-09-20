@@ -14,7 +14,7 @@ Web app for **Postulare**, which helps you organise your job hunt: it keeps trac
 ## What you can do
 
 - **Track your applications** on a Kanban board (drag between statuses) or in a table with filters and pagination. Every status change is kept in a timeline, together with interviews, follow-ups and notes.
-- **Find job offers** that fit your profile, with editable filters (keywords, location, radius, exclusions, age, minimum score). Each offer shows its match score and why it fits, and can be **saved**, **marked as already applied** or **dismissed**. It warns you if you already have it among your applications.
+- **Find job offers** that fit your profile, with editable filters (keywords, location, radius, exclusions, age, minimum score) and a **list of common programming keywords** you can add with one click (also for the skills in your profile). Offers come from Adzuna and, if the server enables it, InfoJobs. Each offer shows its match score and why it fits, and can be **saved**, **marked as already applied** or **dismissed**. It warns you if you already have it among your applications.
 - **Write the cover letter** for each offer: with AI (if the server has it enabled) or from a free template, in Catalan, Spanish or English. It is editable and copied with one click.
 - **Import your CV as a PDF** to fill in your profile; you review the data before saving.
 - **Keep the thread**: the dashboard reminds you of applications with no news for days and shows charts by status, month and source. You can **export everything to CSV**.
@@ -48,7 +48,7 @@ The API URL lives in `src/environments/environment.ts` (development) and `enviro
 | Command | What it does |
 |---|---|
 | `npm start` | Development server |
-| `npm test` | Unit tests (Karma + Jasmine, 92 tests) |
+| `npm test` | Unit tests (Karma + Jasmine, 107 tests) |
 | `npm run build` | Production build in `dist/postulare-frontend/browser` |
 
 ### Docker

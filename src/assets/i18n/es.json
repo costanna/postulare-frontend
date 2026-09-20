@@ -278,5 +278,17 @@
     "copy": "Copiar",
     "copied": "Copiada",
     "copy_failed": "No se ha podido copiar. Selecciona el texto y cópialo a mano."
+  },
+  "keywords": {
+    "title": "Palabras clave habituales en programación",
+    "hint": "Pulsa para añadir o quitar. La búsqueda acepta ofertas que contengan cualquiera de ellas.",
+    "group_roles": "Puestos",
+    "group_languages": "Lenguajes",
+    "group_frontend": "Frontend",
+    "group_backend": "Backend",
+    "group_data": "Datos y bases de datos",
+    "group_devops": "Cloud y DevOps",
+    "group_mobile": "Móvil",
+    "group_testing": "Testing y QA"
   }
 }

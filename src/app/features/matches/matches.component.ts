@@ -30,10 +30,14 @@ import { Observable, of, switchMap, tap } from 'rxjs';
 
 import { CoverLetter, Match, MatchStatus, SearchFilters, SearchFiltersState } from '../../core/models/match.model';
 import { MatchesService } from '../../core/services/matches.service';
+import { keywordTokens, toggleTerm } from '../../core/data/programming-keywords';
 import { todayIso } from '../../core/utils/iso-date';
+import { KeywordSuggestionsComponent } from '../../shared/ui/keyword-suggestions/keyword-suggestions.component';
 import { CoverLetterDialogComponent, CoverLetterDialogData } from './cover-letter-dialog/cover-letter-dialog.component';
 
 const FILTERS: MatchStatus[] = ['new', 'converted', 'dismissed'];
+
+const SOURCE_LABELS: Record<string, string> = { adzuna: 'Adzuna', infojobs: 'InfoJobs', demo: 'Demo' };
 
 @Component({
   selector: 'app-matches',
@@ -41,6 +45,7 @@ const FILTERS: MatchStatus[] = ['new', 'converted', 'dismissed'];
   imports: [
     ReactiveFormsModule,
     TranslatePipe,
+    KeywordSuggestionsComponent,
     MatButtonModule,
     MatButtonToggleModule,
     MatExpansionModule,
@@ -94,6 +99,7 @@ export class MatchesComponent implements OnInit {
   });
   readonly searchState = signal<SearchFiltersState | null>(null);
   readonly savingFilters = signal(false);
+  readonly keywordSelection = signal<string[]>([]);
   /** Solo afecta a la vista (oculta ofertas con menos puntuación); se aplica al mover el slider. */
   readonly minScore = signal(0);
 
@@ -107,6 +113,7 @@ export class MatchesComponent implements OnInit {
     this.load();
     this.loadFilters();
     this.searchForm.controls.min_score.valueChanges.subscribe((value) => this.minScore.set(value ?? 0));
+    this.searchForm.controls.keywords.valueChanges.subscribe((value) => this.keywordSelection.set(keywordTokens(value)));
   }
 
   private loadFilters(): void {
@@ -144,6 +151,16 @@ export class MatchesComponent implements OnInit {
       max_days_old: v.max_days_old,
       min_score: v.min_score ?? 0,
     };
+  }
+
+  toggleKeyword(term: string): void {
+    const control = this.searchForm.controls.keywords;
+    control.setValue(toggleTerm(keywordTokens(control.value), term).join(' '));
+    control.markAsDirty();
+  }
+
+  sourceLabel(source: string): string {
+    return SOURCE_LABELS[source] ?? source;
   }
 
   saveFilters(): void {

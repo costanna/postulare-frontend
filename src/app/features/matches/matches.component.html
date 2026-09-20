@@ -73,6 +73,8 @@
         </mat-form-field>
       </div>
 
+      <app-keyword-suggestions [selected]="keywordSelection()" (picked)="toggleKeyword($event)"></app-keyword-suggestions>
+
       <mat-slide-toggle formControlName="exclude_other_levels">
         {{ 'matches.filter_exclude_levels' | translate }}
       </mat-slide-toggle>
@@ -173,6 +175,7 @@
               @if (match.job_offer.salary_range) {
                 <span class="match-card__meta-item">{{ match.job_offer.salary_range }}</span>
               }
+              <span class="match-card__source">{{ sourceLabel(match.job_offer.source) }}</span>
             </div>
 
             @if (match.already_tracked && match.status === 'new') {

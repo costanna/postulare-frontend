@@ -1,0 +1,22 @@
+<details class="kw">
+  <summary class="kw__summary">{{ 'keywords.title' | translate }}</summary>
+  <p class="kw__hint">{{ 'keywords.hint' | translate }}</p>
+  @for (group of groups; track group.id) {
+    <div class="kw__group">
+      <h4 class="kw__group-title">{{ 'keywords.group_' + group.id | translate }}</h4>
+      <div class="kw__chips">
+        @for (term of group.terms; track term) {
+          <button
+            type="button"
+            class="kw__chip"
+            [class.is-selected]="isSelected(term)"
+            [attr.aria-pressed]="isSelected(term)"
+            (click)="picked.emit(term)"
+          >
+            {{ term }}
+          </button>
+        }
+      </div>
+    </div>
+  }
+</details>
