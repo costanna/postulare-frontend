@@ -13,6 +13,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {
   LucideChevronLeft,
   LucideChevronRight,
+  LucideDownload,
   LucidePencil,
   LucidePlus,
   LucideTrash2,
@@ -49,6 +50,7 @@ const PAGE_SIZE = 20;
     LucideX,
     LucideChevronLeft,
     LucideChevronRight,
+    LucideDownload,
   ],
   templateUrl: './applications-list.component.html',
   styleUrl: './applications-list.component.scss',
@@ -66,6 +68,7 @@ export class ApplicationsListComponent implements OnInit {
   readonly loadError = signal(false);
   readonly page = signal<Page<Application> | null>(null);
   readonly currentPage = signal(1);
+  readonly exporting = signal(false);
 
   readonly filtersForm = this.fb.group({
     company: [''],
@@ -73,6 +76,27 @@ export class ApplicationsListComponent implements OnInit {
     date_from: [null as Date | null],
     date_to: [null as Date | null],
   });
+
+  /** Descarga todas las candidaturas en CSV (con HttpClient para que la petición lleve el token). */
+  exportCsv(): void {
+    if (this.exporting()) return;
+    this.exporting.set(true);
+    this.applicationsService.exportCsv().subscribe({
+      next: (blob) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'postulare-candidaturas.csv';
+        link.click();
+        URL.revokeObjectURL(url);
+        this.exporting.set(false);
+      },
+      error: () => {
+        this.exporting.set(false);
+        this.snackBar.open(this.translate.instant('common.error_generic'), undefined, { duration: 4000 });
+      },
+    });
+  }
 
   ngOnInit(): void {
     this.load();

@@ -97,6 +97,16 @@
       </div>
     </header>
 
+    @if (isDemo()) {
+      <div class="demo-banner" role="status">
+        <svg lucideFlaskConical></svg>
+        <span>{{ 'demo.banner' | translate }}</span>
+        <button class="demo-banner__cta" type="button" (click)="createRealAccount()">
+          {{ 'demo.create_account' | translate }}
+        </button>
+      </div>
+    }
+
     <main class="shell__content">
       <router-outlet></router-outlet>
     </main>

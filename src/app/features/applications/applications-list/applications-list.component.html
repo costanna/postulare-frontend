@@ -1,10 +1,16 @@
 <div class="applications-page">
   <header class="applications-page__header">
     <h1>{{ 'applications.title' | translate }}</h1>
-    <button mat-flat-button color="primary" type="button" (click)="openCreateDialog()">
-      <svg lucidePlus></svg>
-      {{ 'applications.add_button' | translate }}
-    </button>
+    <div class="applications-page__actions">
+      <button mat-stroked-button type="button" [disabled]="exporting()" (click)="exportCsv()">
+        <svg lucideDownload></svg>
+        {{ 'applications.export_csv' | translate }}
+      </button>
+      <button mat-flat-button color="primary" type="button" (click)="openCreateDialog()">
+        <svg lucidePlus></svg>
+        {{ 'applications.add_button' | translate }}
+      </button>
+    </div>
   </header>
 
   <form class="applications-filters" [formGroup]="filtersForm">

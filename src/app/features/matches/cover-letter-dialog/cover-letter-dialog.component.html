@@ -1,0 +1,82 @@
+<h2 mat-dialog-title>{{ 'cover_letter.title' | translate }}</h2>
+
+<mat-dialog-content class="letter">
+  <p class="letter__offer">
+    {{ data.match.job_offer.title }}
+    @if (data.match.job_offer.company_name) {
+      · {{ data.match.job_offer.company_name }}
+    }
+  </p>
+
+  @if (loading()) {
+    <div class="letter__loading" role="status">
+      <mat-spinner diameter="28"></mat-spinner>
+      <span>{{ 'cover_letter.writing' | translate }}</span>
+    </div>
+  }
+
+  @if (failed()) {
+    <p class="letter__error">{{ 'cover_letter.error' | translate }}</p>
+    <button mat-stroked-button type="button" (click)="generate(false)">{{ 'cover_letter.retry' | translate }}</button>
+  }
+
+  @if (!loading() && !failed() && letter(); as current) {
+    <div class="letter__toolbar">
+      <span class="letter__source" [class.letter__source--ai]="current.source === 'ai'">
+        @if (current.source === 'ai') {
+          <svg lucideSparkles></svg>
+          {{ 'cover_letter.source_ai' | translate }}
+        } @else {
+          {{ 'cover_letter.source_template' | translate }}
+        }
+      </span>
+
+      <mat-form-field class="letter__language" appearance="outline" subscriptSizing="dynamic">
+        <mat-label>{{ 'cover_letter.language' | translate }}</mat-label>
+        <mat-select [value]="language()" (selectionChange)="changeLanguage($event.value)">
+          @for (lang of languages; track lang) {
+            <mat-option [value]="lang">{{ languageLabels[lang] }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    @if (current.source === 'template' && current.template_reason) {
+      <p class="letter__notice">{{ 'cover_letter.reason_' + current.template_reason | translate }}</p>
+    }
+
+    <mat-form-field appearance="outline" class="letter__field">
+      <textarea
+        matInput
+        rows="14"
+        [formControl]="text"
+        [attr.aria-label]="'cover_letter.title' | translate"
+      ></textarea>
+    </mat-form-field>
+
+    <p class="letter__hint">{{ 'cover_letter.edit_hint' | translate }}</p>
+
+    @if (current.ai_available && current.ai_remaining !== null) {
+      <p class="letter__quota">{{ 'cover_letter.ai_left_today' | translate: { count: current.ai_remaining } }}</p>
+    }
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="close()">{{ 'common.close' | translate }}</button>
+  @if (letter() && !loading()) {
+    <button mat-stroked-button type="button" (click)="generate(true)">
+      <svg lucideRefreshCw></svg>
+      {{ 'cover_letter.regenerate' | translate }}
+    </button>
+    <button mat-flat-button color="primary" type="button" (click)="copy()">
+      @if (copied()) {
+        <svg lucideCheck></svg>
+        {{ 'cover_letter.copied' | translate }}
+      } @else {
+        <svg lucideCopy></svg>
+        {{ 'cover_letter.copy' | translate }}
+      }
+    </button>
+  }
+</mat-dialog-actions>

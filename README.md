@@ -17,6 +17,7 @@ Este frontend se construye de forma incremental, en ramas por funcionalidad:
 - [x] `feature/applications` — tablero Kanban con drag & drop (`@angular/cdk`) entre estados, alta/edición de candidaturas en un diálogo compartido, vista de tabla con filtros (empresa, estado, rango de fechas) y paginación, y detalle de candidatura con línea de tiempo de eventos (entrevistas, seguimientos, notas)
 - [x] `feature/dashboard` — resumen numérico (candidaturas totales, enviadas, entrevistas, ofertas, tasa de respuesta) y gráficos de candidaturas por estado, por mes y por origen, consumiendo los endpoints `/stats/*` del backend
 - [x] `feature/matches` — ofertas recomendadas: buscar ofertas (Adzuna + scoring del backend), filtro por nuevas/convertidas/descartadas, tarjeta con score de afinidad y motivo, convertir en candidatura o descartar
+- [x] `feat/improvements-pack` — **carta de presentación** por oferta (IA con Claude si el backend la tiene activada; si no, plantilla gratuita en CA/ES/EN, editable y con botón de copiar), **importar CV en PDF** al perfil (se rellena el formulario y la usuaria revisa antes de guardar), **recordatorios de seguimiento** en el dashboard, **exportar candidaturas a CSV**, aviso de **ofertas repetidas / ya en tus candidaturas**, y **"Prueba la demo"** (cuenta temporal con datos de ejemplo, con banner y sin búsqueda real ni IA)
 - [x] `feature/docker` — `Dockerfile` + nginx para servir la SPA en contenedor; junto al backend se orquestan desde el [`docker-compose.yml`](../docker-compose.yml) de la carpeta raíz (ver ahí para levantar todo el stack local)
 
 ## Puesta en marcha local
@@ -92,12 +93,12 @@ src/app/
 ├── core/            # servicios (auth, tema, idioma), guards, interceptor HTTP, modelos
 ├── layout/          # shell con la barra superior y el menú responsive
 ├── features/
-│   ├── auth/        # login, registro, recuperar/restablecer contraseña
+│   ├── auth/        # login, registro, recuperar/restablecer contraseña, botón «Prueba la demo»
 │   ├── dashboard/    resumen y gráficos (estado, mes, origen)
 │   ├── kanban/        tablero de candidaturas con drag & drop
 │   ├── applications/  tabla con filtros, formulario y detalle con eventos
-│   ├── matches/       ofertas recomendadas con score y acciones
-│   └── profile/       perfil editable
+│   ├── matches/       ofertas recomendadas con score y acciones, y diálogo de carta de presentación
+│   └── profile/       perfil editable e importación de CV (PDF)
 ├── shared/          # componentes/páginas reutilizables
 └── app.routes.ts
 src/assets/i18n/      # ca.json, es.json, en.json

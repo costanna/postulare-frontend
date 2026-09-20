@@ -1,0 +1,20 @@
+<div class="demo">
+  <div class="demo__divider"><span>{{ 'auth.demo.or' | translate }}</span></div>
+
+  @if (errorMessage()) {
+    <div class="demo__error">
+      <svg lucideCircleAlert></svg>
+      <span>{{ errorMessage() | translate }}</span>
+    </div>
+  }
+
+  <button class="demo__button" mat-stroked-button type="button" [disabled]="loading()" (click)="start()">
+    @if (loading()) {
+      <mat-spinner diameter="18"></mat-spinner>
+    } @else {
+      <svg lucideSparkles></svg>
+      {{ 'auth.demo.button' | translate }}
+    }
+  </button>
+  <p class="demo__hint">{{ 'auth.demo.hint' | translate }}</p>
+</div>

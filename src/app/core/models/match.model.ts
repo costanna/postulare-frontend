@@ -12,6 +12,11 @@ export interface JobOffer {
   fetched_at: string;
 }
 
+export type CoverLetterSource = 'ai' | 'template';
+
+/** Por qué se usó la plantilla en vez de la IA. */
+export type TemplateReason = 'no_key' | 'demo' | 'user_limit' | 'global_limit' | 'ai_error';
+
 export interface Match {
   id: string;
   score: number;
@@ -19,12 +24,34 @@ export interface Match {
   status: MatchStatus;
   created_at: string;
   job_offer: JobOffer;
+  cover_letter: string | null;
+  cover_letter_source: CoverLetterSource | null;
+  cover_letter_at: string | null;
+  /** Ya tienes una candidatura con esta misma oferta. */
+  already_tracked: boolean;
 }
 
 export interface MatchSearchResult {
   fetched: number;
   new_matches: number;
   updated_matches: number;
+  /** Ofertas descartadas por repetidas o por estar ya en tus candidaturas. */
+  skipped_duplicates: number;
+}
+
+export interface CoverLetter {
+  cover_letter: string;
+  source: CoverLetterSource;
+  generated_at: string;
+  template_reason: TemplateReason | null;
+  ai_available: boolean;
+  /** Cartas con IA que le quedan hoy; null = sin tope o IA no disponible. */
+  ai_remaining: number | null;
+}
+
+export interface CoverLetterRequest {
+  language?: 'ca' | 'es' | 'en';
+  regenerate?: boolean;
 }
 
 /** Filtros de "Buscar ofertas" editables por el usuario (todo opcional). */

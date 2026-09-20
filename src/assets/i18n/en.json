@@ -85,7 +85,13 @@
       "email_invalid": "Enter a valid email",
       "password_min_length": "Password must be at least 8 characters long"
     },
-    "error_too_many_requests": "Too many attempts from your connection. Wait a few minutes and try again."
+    "error_too_many_requests": "Too many attempts from your connection. Wait a few minutes and try again.",
+    "demo": {
+      "or": "or",
+      "button": "Try the demo",
+      "hint": "Temporary account with sample data, no sign-up.",
+      "error_unavailable": "Too many demo accounts were created today. Try again tomorrow or create an account."
+    }
   },
   "profile": {
     "subtitle": "This information is the base of the matching: the more complete it is, the better the recommended jobs will be.",
@@ -103,7 +109,16 @@
     "skills": "Skills",
     "skills_placeholder": "Add a skill and press Enter",
     "skills_hint": "Press Enter or comma to add each skill",
-    "save_success": "Profile updated successfully"
+    "save_success": "Profile updated successfully",
+    "import_title": "Import your CV",
+    "import_hint": "Upload your CV as a PDF and we fill in your profile. The PDF is read on the spot and not stored; you review the data before saving.",
+    "import_button": "Upload CV (PDF)",
+    "import_done": "We filled in the form with your CV data. Review it and press Save to apply it.",
+    "import_error_not_pdf": "The file must be a PDF.",
+    "import_error_size": "The PDF is too large (max 2 MB).",
+    "import_error_no_text": "We could not read text in that PDF (is it a scan?). Try a PDF exported from a text editor.",
+    "about": "Professional summary",
+    "about_hint": "Optional. Used to write your cover letters."
   },
   "status": {
     "saved": "Saved",
@@ -129,7 +144,13 @@
     "no_timeline_data": "Not enough data yet",
     "by_source_title": "Applications by source",
     "no_source_data": "No source data yet",
-    "unknown_source": "No source"
+    "unknown_source": "No source",
+    "follow_ups_title": "Time to follow up",
+    "follow_ups_intro": "These applications have had no news for days. A short message to the company usually helps.",
+    "follow_up_days": "Days without news: {{count}}",
+    "follow_up_button": "I followed up",
+    "follow_up_event": "Follow-up done",
+    "follow_up_done": "Follow-up noted"
   },
   "kanban": {
     "title": "Board",
@@ -156,7 +177,8 @@
     "view_detail": "View detail",
     "confirm_delete_title": "Delete application",
     "confirm_delete_message": "Are you sure you want to delete the application for {{position}} at {{company}}? This can't be undone.",
-    "results_count": "{{count}} applications"
+    "results_count": "{{count}} applications",
+    "export_csv": "Export CSV"
   },
   "application_form": {
     "title_create": "New application",
@@ -237,6 +259,36 @@
     "filters_save": "Save filters",
     "filters_saved": "Filters saved",
     "hidden_by_score": "{{count}} offers hidden for scoring below {{score}}%",
-    "all_hidden_by_score": "All new offers score below your chosen minimum. Lower it to see them."
+    "all_hidden_by_score": "All new offers score below your chosen minimum. Lower it to see them.",
+    "search_only_duplicates": "No new offers: {{skipped}} were already yours or repeated",
+    "search_success_with_duplicates": "{{new}} new offers and {{updated}} updated ({{skipped}} repeats skipped)",
+    "error_demo_search": "The demo account cannot search real offers. Create an account to use search.",
+    "already_tracked": "You already have an application for this offer",
+    "write_letter": "Cover letter",
+    "view_letter": "View my letter"
+  },
+  "demo": {
+    "banner": "You are in a demo account with sample data. It deletes itself after a day.",
+    "create_account": "Create your account"
+  },
+  "cover_letter": {
+    "title": "Cover letter",
+    "writing": "Writing your letter…",
+    "error": "The letter could not be generated.",
+    "retry": "Try again",
+    "source_ai": "Written with AI",
+    "source_template": "Template",
+    "language": "Language",
+    "reason_no_key": "This is a template built from your profile and the offer. AI writing is not enabled on this server.",
+    "reason_demo": "The demo account always uses the template. Create an account to try AI writing.",
+    "reason_user_limit": "You reached the daily limit of AI letters, so here is a template. You can generate more tomorrow.",
+    "reason_global_limit": "Today's limit of AI letters for this app has been used up, so here is a template.",
+    "reason_ai_error": "The AI did not respond, so here is a template. You can try again with \"Regenerate\".",
+    "edit_hint": "You can edit it before copying. Always check everything is correct before sending it.",
+    "ai_left_today": "AI letters left today: {{count}}",
+    "regenerate": "Regenerate",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copy_failed": "Could not copy. Select the text and copy it by hand."
   }
 }

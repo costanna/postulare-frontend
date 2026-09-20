@@ -8,6 +8,7 @@ import {
   ApplicationCreatePayload,
   ApplicationFilters,
   ApplicationUpdatePayload,
+  FollowUp,
   Page,
 } from '../models/application.model';
 
@@ -25,6 +26,16 @@ export class ApplicationsService {
     params = params.set('page', filters.page ?? 1).set('page_size', filters.page_size ?? 20);
 
     return this.http.get<Page<Application>>(this.baseUrl, { params });
+  }
+
+  /** Candidaturas abiertas sin novedades desde hace varios días. */
+  followUps(): Observable<FollowUp[]> {
+    return this.http.get<FollowUp[]>(`${this.baseUrl}/follow-ups`);
+  }
+
+  /** Todas las candidaturas en CSV (se pide con HttpClient para que lleve el token). */
+  exportCsv(): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/export`, { responseType: 'blob' });
   }
 
   get(id: string): Observable<Application> {

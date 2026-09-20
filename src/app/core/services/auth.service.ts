@@ -4,7 +4,7 @@ import { Observable, catchError, finalize, map, of, shareReplay, switchMap, tap,
 
 import { environment } from '../../../environments/environment';
 import { AccessTokenOnly, LoginPayload, RegisterPayload, TokenPair } from '../models/auth.model';
-import { User } from '../models/user.model';
+import { PreferredLanguage, User } from '../models/user.model';
 import { LanguageService } from './language.service';
 import { TokenStorageService } from './token-storage.service';
 
@@ -35,6 +35,14 @@ export class AuthService {
 
   login(payload: LoginPayload): Observable<User> {
     return this.http.post<TokenPair>(`${this.baseUrl}/auth/login`, payload).pipe(
+      tap((tokenPair) => this.tokens.setTokens(tokenPair.access_token, tokenPair.refresh_token)),
+      switchMap(() => this.loadCurrentUser())
+    );
+  }
+
+  /** Crea una cuenta temporal con datos de ejemplo y entra directamente (sin registro). */
+  startDemo(language: PreferredLanguage): Observable<User> {
+    return this.http.post<TokenPair>(`${this.baseUrl}/auth/demo`, { language }).pipe(
       tap((tokenPair) => this.tokens.setTokens(tokenPair.access_token, tokenPair.refresh_token)),
       switchMap(() => this.loadCurrentUser())
     );

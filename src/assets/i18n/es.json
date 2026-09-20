@@ -85,7 +85,13 @@
       "email_invalid": "Introduce un email válido",
       "password_min_length": "La contraseña debe tener al menos 8 caracteres"
     },
-    "error_too_many_requests": "Demasiados intentos desde tu conexión. Espera unos minutos e inténtalo de nuevo."
+    "error_too_many_requests": "Demasiados intentos desde tu conexión. Espera unos minutos e inténtalo de nuevo.",
+    "demo": {
+      "or": "o",
+      "button": "Prueba la demo",
+      "hint": "Cuenta temporal con datos de ejemplo, sin registro.",
+      "error_unavailable": "Hoy se han creado demasiadas cuentas demo. Inténtalo mañana o crea una cuenta."
+    }
   },
   "profile": {
     "subtitle": "Esta información es la base del matching: cuanto más completa esté, mejores serán las ofertas recomendadas.",
@@ -103,7 +109,16 @@
     "skills": "Skills",
     "skills_placeholder": "Añade una skill y pulsa Enter",
     "skills_hint": "Pulsa Enter o coma para añadir cada skill",
-    "save_success": "Perfil actualizado correctamente"
+    "save_success": "Perfil actualizado correctamente",
+    "import_title": "Importa tu CV",
+    "import_hint": "Sube tu CV en PDF y rellenamos el perfil por ti. El PDF se lee al momento y no se guarda; tú revisas los datos antes de guardar.",
+    "import_button": "Subir CV (PDF)",
+    "import_done": "Hemos rellenado el formulario con los datos de tu CV. Revísalos y pulsa Guardar para aplicarlos.",
+    "import_error_not_pdf": "El fichero tiene que ser un PDF.",
+    "import_error_size": "El PDF pesa demasiado (máximo 2 MB).",
+    "import_error_no_text": "No hemos podido leer texto en ese PDF (¿es un escaneo?). Prueba con un PDF exportado desde un editor de texto.",
+    "about": "Resumen profesional",
+    "about_hint": "Opcional. Se usa para escribir tus cartas de presentación."
   },
   "status": {
     "saved": "Guardada",
@@ -129,7 +144,13 @@
     "no_timeline_data": "Sin datos suficientes todavía",
     "by_source_title": "Candidaturas por origen",
     "no_source_data": "Sin datos de origen todavía",
-    "unknown_source": "Sin origen"
+    "unknown_source": "Sin origen",
+    "follow_ups_title": "Toca hacer seguimiento",
+    "follow_ups_intro": "Estas candidaturas llevan días sin novedades. Un mensaje corto a la empresa suele ayudar.",
+    "follow_up_days": "Días sin novedades: {{count}}",
+    "follow_up_button": "Ya hice seguimiento",
+    "follow_up_event": "Seguimiento realizado",
+    "follow_up_done": "Seguimiento anotado"
   },
   "kanban": {
     "title": "Tablero",
@@ -156,7 +177,8 @@
     "view_detail": "Ver detalle",
     "confirm_delete_title": "Eliminar candidatura",
     "confirm_delete_message": "¿Seguro que quieres eliminar la candidatura de {{position}} en {{company}}? Esta acción no se puede deshacer.",
-    "results_count": "{{count}} candidaturas"
+    "results_count": "{{count}} candidaturas",
+    "export_csv": "Exportar CSV"
   },
   "application_form": {
     "title_create": "Nueva candidatura",
@@ -237,6 +259,36 @@
     "filters_save": "Guardar filtros",
     "filters_saved": "Filtros guardados",
     "hidden_by_score": "{{count}} ofertas ocultas por tener menos de {{score}}% de puntuación",
-    "all_hidden_by_score": "Todas las ofertas nuevas tienen menos puntuación que el mínimo elegido. Bájalo para verlas."
+    "all_hidden_by_score": "Todas las ofertas nuevas tienen menos puntuación que el mínimo elegido. Bájalo para verlas.",
+    "search_only_duplicates": "No hay ofertas nuevas: {{skipped}} ya las tenías o estaban repetidas",
+    "search_success_with_duplicates": "{{new}} ofertas nuevas y {{updated}} actualizadas ({{skipped}} repetidas descartadas)",
+    "error_demo_search": "La cuenta demo no puede buscar ofertas reales. Crea una cuenta para usar la búsqueda.",
+    "already_tracked": "Ya tienes una candidatura con esta oferta",
+    "write_letter": "Carta de presentación",
+    "view_letter": "Ver mi carta"
+  },
+  "demo": {
+    "banner": "Estás en una cuenta demo con datos de ejemplo. Se borrará sola pasado un día.",
+    "create_account": "Crea tu cuenta"
+  },
+  "cover_letter": {
+    "title": "Carta de presentación",
+    "writing": "Escribiendo tu carta…",
+    "error": "No se ha podido generar la carta.",
+    "retry": "Reintentar",
+    "source_ai": "Escrita con IA",
+    "source_template": "Plantilla",
+    "language": "Idioma",
+    "reason_no_key": "Es una plantilla con los datos de tu perfil y de la oferta. La redacción con IA no está activada en este servidor.",
+    "reason_demo": "La cuenta demo usa siempre la plantilla. Crea una cuenta para probar la redacción con IA.",
+    "reason_user_limit": "Has llegado al límite diario de cartas con IA, así que te dejamos una plantilla. Mañana podrás generar más.",
+    "reason_global_limit": "Hoy se ha agotado el límite de cartas con IA de esta aplicación, así que te dejamos una plantilla.",
+    "reason_ai_error": "La IA no ha respondido, así que te dejamos una plantilla. Puedes reintentarlo con «Regenerar».",
+    "edit_hint": "Puedes editarla antes de copiarla. Revisa siempre que todo sea correcto antes de enviarla.",
+    "ai_left_today": "Cartas con IA restantes hoy: {{count}}",
+    "regenerate": "Regenerar",
+    "copy": "Copiar",
+    "copied": "Copiada",
+    "copy_failed": "No se ha podido copiar. Selecciona el texto y cópialo a mano."
   }
 }
