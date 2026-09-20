@@ -1,4 +1,3 @@
-import { SlicePipe } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,6 +11,7 @@ import { Application } from '../../../core/models/application.model';
 import { ApplicationEvent } from '../../../core/models/event.model';
 import { ApplicationsService } from '../../../core/services/applications.service';
 import { EventsService } from '../../../core/services/events.service';
+import { LocalDatePipe } from '../../../shared/pipes/local-date.pipe';
 import { StatusBadgeComponent } from '../../../shared/ui/status-badge/status-badge.component';
 import { ConfirmDialogComponent, ConfirmDialogData } from '../../../shared/ui/confirm-dialog/confirm-dialog.component';
 import { ApplicationFormDialogComponent } from '../application-form-dialog/application-form-dialog.component';
@@ -21,11 +21,11 @@ import { EventFormDialogComponent, EventFormDialogData } from '../event-form-dia
   selector: 'app-application-detail',
   standalone: true,
   imports: [
-    SlicePipe,
     TranslatePipe,
     MatButtonModule,
     MatProgressSpinnerModule,
     StatusBadgeComponent,
+    LocalDatePipe,
     LucideArrowLeft,
     LucidePencil,
     LucideTrash2,

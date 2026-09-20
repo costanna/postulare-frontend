@@ -2,15 +2,13 @@
   <aside class="auth-layout__brand">
     <div class="auth-layout__brand-inner">
       <span class="auth-layout__logo">Postulare</span>
-      <p class="auth-layout__tagline">
-        Organiza tu búsqueda de empleo, encuentra ofertas afines a tu perfil y
-        no vuelvas a perder el hilo de ninguna candidatura.
-      </p>
+      <p class="auth-layout__tagline">{{ 'auth.brand_tagline' | translate }}</p>
     </div>
   </aside>
 
   <section class="auth-layout__form-area">
     <div class="auth-layout__top-actions">
+      <span class="auth-layout__mobile-brand">Postulare</span>
       <button
         class="auth-layout__icon-btn"
         type="button"
@@ -44,5 +42,7 @@
     <div class="auth-layout__form-wrapper">
       <router-outlet></router-outlet>
     </div>
+
+    <app-footer></app-footer>
   </section>
 </div>

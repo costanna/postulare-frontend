@@ -83,7 +83,7 @@
                 <app-status-badge [status]="application.status"></app-status-badge>
               </td>
               <td [attr.data-label]="'applications.column_source' | translate">{{ application.source || '—' }}</td>
-              <td [attr.data-label]="'applications.column_applied_at' | translate">{{ application.applied_at || '—' }}</td>
+              <td [attr.data-label]="'applications.column_applied_at' | translate">{{ (application.applied_at | localDate) || '—' }}</td>
               <td class="applications-table__actions" [attr.data-label]="'applications.column_actions' | translate">
                 <button
                   mat-icon-button

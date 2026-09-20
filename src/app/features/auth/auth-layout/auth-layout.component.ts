@@ -7,11 +7,12 @@ import { LucideGlobe, LucideMoon, LucideSun } from '@lucide/angular';
 import { AppLanguage, LANGUAGE_LABELS, SUPPORTED_LANGUAGES } from '../../../core/i18n/supported-languages';
 import { LanguageService } from '../../../core/services/language.service';
 import { ThemeService } from '../../../core/services/theme.service';
+import { AppFooterComponent } from '../../../shared/ui/app-footer/app-footer.component';
 
 @Component({
   selector: 'app-auth-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, TranslatePipe, MatMenuModule, LucideGlobe, LucideSun, LucideMoon],
+  imports: [RouterOutlet, RouterLink, TranslatePipe, MatMenuModule, LucideGlobe, LucideSun, LucideMoon, AppFooterComponent],
   templateUrl: './auth-layout.component.html',
   styleUrl: './auth-layout.component.scss',
 })

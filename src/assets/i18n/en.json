@@ -37,7 +37,11 @@
     "change_language": "Change language",
     "open_menu": "Open menu"
   },
+  "footer": {
+    "made_by": "Made by"
+  },
   "auth": {
+    "brand_tagline": "Organise your job search, find offers that match your profile and never lose track of an application again.",
     "login": {
       "title": "Log in",
       "subtitle": "Organize your job search in one place",
