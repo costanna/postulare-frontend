@@ -52,7 +52,7 @@ describe('MatchesComponent convert actions', () => {
     fixture.detectChanges();
     httpMock.expectOne((r) => r.url === `${API}/matches` && r.params.get('status') === 'new').flush([match('m1'), match('m2')]);
     httpMock.expectOne(`${API}/matches/filters`).flush({
-      filters: { keywords: null, location: null, radius_km: 30, exclude: null, exclude_other_levels: true, max_days_old: null, min_score: 0 },
+      filters: { keywords: null, location: null, radius_km: 30, exclude: null, exclude_other_levels: true, disability: 'any', max_days_old: null, min_score: 0 },
       effective_query: 'angular',
       effective_location: null,
       daily_remaining: null,
@@ -122,5 +122,35 @@ describe('MatchesComponent convert actions', () => {
     expect(fixture.componentInstance.sourceLabel('infojobs')).toBe('InfoJobs');
     expect(fixture.componentInstance.sourceLabel('adzuna')).toBe('Adzuna');
     expect(fixture.componentInstance.sourceLabel('otra')).toBe('otra');
+  });
+
+  describe('disability filter', () => {
+    it('is off by default', () => {
+      expect(fixture.componentInstance.searchForm.controls.disability.value).toBe('any');
+    });
+
+    it('is saved with the rest of the filters', () => {
+      fixture.componentInstance.searchForm.controls.disability.setValue('require');
+      fixture.componentInstance.saveFilters();
+      const req = httpMock.expectOne(`${API}/matches/filters`);
+      expect(req.request.method).toBe('PUT');
+      expect(req.request.body.disability).toBe('require');
+      req.flush({ filters: { ...req.request.body }, effective_query: 'angular', effective_location: null, daily_remaining: null });
+      expect(fixture.componentInstance.searchForm.controls.disability.value).toBe('require');
+    });
+
+    it('older saved filters without the field load as "any"', () => {
+      fixture.componentInstance.searchForm.controls.disability.setValue('exclude');
+      fixture.componentInstance.resetFilters();
+      const req = httpMock.expectOne(`${API}/matches/filters`);
+      expect(req.request.body.disability).toBe('any');
+      const { disability: _omitted, ...withoutField } = req.request.body;
+      req.flush({ filters: withoutField, effective_query: '', effective_location: null, daily_remaining: null });
+      expect(fixture.componentInstance.searchForm.controls.disability.value).toBe('any');
+    });
+
+    it('offers the three choices in the filters panel', () => {
+      expect(fixture.componentInstance.disabilityOptions).toEqual(['any', 'require', 'exclude']);
+    });
   });
 });

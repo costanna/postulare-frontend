@@ -253,7 +253,12 @@
     "write_letter": "Carta de presentación",
     "view_letter": "Ver mi carta",
     "applied_button": "Ya he aplicado",
-    "convert_applied_success": "Candidatura creada y marcada como enviada"
+    "convert_applied_success": "Candidatura creada y marcada como enviada",
+    "filter_disability": "Empresas y discapacidad",
+    "disability_any": "Indiferente",
+    "disability_require": "Solo las que mencionan discapacidad",
+    "disability_exclude": "Excluir las que la mencionan",
+    "filter_disability_hint": "Se mira el título, la empresa y el extracto de la oferta: si la menciona solo en el texto completo, puede no aparecer."
   },
   "demo": {
     "banner": "Estás en una cuenta demo con datos de ejemplo. Se borrará sola pasado un día.",

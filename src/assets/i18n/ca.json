@@ -253,7 +253,12 @@
     "write_letter": "Carta de presentació",
     "view_letter": "Veure la meva carta",
     "applied_button": "Ja hi he aplicat",
-    "convert_applied_success": "Candidatura creada i marcada com a enviada"
+    "convert_applied_success": "Candidatura creada i marcada com a enviada",
+    "filter_disability": "Empreses i discapacitat",
+    "disability_any": "Indiferent",
+    "disability_require": "Només les que esmenten discapacitat",
+    "disability_exclude": "Excloure les que l'esmenten",
+    "filter_disability_hint": "Es mira el títol, l'empresa i l'extracte de l'oferta: si només l'esmenta al text complet, pot no sortir."
   },
   "demo": {
     "banner": "Ets en un compte demo amb dades d'exemple. S'esborrarà sol passat un dia.",

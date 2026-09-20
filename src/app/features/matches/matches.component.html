@@ -71,6 +71,16 @@
             }
           </mat-select>
         </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'matches.filter_disability' | translate }}</mat-label>
+          <mat-select formControlName="disability">
+            @for (option of disabilityOptions; track option) {
+              <mat-option [value]="option">{{ 'matches.disability_' + option | translate }}</mat-option>
+            }
+          </mat-select>
+          <mat-hint>{{ 'matches.filter_disability_hint' | translate }}</mat-hint>
+        </mat-form-field>
       </div>
 
       <app-keyword-suggestions [selected]="keywordSelection()" (picked)="toggleKeyword($event)"></app-keyword-suggestions>
