@@ -77,7 +77,6 @@ export class ApplicationsListComponent implements OnInit {
     date_to: [null as Date | null],
   });
 
-  /** Descarga todas las candidaturas en CSV (con HttpClient para que la petición lleve el token). */
   exportCsv(): void {
     if (this.exporting()) return;
     this.exporting.set(true);

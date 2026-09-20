@@ -49,12 +49,17 @@ export interface CoverLetter {
   ai_remaining: number | null;
 }
 
+export interface ConvertOptions {
+  applied?: boolean;
+  /** Fecha local (YYYY-MM-DD) en que aplicaste. */
+  applied_at?: string;
+}
+
 export interface CoverLetterRequest {
   language?: 'ca' | 'es' | 'en';
   regenerate?: boolean;
 }
 
-/** Filtros de "Buscar ofertas" editables por el usuario (todo opcional). */
 export interface SearchFilters {
   keywords: string | null;
   location: string | null;

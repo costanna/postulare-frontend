@@ -1,30 +1,18 @@
 {
-  "app": {
-    "name": "Postulare"
-  },
   "common": {
     "save": "Guardar",
     "cancel": "Cancelar",
     "delete": "Eliminar",
     "edit": "Editar",
     "close": "Cerrar",
-    "back": "Volver",
-    "loading": "Cargando…",
     "search": "Buscar",
-    "filters": "Filtros",
     "all": "Todas",
-    "actions": "Acciones",
     "previous": "Anterior",
     "next": "Siguiente",
     "retry": "Reintentar",
-    "confirm": "Confirmar",
-    "yes": "Sí",
-    "no": "No",
     "optional": "opcional",
     "error_generic": "Algo ha ido mal. Inténtalo de nuevo.",
-    "error_network": "No se ha podido contactar con el servidor. Comprueba tu conexión.",
-    "required_field": "Este campo es obligatorio",
-    "coming_soon": "Esta sección está en construcción. Llegará en una próxima rama."
+    "required_field": "Este campo es obligatorio"
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -63,7 +51,6 @@
       "submit": "Crear cuenta",
       "has_account": "¿Ya tienes cuenta?",
       "login_link": "Inicia sesión",
-      "success": "Cuenta creada. Ya puedes iniciar sesión.",
       "error_email_taken": "Ese email ya está registrado"
     },
     "forgot_password": {
@@ -155,8 +142,7 @@
   "kanban": {
     "title": "Tablero",
     "add_button": "Añadir candidatura",
-    "empty_column": "Sin candidaturas",
-    "drop_hint": "Arrastra una tarjeta aquí para cambiar su estado"
+    "empty_column": "Sin candidaturas"
   },
   "applications": {
     "title": "Candidaturas",
@@ -174,7 +160,6 @@
     "column_source": "Origen",
     "column_applied_at": "Fecha",
     "column_actions": "Acciones",
-    "view_detail": "Ver detalle",
     "confirm_delete_title": "Eliminar candidatura",
     "confirm_delete_message": "¿Seguro que quieres eliminar la candidatura de {{position}} en {{company}}? Esta acción no se puede deshacer.",
     "results_count": "{{count}} candidaturas",
@@ -203,7 +188,8 @@
     "events_title": "Eventos y seguimiento",
     "add_event": "Añadir evento",
     "no_events": "Aún no hay eventos registrados para esta candidatura",
-    "linked_offer": "Ver oferta original"
+    "linked_offer": "Ver oferta original",
+    "mark_applied": "Ya he aplicado"
   },
   "event_form": {
     "title": "Añadir evento",
@@ -236,7 +222,7 @@
     "score_label": "Afinidad",
     "reasoning_title": "Por qué coincide",
     "view_offer": "Ver oferta",
-    "convert_button": "Convertir en candidatura",
+    "convert_button": "Guardar",
     "dismiss_button": "Descartar",
     "convert_success": "Candidatura creada a partir de la oferta",
     "dismiss_success": "Oferta descartada",
@@ -265,7 +251,9 @@
     "error_demo_search": "La cuenta demo no puede buscar ofertas reales. Crea una cuenta para usar la búsqueda.",
     "already_tracked": "Ya tienes una candidatura con esta oferta",
     "write_letter": "Carta de presentación",
-    "view_letter": "Ver mi carta"
+    "view_letter": "Ver mi carta",
+    "applied_button": "Ya he aplicado",
+    "convert_applied_success": "Candidatura creada y marcada como enviada"
   },
   "demo": {
     "banner": "Estás en una cuenta demo con datos de ejemplo. Se borrará sola pasado un día.",

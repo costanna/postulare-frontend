@@ -27,7 +27,6 @@ export interface Application {
   updated_at: string;
 }
 
-/** Candidatura abierta que lleva días sin novedades. */
 export interface FollowUp {
   application: Application;
   days_waiting: number;

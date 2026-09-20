@@ -60,7 +60,6 @@ export class ProfileComponent implements OnInit {
   readonly skills = signal<string[]>([]);
   readonly importing = signal(false);
   readonly importError = signal<string | null>(null);
-  /** La propuesta del CV ya está volcada en el formulario, pendiente de que el usuario la revise y guarde. */
   readonly cvApplied = signal(false);
   readonly showWelcome = signal(this.route.snapshot.queryParamMap.get('welcome') === '1');
 

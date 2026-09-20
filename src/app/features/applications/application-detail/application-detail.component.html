@@ -24,6 +24,12 @@
         <app-status-badge [status]="application()!.status"></app-status-badge>
       </div>
       <div class="detail-header__actions">
+        @if (application()!.status === 'saved') {
+          <button mat-flat-button color="primary" type="button" [disabled]="markingApplied()" (click)="markApplied()">
+            <svg lucideCheck></svg>
+            {{ 'application_detail.mark_applied' | translate }}
+          </button>
+        }
         <button mat-stroked-button type="button" (click)="openEditDialog()">
           <svg lucidePencil></svg>
           {{ 'application_detail.edit' | translate }}
@@ -102,7 +108,7 @@
                   <span class="detail-event__date">{{ event.event_date | localDate }}</span>
                 </div>
                 @if (event.description) {
-                  <p class="detail-event__description">{{ event.description }}</p>
+                  <p class="detail-event__description">{{ eventText(event) }}</p>
                 }
               </div>
               <button

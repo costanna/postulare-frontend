@@ -64,7 +64,6 @@ export class ShellComponent {
   readonly theme = inject(ThemeService);
   readonly language = inject(LanguageService);
 
-  /** Cuenta temporal de "Prueba la demo": se muestra un aviso y una salida hacia el registro. */
   readonly isDemo = computed(() => this.auth.currentUser()?.is_demo ?? false);
 
   readonly languages = SUPPORTED_LANGUAGES;
@@ -74,7 +73,6 @@ export class ShellComponent {
     this.language.use(lang);
   }
 
-  /** Sale de la demo (sus datos se descartan) y lleva a crear una cuenta real. */
   createRealAccount(): void {
     this.auth.logout();
     this.router.navigate(['/auth/register']);

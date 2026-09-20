@@ -30,6 +30,7 @@ import { Observable, of, switchMap, tap } from 'rxjs';
 
 import { CoverLetter, Match, MatchStatus, SearchFilters, SearchFiltersState } from '../../core/models/match.model';
 import { MatchesService } from '../../core/services/matches.service';
+import { todayIso } from '../../core/utils/iso-date';
 import { CoverLetterDialogComponent, CoverLetterDialogData } from './cover-letter-dialog/cover-letter-dialog.component';
 
 const FILTERS: MatchStatus[] = ['new', 'converted', 'dismissed'];
@@ -79,7 +80,6 @@ export class MatchesComponent implements OnInit {
   readonly convertingIds = signal<Set<string>>(new Set());
   readonly dismissingIds = signal<Set<string>>(new Set());
 
-  // --- Filtros de búsqueda editables ---------------------------------------
   readonly radiusOptions = [10, 30, 50, 100];
   readonly daysOptions: (number | null)[] = [null, 7, 14, 30, 60];
 
@@ -162,7 +162,6 @@ export class MatchesComponent implements OnInit {
     });
   }
 
-  /** Vuelve a la búsqueda automática (puesto + skills del perfil) y lo guarda. */
   resetFilters(): void {
     this.searchForm.reset({
       keywords: '',
@@ -245,7 +244,6 @@ export class MatchesComponent implements OnInit {
       return;
     }
     if (err.status === 403) {
-      // Cuenta demo: no puede gastar la cuota real de Adzuna.
       this.notify('matches.error_demo_search');
       return;
     }
@@ -272,9 +270,10 @@ export class MatchesComponent implements OnInit {
     });
   }
 
-  convert(match: Match): void {
+  convert(match: Match, applied = false): void {
     this.convertingIds.update((ids) => new Set(ids).add(match.id));
-    this.matchesService.convert(match.id).subscribe({
+    const options = applied ? { applied: true, applied_at: todayIso() } : {};
+    this.matchesService.convert(match.id, options).subscribe({
       next: () => {
         this.convertingIds.update((ids) => {
           const next = new Set(ids);
@@ -282,7 +281,7 @@ export class MatchesComponent implements OnInit {
           return next;
         });
         this.matches.update((current) => current.filter((m) => m.id !== match.id));
-        this.notify('matches.convert_success');
+        this.notify(applied ? 'matches.convert_applied_success' : 'matches.convert_success');
       },
       error: () => {
         this.convertingIds.update((ids) => {
@@ -330,7 +329,6 @@ export class MatchesComponent implements OnInit {
       .afterClosed()
       .subscribe((letter) => {
         if (!letter) return;
-        // La carta queda guardada en el servidor: se refleja aquí para que la tarjeta lo indique.
         this.matches.update((current) =>
           current.map((m) =>
             m.id === match.id

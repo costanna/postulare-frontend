@@ -134,7 +134,7 @@ describe('ProfileComponent', () => {
     function pick(file: File): void {
       const input = { files: [file], value: 'C:\fakepath\cv.pdf' };
       fixture.componentInstance.onCvSelected({ target: input } as unknown as Event);
-      expect(input.value).toBe(''); // se limpia para poder volver a elegir el mismo fichero
+      expect(input.value).toBe('');
     }
 
     const pdf = () => new File(['%PDF-1.4'], 'cv.pdf', { type: 'application/pdf' });
@@ -173,7 +173,6 @@ describe('ProfileComponent', () => {
       expect(component.form.value.seniority).toBe('junior');
       expect(component.form.value.about).toBe('Resumen del CV');
       expect(component.form.dirty).toBeTrue();
-      // El nombre que ya tenía no se pisa
       expect(component.form.value.full_name).toBe('Ana');
       // (httpMock.verify() en afterEach garantiza que no se ha hecho ningún PATCH)
     });

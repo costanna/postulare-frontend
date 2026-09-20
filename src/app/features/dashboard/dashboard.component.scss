@@ -46,8 +46,6 @@
   }
 }
 
-// --- Tiles de resumen (números clave) --------------------------------
-
 .stat-tiles {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -105,8 +103,6 @@
   color: var(--color-text-muted);
 }
 
-// --- Tarjetas de gráficos ---------------------------------------------
-
 .dashboard-charts {
   display: grid;
   grid-template-columns: 1fr;
@@ -141,8 +137,6 @@
   font-size: 0.85rem;
   color: var(--color-text-muted);
 }
-
-// --- Candidaturas por estado (barras horizontales) --------------------
 
 .status-chart {
   list-style: none;
@@ -205,8 +199,6 @@
   text-align: right;
 }
 
-// --- Candidaturas por mes (barras verticales) --------------------------
-
 .timeline-chart {
   display: flex;
   align-items: flex-end;
@@ -245,8 +237,6 @@
   color: var(--color-text-muted);
   white-space: nowrap;
 }
-
-// --- Candidaturas por origen (barras horizontales) ---------------------
 
 .source-chart {
   list-style: none;
@@ -294,7 +284,6 @@
   text-align: right;
 }
 
-// --- Recordatorios de seguimiento ----------------------------------------
 .follow-ups {
   margin-bottom: 1.25rem;
   padding: 1rem 1.1rem;

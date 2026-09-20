@@ -102,7 +102,6 @@ describe('DashboardComponent follow-ups', () => {
     const req = httpMock.expectOne(`${API}/applications/a1/events`);
     expect(req.request.method).toBe('POST');
     expect(req.request.body.type).toBe('follow_up');
-    // Mientras se guarda, no se puede pulsar dos veces
     fixture.componentInstance.markFollowedUp(fixture.componentInstance.followUps()[0]);
     httpMock.expectNone(`${API}/applications/a1/events`);
 

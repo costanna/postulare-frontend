@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Application } from '../models/application.model';
 import {
+  ConvertOptions,
   CoverLetter,
   CoverLetterRequest,
   Match,
@@ -37,15 +38,15 @@ export class MatchesService {
     return this.http.get<Match[]>(this.baseUrl, { params });
   }
 
-  convert(matchId: string): Observable<Application> {
-    return this.http.post<Application>(`${this.baseUrl}/${matchId}/convert`, {});
+  /** Crea la candidatura; con `applied` nace como "enviada" (ya has aplicado) en vez de "guardada". */
+  convert(matchId: string, options: ConvertOptions = {}): Observable<Application> {
+    return this.http.post<Application>(`${this.baseUrl}/${matchId}/convert`, options);
   }
 
   dismiss(matchId: string): Observable<Match> {
     return this.http.post<Match>(`${this.baseUrl}/${matchId}/dismiss`, {});
   }
 
-  /** Carta de presentación para la oferta (IA si hay cuota; si no, plantilla). */
   coverLetter(matchId: string, request: CoverLetterRequest = {}): Observable<CoverLetter> {
     return this.http.post<CoverLetter>(`${this.baseUrl}/${matchId}/cover-letter`, request);
   }

@@ -76,6 +76,13 @@ describe('MatchesService', () => {
     req.flush({});
   });
 
+  it('convert() forwards the "applied" options in the body', () => {
+    service.convert('match-1', { applied: true, applied_at: '2026-03-04' }).subscribe();
+    const req = httpMock.expectOne(`${baseUrl}/match-1/convert`);
+    expect(req.request.body).toEqual({ applied: true, applied_at: '2026-03-04' });
+    req.flush({});
+  });
+
   it('dismiss() POSTs to /matches/{id}/dismiss', () => {
     service.dismiss('match-1').subscribe();
     const req = httpMock.expectOne(`${baseUrl}/match-1/dismiss`);

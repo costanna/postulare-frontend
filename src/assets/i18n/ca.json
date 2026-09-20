@@ -1,30 +1,18 @@
 {
-  "app": {
-    "name": "Postulare"
-  },
   "common": {
     "save": "Desa",
     "cancel": "Cancel·la",
     "delete": "Elimina",
     "edit": "Edita",
     "close": "Tanca",
-    "back": "Torna",
-    "loading": "Carregant…",
     "search": "Cerca",
-    "filters": "Filtres",
     "all": "Totes",
-    "actions": "Accions",
     "previous": "Anterior",
     "next": "Següent",
     "retry": "Reintenta",
-    "confirm": "Confirma",
-    "yes": "Sí",
-    "no": "No",
     "optional": "opcional",
     "error_generic": "Alguna cosa ha anat malament. Torna-ho a provar.",
-    "error_network": "No s'ha pogut contactar amb el servidor. Comprova la connexió.",
-    "required_field": "Aquest camp és obligatori",
-    "coming_soon": "Aquesta secció està en construcció. Arribarà en una propera branca."
+    "required_field": "Aquest camp és obligatori"
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -63,7 +51,6 @@
       "submit": "Crea el compte",
       "has_account": "Ja tens compte?",
       "login_link": "Inicia sessió",
-      "success": "Compte creat. Ja pots iniciar sessió.",
       "error_email_taken": "Aquest email ja està registrat"
     },
     "forgot_password": {
@@ -155,8 +142,7 @@
   "kanban": {
     "title": "Tauler Kanban",
     "add_button": "Afegeix candidatura",
-    "empty_column": "Sense candidatures",
-    "drop_hint": "Arrossega una targeta aquí per canviar-ne l'estat"
+    "empty_column": "Sense candidatures"
   },
   "applications": {
     "title": "Candidatures",
@@ -174,7 +160,6 @@
     "column_source": "Origen",
     "column_applied_at": "Data",
     "column_actions": "Accions",
-    "view_detail": "Veure detall",
     "confirm_delete_title": "Elimina la candidatura",
     "confirm_delete_message": "Segur que vols eliminar la candidatura de {{position}} a {{company}}? Aquesta acció no es pot desfer.",
     "results_count": "{{count}} candidatures",
@@ -203,7 +188,8 @@
     "events_title": "Esdeveniments i seguiment",
     "add_event": "Afegeix un esdeveniment",
     "no_events": "Encara no hi ha esdeveniments registrats per a aquesta candidatura",
-    "linked_offer": "Veure l'oferta original"
+    "linked_offer": "Veure l'oferta original",
+    "mark_applied": "Ja hi he aplicat"
   },
   "event_form": {
     "title": "Afegeix un esdeveniment",
@@ -236,7 +222,7 @@
     "score_label": "Afinitat",
     "reasoning_title": "Per què coincideix",
     "view_offer": "Veure l'oferta",
-    "convert_button": "Converteix en candidatura",
+    "convert_button": "Desa",
     "dismiss_button": "Descarta",
     "convert_success": "Candidatura creada a partir de l'oferta",
     "dismiss_success": "Oferta descartada",
@@ -265,7 +251,9 @@
     "error_demo_search": "El compte demo no pot cercar ofertes reals. Crea un compte per fer servir la cerca.",
     "already_tracked": "Ja tens una candidatura amb aquesta oferta",
     "write_letter": "Carta de presentació",
-    "view_letter": "Veure la meva carta"
+    "view_letter": "Veure la meva carta",
+    "applied_button": "Ja hi he aplicat",
+    "convert_applied_success": "Candidatura creada i marcada com a enviada"
   },
   "demo": {
     "banner": "Ets en un compte demo amb dades d'exemple. S'esborrarà sol passat un dia.",
