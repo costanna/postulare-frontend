@@ -14,7 +14,7 @@ Aplicación web de **Postulare**, para organizar tu búsqueda de empleo: guarda 
 ## Qué puedes hacer
 
 - **Seguir tus candidaturas** en un tablero Kanban (arrastrando entre estados) o en una tabla con filtros y paginación. Cada cambio de estado queda en una línea de tiempo, junto con entrevistas, seguimientos y notas.
-- **Encontrar ofertas** afines a tu perfil, con filtros editables (palabras clave, ubicación, radio, exclusiones, antigüedad, empresas que mencionan la discapacidad, puntuación mínima) y un **listado de palabras clave habituales en programación** para añadirlas con un clic (también en las skills del perfil). Las ofertas llegan de Adzuna y, si el servidor lo activa, de InfoJobs. Cada oferta muestra su afinidad y por qué encaja, y se puede **guardar**, **marcar como ya aplicada** o **descartar**. Avisa si ya la tienes entre tus candidaturas.
+- **Encontrar ofertas** afines a tu perfil, con filtros editables (palabras clave, ubicación, radio, exclusiones, antigüedad, empresas que mencionan la discapacidad, puntuación mínima) y un **listado de palabras clave habituales en programación** para añadirlas con un clic (también en las skills del perfil). Las ofertas llegan de Adzuna y, si el servidor lo activa, de InfoJobs. Cada oferta muestra su afinidad y por qué encaja, y se puede **guardar**, **descartar** o **aplicar**: «Aplicar» abre la página de la oferta, la deja guardada en tus candidaturas y te pregunta si ya has aplicado; si dices que sí, pasa a «Aplicada» sola. Avisa si ya la tienes entre tus candidaturas.
 - **Escribir la carta de presentación** de cada oferta: con IA (si el servidor la tiene activada) o con una plantilla gratuita, en catalán, castellano o inglés. Es editable y se copia con un clic.
 - **Importar tu CV en PDF** para rellenar el perfil; revisas los datos antes de guardar.
 - **No perder el hilo**: el dashboard te recuerda las candidaturas que llevan días sin novedades y muestra gráficos por estado, mes y origen. Puedes **exportar todo a CSV**.
@@ -48,7 +48,7 @@ La URL de la API está en `src/environments/environment.ts` (desarrollo) y `envi
 | Comando | Qué hace |
 |---|---|
 | `npm start` | Servidor de desarrollo |
-| `npm test` | Tests unitarios (Karma + Jasmine, 121 tests) |
+| `npm test` | Tests unitarios (Karma + Jasmine, 141 tests) |
 | `npm run build` | Build de producción en `dist/postulare-frontend/browser` |
 
 ### Docker

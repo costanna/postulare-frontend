@@ -189,7 +189,7 @@
     "add_event": "Añadir evento",
     "no_events": "Aún no hay eventos registrados para esta candidatura",
     "linked_offer": "Ver oferta original",
-    "mark_applied": "Marcar como aplicada"
+    "apply": "Aplicar"
   },
   "event_form": {
     "title": "Añadir evento",
@@ -252,14 +252,14 @@
     "already_tracked": "Ya tienes una candidatura con esta oferta",
     "write_letter": "Carta de presentación",
     "view_letter": "Ver mi carta",
-    "applied_button": "Marcar como aplicada",
-    "convert_applied_success": "Candidatura creada y marcada como enviada",
     "filter_disability": "Empresas y discapacidad",
     "disability_any": "Indiferente",
     "disability_require": "Solo las que mencionan discapacidad",
     "disability_exclude": "Excluir las que la mencionan",
     "filter_disability_hint": "Se mira el título, la empresa y el extracto de la oferta: si la menciona solo en el texto completo, puede no aparecer.",
-    "applied_hint": "Úsalo cuando ya hayas enviado tu candidatura en la web de la oferta"
+    "apply_button": "Aplicar",
+    "apply_hint": "Se abre la página de la oferta y queda guardada en tus candidaturas",
+    "popup_blocked": "El navegador ha bloqueado la pestaña. Usa «Ver la oferta» para abrirla."
   },
   "demo": {
     "banner": "Estás en una cuenta demo con datos de ejemplo. Se borrará sola pasado un día.",
@@ -296,5 +296,13 @@
     "group_devops": "Cloud y DevOps",
     "group_mobile": "Móvil",
     "group_testing": "Testing y QA"
+  },
+  "apply_dialog": {
+    "title": "¿Ya has aplicado a la oferta?",
+    "message": "«{{position}}» en {{company}} está guardada en tus candidaturas. Cuando hayas enviado tu candidatura en su web, confírmalo y pasará a «Aplicada».",
+    "yes": "Sí, ya he aplicado",
+    "no": "Todavía no",
+    "marked": "Marcada como aplicada",
+    "kept_saved": "Queda guardada. Puedes volver a aplicar desde la candidatura."
   }
 }
