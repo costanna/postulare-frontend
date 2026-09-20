@@ -222,7 +222,7 @@
     "score_label": "Afinidad",
     "reasoning_title": "Por qué coincide",
     "view_offer": "Ver oferta",
-    "convert_button": "Convertir en candidatura",
+    "convert_button": "Guardar",
     "dismiss_button": "Descartar",
     "convert_success": "Candidatura creada a partir de la oferta",
     "dismiss_success": "Oferta descartada",

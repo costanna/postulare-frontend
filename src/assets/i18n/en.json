@@ -222,7 +222,7 @@
     "score_label": "Match",
     "reasoning_title": "Why it matches",
     "view_offer": "View offer",
-    "convert_button": "Convert to application",
+    "convert_button": "Save",
     "dismiss_button": "Dismiss",
     "convert_success": "Application created from the offer",
     "dismiss_success": "Offer dismissed",

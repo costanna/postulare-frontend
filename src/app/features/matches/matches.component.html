@@ -215,13 +215,14 @@
               @if (filter() === 'new') {
                 <div class="match-card__buttons">
                   <button
-                    mat-button
+                    mat-icon-button
                     type="button"
+                    [attr.aria-label]="'matches.dismiss_button' | translate"
+                    [attr.title]="'matches.dismiss_button' | translate"
                     [disabled]="dismissingIds().has(match.id)"
                     (click)="dismiss(match)"
                   >
                     <svg lucideX></svg>
-                    {{ 'matches.dismiss_button' | translate }}
                   </button>
                   <button
                     mat-stroked-button
