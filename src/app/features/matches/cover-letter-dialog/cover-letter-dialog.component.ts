@@ -74,6 +74,7 @@ export class CoverLetterDialogComponent implements OnInit {
     this.matchesService.coverLetter(this.data.match.id, { language: this.language(), regenerate }).subscribe({
       next: (letter) => {
         this.letter.set(letter);
+        if (letter.language) this.language.set(letter.language);
         this.text.setValue(letter.cover_letter);
         this.loading.set(false);
       },

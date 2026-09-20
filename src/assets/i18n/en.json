@@ -278,5 +278,17 @@
     "copy": "Copy",
     "copied": "Copied",
     "copy_failed": "Could not copy. Select the text and copy it by hand."
+  },
+  "keywords": {
+    "title": "Common programming keywords",
+    "hint": "Click to add or remove. The search accepts offers that contain any of them.",
+    "group_roles": "Job titles",
+    "group_languages": "Languages",
+    "group_frontend": "Frontend",
+    "group_backend": "Backend",
+    "group_data": "Data and databases",
+    "group_devops": "Cloud and DevOps",
+    "group_mobile": "Mobile",
+    "group_testing": "Testing and QA"
   }
 }

@@ -31,6 +31,7 @@ function match(id: string): Match {
     },
     cover_letter: null,
     cover_letter_source: null,
+    cover_letter_language: null,
     cover_letter_at: null,
     already_tracked: false,
   };
@@ -88,5 +89,38 @@ describe('MatchesComponent convert actions', () => {
     fixture.detectChanges();
     const buttons = fixture.nativeElement.querySelectorAll('.match-card:first-child .match-card__buttons button');
     expect(buttons.length).toBe(3);
+  });
+
+  describe('keyword suggestions', () => {
+    const control = () => fixture.componentInstance.searchForm.controls.keywords;
+
+    it('picking a suggestion appends it to the keywords and marks the form as changed', () => {
+      control().setValue('angular');
+      fixture.componentInstance.toggleKeyword('React');
+      expect(control().value).toBe('angular React');
+      expect(control().dirty).toBeTrue();
+    });
+
+    it('picking a selected one removes it, ignoring case and separators', () => {
+      control().setValue('angular, react   node.js');
+      fixture.componentInstance.toggleKeyword('REACT');
+      expect(control().value).toBe('angular node.js');
+    });
+
+    it('the highlighted suggestions follow what is typed in the field', () => {
+      control().setValue('Docker python');
+      expect(fixture.componentInstance.keywordSelection()).toEqual(['Docker', 'python']);
+    });
+
+    it('renders the suggestion list inside the filters panel', () => {
+      fixture.detectChanges();
+      expect(fixture.nativeElement.querySelector('.search-filters app-keyword-suggestions')).not.toBeNull();
+    });
+  });
+
+  it('labels each offer with the site it came from', () => {
+    expect(fixture.componentInstance.sourceLabel('infojobs')).toBe('InfoJobs');
+    expect(fixture.componentInstance.sourceLabel('adzuna')).toBe('Adzuna');
+    expect(fixture.componentInstance.sourceLabel('otra')).toBe('otra');
   });
 });

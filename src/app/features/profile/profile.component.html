@@ -117,6 +117,7 @@
           />
         </mat-chip-grid>
         <p class="profile-form__hint">{{ 'profile.skills_hint' | translate }}</p>
+        <app-keyword-suggestions [selected]="skills()" (picked)="toggleSkill($event)"></app-keyword-suggestions>
       </div>
 
       <button class="profile-form__submit" mat-flat-button color="primary" type="submit" [disabled]="saving()">

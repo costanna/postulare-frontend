@@ -236,4 +236,38 @@ describe('ProfileComponent', () => {
       req.flush({});
     });
   });
+
+  describe('skill suggestions', () => {
+    function loadWithSkills(skills: string[]): void {
+      fixture.detectChanges();
+      httpMock.expectOne(`${environment.apiUrl}/profile`).flush({
+        id: '1',
+        email: 'a@a.com',
+        full_name: null,
+        skills,
+        location: null,
+        desired_position: null,
+        seniority: null,
+        min_salary: null,
+        preferred_language: 'es',
+        about: null,
+        is_demo: false,
+        created_at: '2026-01-01T00:00:00Z',
+      });
+    }
+
+    it('adds a suggested keyword as a skill and removes it when picked again', () => {
+      loadWithSkills(['Python']);
+      fixture.componentInstance.toggleSkill('Docker');
+      expect(fixture.componentInstance.skills()).toEqual(['Python', 'Docker']);
+      fixture.componentInstance.toggleSkill('python');
+      expect(fixture.componentInstance.skills()).toEqual(['Docker']);
+    });
+
+    it('renders the suggestion list under the skills', () => {
+      loadWithSkills([]);
+      fixture.detectChanges();
+      expect(fixture.nativeElement.querySelector('.profile-form__skills app-keyword-suggestions')).not.toBeNull();
+    });
+  });
 });
