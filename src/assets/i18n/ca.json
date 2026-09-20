@@ -189,7 +189,7 @@
     "add_event": "Afegeix un esdeveniment",
     "no_events": "Encara no hi ha esdeveniments registrats per a aquesta candidatura",
     "linked_offer": "Veure l'oferta original",
-    "mark_applied": "Ja hi he aplicat"
+    "mark_applied": "Marca com a aplicada"
   },
   "event_form": {
     "title": "Afegeix un esdeveniment",
@@ -252,7 +252,7 @@
     "already_tracked": "Ja tens una candidatura amb aquesta oferta",
     "write_letter": "Carta de presentació",
     "view_letter": "Veure la meva carta",
-    "applied_button": "Ja hi he aplicat",
+    "applied_button": "Marca com a aplicada",
     "convert_applied_success": "Candidatura creada i marcada com a enviada",
     "filter_disability": "Empreses i discapacitat",
     "disability_any": "Indiferent",

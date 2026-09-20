@@ -189,7 +189,7 @@
     "add_event": "Add event",
     "no_events": "No events logged yet for this application",
     "linked_offer": "View original job posting",
-    "mark_applied": "I applied"
+    "mark_applied": "Mark as applied"
   },
   "event_form": {
     "title": "Add event",
@@ -252,7 +252,7 @@
     "already_tracked": "You already have an application for this offer",
     "write_letter": "Cover letter",
     "view_letter": "View my letter",
-    "applied_button": "I applied",
+    "applied_button": "Mark as applied",
     "convert_applied_success": "Application created and marked as sent",
     "filter_disability": "Companies and disability",
     "disability_any": "Don't filter",
