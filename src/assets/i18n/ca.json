@@ -258,7 +258,8 @@
     "disability_any": "Indiferent",
     "disability_require": "Només les que esmenten discapacitat",
     "disability_exclude": "Excloure les que l'esmenten",
-    "filter_disability_hint": "Es mira el títol, l'empresa i l'extracte de l'oferta: si només l'esmenta al text complet, pot no sortir."
+    "filter_disability_hint": "Es mira el títol, l'empresa i l'extracte de l'oferta: si només l'esmenta al text complet, pot no sortir.",
+    "applied_hint": "Fes-ho servir quan ja hagis enviat la teva candidatura a la web de l'oferta"
   },
   "demo": {
     "banner": "Ets en un compte demo amb dades d'exemple. S'esborrarà sol passat un dia.",

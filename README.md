@@ -48,7 +48,7 @@ La URL de la API está en `src/environments/environment.ts` (desarrollo) y `envi
 | Comando | Qué hace |
 |---|---|
 | `npm start` | Servidor de desarrollo |
-| `npm test` | Tests unitarios (Karma + Jasmine, 111 tests) |
+| `npm test` | Tests unitarios (Karma + Jasmine, 121 tests) |
 | `npm run build` | Build de producción en `dist/postulare-frontend/browser` |
 
 ### Docker

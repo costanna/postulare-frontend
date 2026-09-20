@@ -48,7 +48,7 @@ The API URL lives in `src/environments/environment.ts` (development) and `enviro
 | Command | What it does |
 |---|---|
 | `npm start` | Development server |
-| `npm test` | Unit tests (Karma + Jasmine, 111 tests) |
+| `npm test` | Unit tests (Karma + Jasmine, 121 tests) |
 | `npm run build` | Production build in `dist/postulare-frontend/browser` |
 
 ### Docker

@@ -5,7 +5,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { LucideArrowLeft, LucideSend, LucideExternalLink, LucidePencil, LucidePlus, LucideTrash2 } from '@lucide/angular';
+import { LucideArrowLeft, LucideExternalLink, LucidePencil, LucidePlus, LucideTrash2 } from '@lucide/angular';
 
 import { Application } from '../../../core/models/application.model';
 import { ApplicationEvent } from '../../../core/models/event.model';
@@ -32,7 +32,6 @@ import { EventFormDialogComponent, EventFormDialogData } from '../event-form-dia
     LucideTrash2,
     LucidePlus,
     LucideExternalLink,
-    LucideSend,
   ],
   templateUrl: './application-detail.component.html',
   styleUrl: './application-detail.component.scss',
