@@ -5,12 +5,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { LucideArrowLeft, LucideExternalLink, LucidePencil, LucidePlus, LucideTrash2 } from '@lucide/angular';
+import { LucideArrowLeft, LucideCheck, LucideExternalLink, LucidePencil, LucidePlus, LucideTrash2 } from '@lucide/angular';
 
 import { Application } from '../../../core/models/application.model';
 import { ApplicationEvent } from '../../../core/models/event.model';
 import { ApplicationsService } from '../../../core/services/applications.service';
 import { EventsService } from '../../../core/services/events.service';
+import { todayIso } from '../../../core/utils/iso-date';
 import { LocalDatePipe } from '../../../shared/pipes/local-date.pipe';
 import { StatusBadgeComponent } from '../../../shared/ui/status-badge/status-badge.component';
 import { ConfirmDialogComponent, ConfirmDialogData } from '../../../shared/ui/confirm-dialog/confirm-dialog.component';
@@ -31,6 +32,7 @@ import { EventFormDialogComponent, EventFormDialogData } from '../event-form-dia
     LucideTrash2,
     LucidePlus,
     LucideExternalLink,
+    LucideCheck,
   ],
   templateUrl: './application-detail.component.html',
   styleUrl: './application-detail.component.scss',
@@ -49,6 +51,7 @@ export class ApplicationDetailComponent implements OnInit {
   readonly loading = signal(true);
   readonly notFound = signal(false);
   readonly application = signal<Application | null>(null);
+  readonly markingApplied = signal(false);
   readonly events = signal<ApplicationEvent[]>([]);
   readonly eventsLoading = signal(true);
   readonly eventsError = signal(false);
@@ -93,6 +96,32 @@ export class ApplicationDetailComponent implements OnInit {
 
   back(): void {
     this.router.navigate(['/applications']);
+  }
+
+  markApplied(): void {
+    const application = this.application();
+    if (!application || this.markingApplied()) return;
+
+    this.markingApplied.set(true);
+    const changes = { status: 'applied' as const, applied_at: application.applied_at ?? todayIso() };
+    this.applicationsService.update(application.id, changes).subscribe({
+      next: (updated) => {
+        this.application.set(updated);
+        this.markingApplied.set(false);
+        this.loadEvents();
+      },
+      error: () => {
+        this.markingApplied.set(false);
+        this.snackBar.open(this.translate.instant('common.error_generic'), undefined, { duration: 4000 });
+      },
+    });
+  }
+
+  /** El backend guarda los cambios de estado como "saved → applied": se muestran con los nombres traducidos. */
+  eventText(event: ApplicationEvent): string {
+    const change = event.type === 'status_change' ? /^(\w+) → (\w+)$/.exec(event.description ?? '') : null;
+    if (!change) return event.description ?? '';
+    return `${this.translate.instant('status.' + change[1])} → ${this.translate.instant('status.' + change[2])}`;
   }
 
   openEditDialog(): void {

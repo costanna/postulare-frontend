@@ -30,6 +30,7 @@ import { Observable, of, switchMap, tap } from 'rxjs';
 
 import { CoverLetter, Match, MatchStatus, SearchFilters, SearchFiltersState } from '../../core/models/match.model';
 import { MatchesService } from '../../core/services/matches.service';
+import { todayIso } from '../../core/utils/iso-date';
 import { CoverLetterDialogComponent, CoverLetterDialogData } from './cover-letter-dialog/cover-letter-dialog.component';
 
 const FILTERS: MatchStatus[] = ['new', 'converted', 'dismissed'];
@@ -272,9 +273,10 @@ export class MatchesComponent implements OnInit {
     });
   }
 
-  convert(match: Match): void {
+  convert(match: Match, applied = false): void {
     this.convertingIds.update((ids) => new Set(ids).add(match.id));
-    this.matchesService.convert(match.id).subscribe({
+    const options = applied ? { applied: true, applied_at: todayIso() } : {};
+    this.matchesService.convert(match.id, options).subscribe({
       next: () => {
         this.convertingIds.update((ids) => {
           const next = new Set(ids);
@@ -282,7 +284,7 @@ export class MatchesComponent implements OnInit {
           return next;
         });
         this.matches.update((current) => current.filter((m) => m.id !== match.id));
-        this.notify('matches.convert_success');
+        this.notify(applied ? 'matches.convert_applied_success' : 'matches.convert_success');
       },
       error: () => {
         this.convertingIds.update((ids) => {

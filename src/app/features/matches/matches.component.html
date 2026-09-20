@@ -224,17 +224,25 @@
                     {{ 'matches.dismiss_button' | translate }}
                   </button>
                   <button
+                    mat-stroked-button
+                    type="button"
+                    [disabled]="convertingIds().has(match.id)"
+                    (click)="convert(match)"
+                  >
+                    {{ 'matches.convert_button' | translate }}
+                  </button>
+                  <button
                     mat-flat-button
                     color="primary"
                     type="button"
                     [disabled]="convertingIds().has(match.id)"
-                    (click)="convert(match)"
+                    (click)="convert(match, true)"
                   >
                     @if (convertingIds().has(match.id)) {
                       <mat-spinner diameter="16"></mat-spinner>
                     } @else {
                       <svg lucideCheck></svg>
-                      {{ 'matches.convert_button' | translate }}
+                      {{ 'matches.applied_button' | translate }}
                     }
                   </button>
                 </div>

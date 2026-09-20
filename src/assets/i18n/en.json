@@ -203,7 +203,8 @@
     "events_title": "Events & follow-ups",
     "add_event": "Add event",
     "no_events": "No events logged yet for this application",
-    "linked_offer": "View original job posting"
+    "linked_offer": "View original job posting",
+    "mark_applied": "I applied"
   },
   "event_form": {
     "title": "Add event",
@@ -265,7 +266,9 @@
     "error_demo_search": "The demo account cannot search real offers. Create an account to use search.",
     "already_tracked": "You already have an application for this offer",
     "write_letter": "Cover letter",
-    "view_letter": "View my letter"
+    "view_letter": "View my letter",
+    "applied_button": "I applied",
+    "convert_applied_success": "Application created and marked as sent"
   },
   "demo": {
     "banner": "You are in a demo account with sample data. It deletes itself after a day.",

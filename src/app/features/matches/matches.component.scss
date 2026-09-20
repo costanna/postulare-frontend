@@ -189,6 +189,7 @@
 // ("Converteix en candidatura") los parta ni apile el icono encima.
 .match-card__buttons {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   gap: 0.4rem;
 

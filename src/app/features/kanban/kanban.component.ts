@@ -9,7 +9,10 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LucidePlus } from '@lucide/angular';
 
 import { Application, ApplicationStatus, KANBAN_STATUSES } from '../../core/models/application.model';
+
+const APPLIED_OR_LATER: ApplicationStatus[] = ['applied', 'interview', 'offer', 'rejected'];
 import { ApplicationsService } from '../../core/services/applications.service';
+import { todayIso } from '../../core/utils/iso-date';
 import { StatusBadgeComponent } from '../../shared/ui/status-badge/status-badge.component';
 import {
   ApplicationFormDialogComponent,
@@ -97,7 +100,14 @@ export class KanbanComponent implements OnInit {
     currentList.splice(event.currentIndex, 0, { ...application, status: newStatus });
     this.board.update((b) => ({ ...b }));
 
-    this.applicationsService.update(application.id, { status: newStatus }).subscribe({
+    const stampDate = APPLIED_OR_LATER.includes(newStatus) && !application.applied_at;
+    const changes = stampDate ? { status: newStatus, applied_at: todayIso() } : { status: newStatus };
+    this.applicationsService.update(application.id, changes).subscribe({
+      next: (saved) => {
+        const index = currentList.findIndex((a) => a.id === saved.id);
+        if (index >= 0) currentList[index] = saved;
+        this.board.update((b) => ({ ...b }));
+      },
       error: () => {
         currentList.splice(event.currentIndex, 1);
         previousList.splice(event.previousIndex, 0, { ...application, status: previousStatus });

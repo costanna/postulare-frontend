@@ -6,7 +6,7 @@ import { catchError, switchMap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../services/auth.service';
 
-const AUTH_FREE_PATHS = ['/auth/login', '/auth/register', '/auth/refresh', '/auth/forgot-password', '/auth/reset-password'];
+const AUTH_FREE_PATHS = ['/auth/login', '/auth/register', '/auth/demo', '/auth/refresh', '/auth/forgot-password', '/auth/reset-password'];
 
 function isApiRequest(url: string): boolean {
   return url.startsWith(environment.apiUrl);
