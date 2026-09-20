@@ -1,111 +1,93 @@
 # Postulare — Frontend
 
-Frontend del proyecto **Postulare**: seguimiento de candidaturas de empleo con
-búsqueda y scoring automático de ofertas afines a tu perfil.
+🇪🇸 Español · [🇬🇧 English](README.en.md)
 
-Stack: **Angular 18 (standalone) · TypeScript · Angular Material · ngx-charts · ngx-translate · @lucide/angular**.
+Aplicación web de **Postulare**, para organizar tu búsqueda de empleo: guarda tus candidaturas, encuentra ofertas afines a tu perfil, puntúa cuánto encajan contigo y te ayuda a escribir la carta de presentación.
 
-> Backend (FastAPI) en un repositorio hermano: [postulare-backend](https://github.com/costanna/postulare-backend).
+- 🌐 Demo en vivo: <https://postulare.vercel.app> (pulsa **«Prueba la demo»**, no hace falta registrarse)
+- ⚙️ Backend (FastAPI): [postulare-backend](https://github.com/costanna/postulare-backend)
 
-## Estado del proyecto
+> El backend corre en el plan gratuito de Render, que duerme el servicio tras un rato sin uso: la primera carga puede tardar ~30 s.
 
-Este frontend se construye de forma incremental, en ramas por funcionalidad:
+**Stack:** Angular 18 (componentes standalone y signals) · Angular Material · ngx-translate · Lucide · Karma/Jasmine
 
-- [x] `feature/scaffold` — proyecto Angular 18 standalone + Angular Material, ngx-charts, ngx-translate, @lucide/angular
-- [x] `feature/layout-auth` — tema claro/oscuro (CSS custom properties + `ThemeService`), i18n CA/ES/EN con `ngx-translate`, layout con barra superior responsive, autenticación (login/registro/recuperar contraseña) con guards e interceptor HTTP
-- [x] `feature/profile` — perfil editable (skills como chips, ubicación, puesto deseado, seniority, salario mínimo, idioma preferido); el idioma guardado en el backend se sincroniza al iniciar sesión
-- [x] `feature/applications` — tablero Kanban con drag & drop (`@angular/cdk`) entre estados, alta/edición de candidaturas en un diálogo compartido, vista de tabla con filtros (empresa, estado, rango de fechas) y paginación, y detalle de candidatura con línea de tiempo de eventos (entrevistas, seguimientos, notas)
-- [x] `feature/dashboard` — resumen numérico (candidaturas totales, enviadas, entrevistas, ofertas, tasa de respuesta) y gráficos de candidaturas por estado, por mes y por origen, consumiendo los endpoints `/stats/*` del backend
-- [x] `feature/matches` — ofertas recomendadas: buscar ofertas (Adzuna + scoring del backend), filtro por nuevas/convertidas/descartadas, tarjeta con score de afinidad y motivo, convertir en candidatura o descartar
-- [x] `feat/improvements-pack` — **carta de presentación** por oferta (IA con Claude si el backend la tiene activada; si no, plantilla gratuita en CA/ES/EN, editable y con botón de copiar), **importar CV en PDF** al perfil (se rellena el formulario y la usuaria revisa antes de guardar), **recordatorios de seguimiento** en el dashboard, **exportar candidaturas a CSV**, aviso de **ofertas repetidas / ya en tus candidaturas**, y **"Prueba la demo"** (cuenta temporal con datos de ejemplo, con banner y sin búsqueda real ni IA)
-- [x] `feature/docker` — `Dockerfile` + nginx para servir la SPA en contenedor; junto al backend se orquestan desde el [`docker-compose.yml`](../docker-compose.yml) de la carpeta raíz (ver ahí para levantar todo el stack local)
+## Qué puedes hacer
+
+- **Seguir tus candidaturas** en un tablero Kanban (arrastrando entre estados) o en una tabla con filtros y paginación. Cada cambio de estado queda en una línea de tiempo, junto con entrevistas, seguimientos y notas.
+- **Encontrar ofertas** afines a tu perfil, con filtros editables (palabras clave, ubicación, radio, exclusiones, antigüedad, puntuación mínima). Cada oferta muestra su afinidad y por qué encaja, y se puede **guardar**, **marcar como ya aplicada** o **descartar**. Avisa si ya la tienes entre tus candidaturas.
+- **Escribir la carta de presentación** de cada oferta: con IA (si el servidor la tiene activada) o con una plantilla gratuita, en catalán, castellano o inglés. Es editable y se copia con un clic.
+- **Importar tu CV en PDF** para rellenar el perfil; revisas los datos antes de guardar.
+- **No perder el hilo**: el dashboard te recuerda las candidaturas que llevan días sin novedades y muestra gráficos por estado, mes y origen. Puedes **exportar todo a CSV**.
+- **Probar sin registrarte** con la cuenta demo.
+- Tema **claro/oscuro**, interfaz en **catalán, castellano e inglés** y diseño **responsive** desde ~360 px.
+
+## Capturas
+
+<p>
+  <img src="docs/screenshots/dashboard.png" alt="Dashboard con seguimientos pendientes" width="49%">
+  <img src="docs/screenshots/matches.png" alt="Ofertas recomendadas" width="49%">
+  <img src="docs/screenshots/cover-letter.png" alt="Carta de presentación" width="49%">
+  <img src="docs/screenshots/profile-cv-import.png" alt="Importar CV" width="49%">
+</p>
+
+<p>
+  <img src="docs/screenshots/dashboard-dark.png" alt="Dashboard en tema oscuro" width="49%">
+</p>
 
 ## Puesta en marcha local
 
-### Requisitos
-
-- Node.js 20+
-- El [backend](https://github.com/costanna/postulare-backend) corriendo en `http://localhost:8000` (ver su propio README)
-
-### Instalación
+Requisitos: Node.js 20+ y el [backend](https://github.com/costanna/postulare-backend) corriendo en `http://localhost:8000` (ver su README).
 
 ```bash
 npm install
+npm start          # http://localhost:4200, con recarga en caliente
 ```
 
-### Variables de entorno
+La URL de la API está en `src/environments/environment.ts` (desarrollo) y `environment.prod.ts` (producción). Se compila dentro del bundle: si cambia la URL del backend hay que actualizarla ahí y volver a desplegar.
 
-La URL de la API se configura en `src/environments/environment.ts` (desarrollo)
-y `environment.prod.ts` (producción, sustituido en el build de producción vía
-`fileReplacements` en `angular.json`).
-
-### Arrancar en desarrollo
-
-```bash
-npm start
-```
-
-Sirve la app en http://localhost:4200 con recarga en caliente.
-
-### Tests
-
-```bash
-npm test
-```
-
-### Build de producción
-
-```bash
-npm run build
-```
+| Comando | Qué hace |
+|---|---|
+| `npm start` | Servidor de desarrollo |
+| `npm test` | Tests unitarios (Karma + Jasmine, 92 tests) |
+| `npm run build` | Build de producción en `dist/postulare-frontend/browser` |
 
 ### Docker
 
-El [`Dockerfile`](Dockerfile) compila la SPA (configuración `development`,
-para que `apiUrl` apunte a `http://localhost:8000`) y la sirve con nginx
-([`nginx.conf`](nginx.conf), con fallback a `index.html` para el router de
-Angular). Pensado para levantarse junto al backend desde el
-[`docker-compose.yml`](../docker-compose.yml) de la carpeta raíz — ver ahí
-las instrucciones para todo el stack. Para construir solo esta imagen:
+El [`Dockerfile`](Dockerfile) compila la SPA y la sirve con nginx ([`nginx.conf`](nginx.conf), con fallback a `index.html` para el router). Está pensado para levantarse junto al backend con el `docker-compose.yml` de la carpeta raíz del proyecto. Para construir solo esta imagen:
 
 ```bash
 docker build -t postulare-frontend .
 docker run -p 4200:80 postulare-frontend
 ```
 
-(el backend debe estar accesible en `http://localhost:8000` desde el navegador)
+## Despliegue
 
-## Tema claro/oscuro e internacionalización
+Se despliega en **Vercel** con el build de producción de Angular (`npm run build`, directorio de salida `dist/postulare-frontend/browser`), que usa `environment.prod.ts`. El backend vive en Render y la base de datos en Neon: ver el [README del backend](https://github.com/costanna/postulare-backend#readme).
 
-- **Tema**: variables CSS (`custom properties`) definidas en `src/styles.scss`,
-  alternadas por `ThemeService` mediante el atributo `[data-theme]` en `<body>`.
-  Respeta `prefers-color-scheme` en la primera visita y persiste la elección en
-  `localStorage`.
-- **Idiomas**: catalán, castellano e inglés en `src/assets/i18n/{ca,es,en}.json`.
-  `ngx-translate` cambia de idioma en caliente. Castellano es el idioma de
-  fallback si falta una clave. El idioma se detecta del navegador la primera
-  vez y luego se recuerda (ver `core/i18n/supported-languages.ts`).
+## Tema e idiomas
+
+- **Tema**: variables CSS en `src/styles.scss`, alternadas por `ThemeService` con el atributo `[data-theme]` en `<body>`. Respeta `prefers-color-scheme` la primera vez y recuerda la elección.
+- **Idiomas**: `src/assets/i18n/{ca,es,en}.json`. Se detecta el idioma del navegador la primera vez y luego se recuerda; el idioma guardado en el perfil se aplica al iniciar sesión desde cualquier dispositivo. Castellano es el idioma de respaldo si falta una clave.
 
 ## Estructura del proyecto
 
-```
+```text
 src/app/
-├── core/            # servicios (auth, tema, idioma), guards, interceptor HTTP, modelos
-├── layout/          # shell con la barra superior y el menú responsive
+├── core/           servicios (auth, tema, idioma, API), guards, interceptor HTTP, modelos y utilidades
+├── layout/         shell con barra superior, menú responsive y aviso de cuenta demo
 ├── features/
-│   ├── auth/        # login, registro, recuperar/restablecer contraseña, botón «Prueba la demo»
-│   ├── dashboard/    resumen y gráficos (estado, mes, origen)
-│   ├── kanban/        tablero de candidaturas con drag & drop
-│   ├── applications/  tabla con filtros, formulario y detalle con eventos
-│   ├── matches/       ofertas recomendadas con score y acciones, y diálogo de carta de presentación
-│   └── profile/       perfil editable e importación de CV (PDF)
-├── shared/          # componentes/páginas reutilizables
+│   ├── auth/           login, registro, recuperar contraseña y botón «Prueba la demo»
+│   ├── dashboard/      resumen, seguimientos pendientes y gráficos
+│   ├── kanban/         tablero de candidaturas con drag & drop
+│   ├── applications/   tabla con filtros, formulario y detalle con línea de tiempo
+│   ├── matches/        ofertas recomendadas, filtros y carta de presentación
+│   └── profile/        perfil editable e importación de CV
+├── shared/         pipes y componentes reutilizables
 └── app.routes.ts
-src/assets/i18n/      # ca.json, es.json, en.json
+src/assets/i18n/   traducciones
+docs/screenshots/  capturas para este README
 ```
 
-## Diseño responsive
+## Licencia
 
-Mobile-first: el listado, los formularios y la barra de navegación se adaptan
-desde ~360px de ancho. La navegación superior se colapsa en un menú lateral
-(`mat-sidenav`) por debajo de 900px de ancho.
+[MIT](LICENSE) © 2026 Anna Costa
