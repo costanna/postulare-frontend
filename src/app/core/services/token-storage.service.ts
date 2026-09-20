@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 const ACCESS_TOKEN_KEY = 'postulare-access-token';
 const REFRESH_TOKEN_KEY = 'postulare-refresh-token';
 
-/** Centraliza el acceso a localStorage para los tokens JWT. */
 @Injectable({ providedIn: 'root' })
 export class TokenStorageService {
   getAccessToken(): string | null {

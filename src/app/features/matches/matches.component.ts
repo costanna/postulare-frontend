@@ -80,7 +80,6 @@ export class MatchesComponent implements OnInit {
   readonly convertingIds = signal<Set<string>>(new Set());
   readonly dismissingIds = signal<Set<string>>(new Set());
 
-  // --- Filtros de búsqueda editables ---------------------------------------
   readonly radiusOptions = [10, 30, 50, 100];
   readonly daysOptions: (number | null)[] = [null, 7, 14, 30, 60];
 
@@ -163,7 +162,6 @@ export class MatchesComponent implements OnInit {
     });
   }
 
-  /** Vuelve a la búsqueda automática (puesto + skills del perfil) y lo guarda. */
   resetFilters(): void {
     this.searchForm.reset({
       keywords: '',
@@ -246,7 +244,6 @@ export class MatchesComponent implements OnInit {
       return;
     }
     if (err.status === 403) {
-      // Cuenta demo: no puede gastar la cuota real de Adzuna.
       this.notify('matches.error_demo_search');
       return;
     }
@@ -332,7 +329,6 @@ export class MatchesComponent implements OnInit {
       .afterClosed()
       .subscribe((letter) => {
         if (!letter) return;
-        // La carta queda guardada en el servidor: se refleja aquí para que la tarjeta lo indique.
         this.matches.update((current) =>
           current.map((m) =>
             m.id === match.id

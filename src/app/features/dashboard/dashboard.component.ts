@@ -56,7 +56,6 @@ export class DashboardComponent implements OnInit {
   readonly byStatus = signal<StatusCount[]>([]);
   readonly timeline = signal<TimelinePoint[]>([]);
   readonly bySource = signal<SourceCount[]>([]);
-  /** Candidaturas abiertas que llevan días sin novedades (recordatorios de seguimiento). */
   readonly followUps = signal<FollowUp[]>([]);
   readonly followingUpIds = signal<Set<string>>(new Set());
 
@@ -80,7 +79,6 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  /** Registra un evento "seguimiento": reinicia la cuenta y la candidatura sale de la lista. */
   markFollowedUp(item: FollowUp): void {
     const id = item.application.id;
     if (this.followingUpIds().has(id)) return;
@@ -138,7 +136,6 @@ export class DashboardComponent implements OnInit {
   }
 
   timelineBarHeight(count: number): number {
-    // Deja un mínimo visible incluso para meses con 1 candidatura.
     return Math.max(6, Math.round((count / this.maxTimelineCount()) * 100));
   }
 

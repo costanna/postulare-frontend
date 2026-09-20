@@ -1,30 +1,18 @@
 {
-  "app": {
-    "name": "Postulare"
-  },
   "common": {
     "save": "Save",
     "cancel": "Cancel",
     "delete": "Delete",
     "edit": "Edit",
     "close": "Close",
-    "back": "Back",
-    "loading": "Loading…",
     "search": "Search",
-    "filters": "Filters",
     "all": "All",
-    "actions": "Actions",
     "previous": "Previous",
     "next": "Next",
     "retry": "Retry",
-    "confirm": "Confirm",
-    "yes": "Yes",
-    "no": "No",
     "optional": "optional",
     "error_generic": "Something went wrong. Please try again.",
-    "error_network": "Could not reach the server. Check your connection.",
-    "required_field": "This field is required",
-    "coming_soon": "This section is under construction. It's coming in a future branch."
+    "required_field": "This field is required"
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -63,7 +51,6 @@
       "submit": "Create account",
       "has_account": "Already have an account?",
       "login_link": "Log in",
-      "success": "Account created. You can now log in.",
       "error_email_taken": "That email is already registered"
     },
     "forgot_password": {
@@ -155,8 +142,7 @@
   "kanban": {
     "title": "Board",
     "add_button": "Add application",
-    "empty_column": "No applications",
-    "drop_hint": "Drag a card here to change its status"
+    "empty_column": "No applications"
   },
   "applications": {
     "title": "Applications",
@@ -174,7 +160,6 @@
     "column_source": "Source",
     "column_applied_at": "Date",
     "column_actions": "Actions",
-    "view_detail": "View detail",
     "confirm_delete_title": "Delete application",
     "confirm_delete_message": "Are you sure you want to delete the application for {{position}} at {{company}}? This can't be undone.",
     "results_count": "{{count}} applications",

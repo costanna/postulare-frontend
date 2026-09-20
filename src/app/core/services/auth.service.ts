@@ -40,7 +40,6 @@ export class AuthService {
     );
   }
 
-  /** Crea una cuenta temporal con datos de ejemplo y entra directamente (sin registro). */
   startDemo(language: PreferredLanguage): Observable<User> {
     return this.http.post<TokenPair>(`${this.baseUrl}/auth/demo`, { language }).pipe(
       tap((tokenPair) => this.tokens.setTokens(tokenPair.access_token, tokenPair.refresh_token)),
@@ -77,7 +76,6 @@ export class AuthService {
     this.currentUser.set(null);
   }
 
-  /** Usado por el interceptor cuando una petición responde 401. */
   refreshAccessToken(): Observable<string> {
     if (this.refreshInFlight$) {
       return this.refreshInFlight$;
@@ -106,7 +104,6 @@ export class AuthService {
     return this.refreshInFlight$;
   }
 
-  /** Al arrancar la app: si hay sesión guardada, intenta recuperar el usuario. */
   bootstrap(): Observable<boolean> {
     if (!this.hasStoredSession()) {
       return of(false);

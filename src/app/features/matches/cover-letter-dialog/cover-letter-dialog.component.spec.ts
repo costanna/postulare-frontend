@@ -70,7 +70,6 @@ describe('CoverLetterDialogComponent', () => {
     expect(fixture.componentInstance.loading()).toBeFalse();
     expect(fixture.componentInstance.text.value).toBe('Hola equipo');
     expect(fixture.nativeElement.querySelector('textarea').value).toBe('Hola equipo');
-    // Plantilla: se explica por qué no es de IA
     expect(fixture.nativeElement.querySelector('.letter__notice')).not.toBeNull();
   });
 

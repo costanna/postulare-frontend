@@ -28,7 +28,6 @@ export class ApplicationsService {
     return this.http.get<Page<Application>>(this.baseUrl, { params });
   }
 
-  /** Candidaturas abiertas sin novedades desde hace varios días. */
   followUps(): Observable<FollowUp[]> {
     return this.http.get<FollowUp[]>(`${this.baseUrl}/follow-ups`);
   }

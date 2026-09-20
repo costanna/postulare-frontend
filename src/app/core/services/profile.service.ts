@@ -18,7 +18,6 @@ export class ProfileService {
     return this.http.patch<User>(`${this.baseUrl}/profile`, payload);
   }
 
-  /** Sube un CV en PDF y devuelve una PROPUESTA de perfil; no guarda nada. */
   importCv(file: File): Observable<CvImportResult> {
     const body = new FormData();
     body.append('file', file, file.name);

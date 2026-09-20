@@ -27,8 +27,6 @@
   gap: 0.9rem;
   overflow-x: auto;
   padding-bottom: 0.75rem;
-  // En móvil cada columna ocupa casi todo el ancho y se navega deslizando
-  // (spec: "el Kanban puede simplificarse en pantallas pequeñas").
   scroll-snap-type: x proximity;
 }
 

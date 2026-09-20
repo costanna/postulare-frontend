@@ -47,7 +47,6 @@ export class MatchesService {
     return this.http.post<Match>(`${this.baseUrl}/${matchId}/dismiss`, {});
   }
 
-  /** Carta de presentación para la oferta (IA si hay cuota; si no, plantilla). */
   coverLetter(matchId: string, request: CoverLetterRequest = {}): Observable<CoverLetter> {
     return this.http.post<CoverLetter>(`${this.baseUrl}/${matchId}/cover-letter`, request);
   }

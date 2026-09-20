@@ -73,7 +73,7 @@ describe('ApplicationDetailComponent', () => {
     load(application('saved'));
 
     fixture.componentInstance.markApplied();
-    fixture.componentInstance.markApplied(); // doble clic: se ignora
+    fixture.componentInstance.markApplied();
     const req = httpMock.expectOne(`${API}/applications/a1`);
     expect(req.request.method).toBe('PATCH');
     expect(req.request.body).toEqual({ status: 'applied', applied_at: todayIso() });

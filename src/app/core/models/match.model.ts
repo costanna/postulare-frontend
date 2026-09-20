@@ -60,7 +60,6 @@ export interface CoverLetterRequest {
   regenerate?: boolean;
 }
 
-/** Filtros de "Buscar ofertas" editables por el usuario (todo opcional). */
 export interface SearchFilters {
   keywords: string | null;
   location: string | null;
