@@ -11,8 +11,13 @@ const MAX_RETRIES = 40; // about two minutes: more than a cold start of the free
 
 /**
  * The free hosting plan puts the API to sleep after a while without traffic, and the first request
- * can take close to a minute. This pings /health when the app starts (which also wakes it up)
+ * can take close to a minute. This pings /warmup when the app starts (which also wakes it up)
  * and shows a banner if the wait is noticeable.
+ *
+ * Deliberately not /health: some ad blockers and antivirus web shields treat that name as a
+ * tracking/telemetry beacon and silently drop the request (net::ERR_BLOCKED_BY_CLIENT), which
+ * would stall this check forever. /warmup is a second endpoint with the same trivial handler -
+ * /health stays untouched because Render's own health check is pointed at it.
  */
 @Injectable({ providedIn: 'root' })
 export class ServerWakeService {
@@ -31,7 +36,7 @@ export class ServerWakeService {
       this.wakingState.set(false);
     };
     this.http
-      .get(`${this.baseUrl}/health`)
+      .get(`${this.baseUrl}/warmup`)
       .pipe(retry({ count: MAX_RETRIES, delay: RETRY_DELAY_MS }))
       .subscribe({ next: finish, error: finish });
   }
