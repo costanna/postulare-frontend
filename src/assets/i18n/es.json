@@ -1,4 +1,7 @@
 {
+  "server": {
+    "waking": "Despertando el servidor… puede tardar hasta un minuto."
+  },
   "common": {
     "save": "Guardar",
     "cancel": "Cancelar",

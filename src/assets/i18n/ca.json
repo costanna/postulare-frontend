@@ -1,4 +1,7 @@
 {
+  "server": {
+    "waking": "S'està despertant el servidor… pot trigar fins a un minut."
+  },
   "common": {
     "save": "Desa",
     "cancel": "Cancel·la",

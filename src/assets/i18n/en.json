@@ -1,4 +1,7 @@
 {
+  "server": {
+    "waking": "Waking up the server… this can take up to a minute."
+  },
   "common": {
     "save": "Save",
     "cancel": "Cancel",
