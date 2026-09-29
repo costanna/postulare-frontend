@@ -11,7 +11,7 @@ import { TranslatePipe } from '@ngx-translate/core';
       <span class="app-footer__sep" aria-hidden="true">&middot;</span>
       <span>
         {{ 'footer.made_by' | translate }}
-        <a href="https://github.com/costanna" target="_blank" rel="noopener noreferrer">&#64;costanna</a>
+        <a href="https://anna-dev.vercel.app/" target="_blank" rel="noopener noreferrer">&#64;costanna</a>
       </span>
     </footer>
   `,
