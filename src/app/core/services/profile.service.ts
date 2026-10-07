@@ -31,4 +31,14 @@ export class ProfileService {
   saveCv(language: string, content: string): Observable<UserCv> {
     return this.http.put<UserCv>(`${this.baseUrl}/profile/cvs/${language}`, { content });
   }
+
+  uploadCvFile(language: string, file: File): Observable<UserCv> {
+    const body = new FormData();
+    body.append('file', file, file.name);
+    return this.http.post<UserCv>(`${this.baseUrl}/profile/cvs/${language}/file`, body);
+  }
+
+  deleteCvFile(language: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/profile/cvs/${language}/file`);
+  }
 }

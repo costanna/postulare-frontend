@@ -115,7 +115,11 @@
     "cvs_label": "CV in {{lang}}",
     "cvs_placeholder": "Paste your CV in {{lang}} here…",
     "cvs_save": "Save {{lang}} CV",
-    "cvs_saved": "CV saved"
+    "cvs_saved": "CV saved",
+    "cvs_upload": "Upload {{lang}} PDF",
+    "cvs_pdf": "PDF: {{name}}",
+    "cvs_remove_pdf": "Remove PDF",
+    "cvs_uploaded": "PDF saved: the original will be attached when sending"
   },
   "outreach": {
     "subtitle": "Spontaneous applications to consultancies and tech companies that accept CVs by email.",
@@ -329,6 +333,7 @@
     "copied": "Copied",
     "copy_failed": "Could not copy",
     "cv_saved_note": "Using your saved CV in {{lang}}",
+    "cv_pdf_note": "Attaching your PDF in {{lang}}",
     "cv_generated_note": "CV generated from your profile (save one in {{lang}} under My profile to use it)",
     "open_email": "Open in my email",
     "send_now": "Send now",

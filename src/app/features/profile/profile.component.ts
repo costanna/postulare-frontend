@@ -65,8 +65,13 @@ export class ProfileComponent implements OnInit {
   readonly importError = signal<string | null>(null);
   readonly cvApplied = signal(false);
   readonly showWelcome = signal(this.route.snapshot.queryParamMap.get('welcome') === '1');
-  readonly cvs = signal<Record<AppLanguage, string>>({ ca: '', es: '', en: '' });
+  readonly cvs = signal<Record<AppLanguage, { content: string; has_file: boolean; filename: string | null }>>({
+    ca: { content: '', has_file: false, filename: null },
+    es: { content: '', has_file: false, filename: null },
+    en: { content: '', has_file: false, filename: null },
+  });
   readonly savingCv = signal<AppLanguage | null>(null);
+  readonly uploadingCv = signal<AppLanguage | null>(null);
 
   readonly form = this.fb.group({
     full_name: [''],
@@ -110,11 +115,15 @@ export class ProfileComponent implements OnInit {
     });
     this.profileService.getCvs().subscribe({
       next: (cvs) => {
-        const next = { ca: '', es: '', en: '' } as Record<AppLanguage, string>;
-        for (const cv of cvs) {
-          if (cv.language === 'ca' || cv.language === 'es' || cv.language === 'en') next[cv.language] = cv.content;
-        }
-        this.cvs.set(next);
+        this.cvs.update((current) => {
+          const next = { ...current };
+          for (const cv of cvs) {
+            if (cv.language === 'ca' || cv.language === 'es' || cv.language === 'en') {
+              next[cv.language] = { content: cv.content, has_file: cv.has_file, filename: cv.filename };
+            }
+          }
+          return next;
+        });
       },
     });
   }
@@ -205,13 +214,66 @@ export class ProfileComponent implements OnInit {
     this.profileService.saveCv(lang, content.trim()).subscribe({
       next: (saved) => {
         this.savingCv.set(null);
-        this.cvs.update((current) => ({ ...current, [saved.language]: saved.content }));
+        this.cvs.update((current) => ({
+          ...current,
+          [lang]: { content: saved.content, has_file: saved.has_file, filename: saved.filename },
+        }));
         this.notify('profile.cvs_saved');
       },
       error: () => {
         this.savingCv.set(null);
         this.notify('common.error_generic');
       },
+    });
+  }
+
+  onCvFileSelected(event: Event, lang: AppLanguage): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    input.value = '';
+    if (!file || this.uploadingCv()) return;
+
+    if (!file.name.toLowerCase().endsWith('.pdf')) {
+      this.notify('profile.import_error_not_pdf');
+      return;
+    }
+    if (file.size > CV_MAX_BYTES) {
+      this.notify('profile.import_error_size');
+      return;
+    }
+    this.uploadingCv.set(lang);
+    this.profileService.uploadCvFile(lang, file).subscribe({
+      next: (saved) => {
+        this.uploadingCv.set(null);
+        this.cvs.update((current) => ({
+          ...current,
+          [lang]: { content: saved.content, has_file: saved.has_file, filename: saved.filename },
+        }));
+        this.notify('profile.cvs_uploaded');
+      },
+      error: (err: HttpErrorResponse) => {
+        this.uploadingCv.set(null);
+        this.notify(
+          err.status === 422
+            ? 'profile.import_error_no_text'
+            : err.status === 429
+              ? 'auth.error_too_many_requests'
+              : 'common.error_generic'
+        );
+      },
+    });
+  }
+
+  removeCvFile(lang: AppLanguage): void {
+    this.profileService.deleteCvFile(lang).subscribe({
+      next: () => {
+        this.cvs.update((current) => ({
+          ...current,
+          [lang]: { ...current[lang], has_file: false, filename: null },
+        }));
+        this.notify('profile.cvs_saved');
+      },
+      error: () => this.notify('common.error_generic'),
     });
   }
 

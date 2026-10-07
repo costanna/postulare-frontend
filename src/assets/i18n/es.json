@@ -115,7 +115,11 @@
     "cvs_label": "CV en {{lang}}",
     "cvs_placeholder": "Pega aquí tu CV en {{lang}}…",
     "cvs_save": "Guardar CV en {{lang}}",
-    "cvs_saved": "CV guardado"
+    "cvs_saved": "CV guardado",
+    "cvs_upload": "Subir PDF en {{lang}}",
+    "cvs_pdf": "PDF: {{name}}",
+    "cvs_remove_pdf": "Quitar PDF",
+    "cvs_uploaded": "PDF guardado: se adjuntará el original al enviar"
   },
   "outreach": {
     "subtitle": "Candidaturas espontáneas a consultoras y empresas tech que aceptan CV por email.",
@@ -329,6 +333,7 @@
     "copied": "Copiado",
     "copy_failed": "No se pudo copiar",
     "cv_saved_note": "Usando tu CV guardado en {{lang}}",
+    "cv_pdf_note": "Adjuntando tu PDF en {{lang}}",
     "cv_generated_note": "CV generado desde tu perfil (guarda uno en {{lang}} en Mi perfil para usarlo)",
     "open_email": "Abrir en mi email",
     "send_now": "Enviar ahora",

@@ -179,3 +179,16 @@ mat-chip-grid {
 .profile-cvs__field {
   width: 100%;
 }
+
+.profile-cvs__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.profile-cvs__file {
+  font-size: 0.85rem;
+  font-weight: 600;
+}

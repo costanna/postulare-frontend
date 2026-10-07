@@ -29,6 +29,10 @@ describe('ProfileComponent', () => {
 
   afterEach(() => httpMock.verify());
 
+  function flushCvs(): void {
+    httpMock.expectOne(`${environment.apiUrl}/profile/cvs`).flush([]);
+  }
+
   it('loads the profile and fills the form', () => {
     fixture.detectChanges();
 
@@ -44,6 +48,7 @@ describe('ProfileComponent', () => {
       preferred_language: 'es',
       created_at: '2026-01-01T00:00:00Z',
     });
+    flushCvs();
 
     expect(fixture.componentInstance.loading()).toBeFalse();
     expect(fixture.componentInstance.skills()).toEqual(['Angular', 'Python']);
@@ -64,6 +69,7 @@ describe('ProfileComponent', () => {
       preferred_language: 'es',
       created_at: '2026-01-01T00:00:00Z',
     });
+    flushCvs();
 
     const component = fixture.componentInstance;
     component.addSkill({ value: 'Docker', chipInput: { clear: () => undefined } } as never);
@@ -87,6 +93,7 @@ describe('ProfileComponent', () => {
       preferred_language: 'es',
       created_at: '2026-01-01T00:00:00Z',
     });
+    flushCvs();
 
     fixture.componentInstance.form.patchValue({ location: 'Madrid' });
     fixture.componentInstance.submit();
@@ -129,6 +136,7 @@ describe('ProfileComponent', () => {
         is_demo: false,
         created_at: '2026-01-01T00:00:00Z',
       });
+      flushCvs();
     }
 
     function pick(file: File): void {
@@ -237,6 +245,61 @@ describe('ProfileComponent', () => {
     });
   });
 
+  describe('CVs per language', () => {
+    const CVS_URL = `${environment.apiUrl}/profile/cvs`;
+
+    function loadEmpty(): void {
+      fixture.detectChanges();
+      httpMock.expectOne(`${environment.apiUrl}/profile`).flush({
+        id: '1',
+        email: 'a@a.com',
+        full_name: null,
+        skills: [],
+        location: null,
+        desired_position: null,
+        seniority: null,
+        min_salary: null,
+        preferred_language: 'es',
+        about: null,
+        is_demo: false,
+        created_at: '2026-01-01T00:00:00Z',
+      });
+      httpMock.expectOne(CVS_URL).flush([]);
+    }
+
+    it('loads saved CVs into the form', () => {
+      loadEmpty();
+      httpMock.expectNone(`${CVS_URL}/es`);
+      expect(fixture.componentInstance.cvs().es.content).toBe('');
+    });
+
+    it('saves typed text per language', () => {
+      loadEmpty();
+      fixture.componentInstance.saveCv('ca', 'El meu CV');
+      const req = httpMock.expectOne(`${CVS_URL}/ca`);
+      expect(req.request.method).toBe('PUT');
+      expect(req.request.body).toEqual({ content: 'El meu CV' });
+      req.flush({ language: 'ca', content: 'El meu CV', updated_at: '2026-01-01T00:00:00Z', has_file: false, filename: null });
+      expect(fixture.componentInstance.cvs().ca.content).toBe('El meu CV');
+    });
+
+    it('uploads a PDF per language', () => {
+      loadEmpty();
+      const file = new File(['%PDF-1.4'], 'cv.pdf', { type: 'application/pdf' });
+      fixture.componentInstance.onCvFileSelected({ target: { files: [file], value: 'x' } } as unknown as Event, 'en');
+      const req = httpMock.expectOne(`${CVS_URL}/en/file`);
+      expect(req.request.method).toBe('POST');
+      req.flush({
+        language: 'en',
+        content: 'My CV',
+        updated_at: '2026-01-01T00:00:00Z',
+        has_file: true,
+        filename: 'cv.pdf',
+      });
+      expect(fixture.componentInstance.cvs().en.has_file).toBeTrue();
+    });
+  });
+
   describe('skill suggestions', () => {
     function loadWithSkills(skills: string[]): void {
       fixture.detectChanges();
@@ -254,6 +317,7 @@ describe('ProfileComponent', () => {
         is_demo: false,
         created_at: '2026-01-01T00:00:00Z',
       });
+      flushCvs();
     }
 
     it('adds a suggested keyword as a skill and removes it when picked again', () => {

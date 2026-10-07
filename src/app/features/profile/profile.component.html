@@ -140,22 +140,44 @@
             rows="6"
             maxlength="10000"
             #cvText
-            [value]="cvs()[lang]"
+            [value]="cvs()[lang].content"
             [placeholder]="'profile.cvs_placeholder' | translate: { lang: languageLabels[lang] }"
           ></textarea>
         </mat-form-field>
-        <button
-          mat-stroked-button
-          type="button"
-          [disabled]="savingCv() === lang"
-          (click)="saveCv(lang, cvText.value)"
-        >
-          @if (savingCv() === lang) {
-            <mat-spinner diameter="18"></mat-spinner>
-          } @else {
-            {{ 'profile.cvs_save' | translate: { lang: languageLabels[lang] } }}
+        <div class="profile-cvs__row">
+          <button
+            mat-stroked-button
+            type="button"
+            [disabled]="savingCv() === lang"
+            (click)="saveCv(lang, cvText.value)"
+          >
+            @if (savingCv() === lang) {
+              <mat-spinner diameter="18"></mat-spinner>
+            } @else {
+              {{ 'profile.cvs_save' | translate: { lang: languageLabels[lang] } }}
+            }
+          </button>
+          <input #cvFile type="file" accept="application/pdf,.pdf" hidden (change)="onCvFileSelected($event, lang)" />
+          <button
+            mat-stroked-button
+            type="button"
+            [disabled]="uploadingCv() === lang"
+            (click)="cvFile.click()"
+          >
+            @if (uploadingCv() === lang) {
+              <mat-spinner diameter="18"></mat-spinner>
+            } @else {
+              <svg lucideFileText></svg>
+              {{ 'profile.cvs_upload' | translate: { lang: languageLabels[lang] } }}
+            }
+          </button>
+          @if (cvs()[lang].has_file) {
+            <span class="profile-cvs__file">{{ 'profile.cvs_pdf' | translate: { name: cvs()[lang].filename } }}</span>
+            <button mat-button type="button" (click)="removeCvFile(lang)">
+              {{ 'profile.cvs_remove_pdf' | translate }}
+            </button>
           }
-        </button>
+        </div>
       }
     </section>
   </div>

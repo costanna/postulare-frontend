@@ -28,7 +28,9 @@
     } @else {
       <p class="send-cv__lang">{{ 'send_cv.fallback' | translate }}</p>
     }
-    @if (current.cv_source === 'saved') {
+    @if (current.cv_source === 'pdf') {
+      <p class="send-cv__lang">{{ 'send_cv.cv_pdf_note' | translate: { lang: langLabel(current.language) } }}</p>
+    } @else if (current.cv_source === 'saved') {
       <p class="send-cv__lang">{{ 'send_cv.cv_saved_note' | translate: { lang: langLabel(current.language) } }}</p>
     } @else {
       <p class="send-cv__lang">{{ 'send_cv.cv_generated_note' | translate: { lang: langLabel(current.language) } }}</p>

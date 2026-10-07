@@ -115,7 +115,11 @@
     "cvs_label": "CV en {{lang}}",
     "cvs_placeholder": "Enganxa aquí el teu CV en {{lang}}…",
     "cvs_save": "Desa el CV en {{lang}}",
-    "cvs_saved": "CV desat"
+    "cvs_saved": "CV desat",
+    "cvs_upload": "Puja PDF en {{lang}}",
+    "cvs_pdf": "PDF: {{name}}",
+    "cvs_remove_pdf": "Treu el PDF",
+    "cvs_uploaded": "PDF desat: s'adjuntarà l'original en enviar"
   },
   "outreach": {
     "subtitle": "Candidatures espontànies a consultores i empreses tech que accepten CV per email.",
@@ -329,6 +333,7 @@
     "copied": "Copiat",
     "copy_failed": "No s'ha pogut copiar",
     "cv_saved_note": "Fent servir el teu CV desat en {{lang}}",
+    "cv_pdf_note": "Adjuntant el teu PDF en {{lang}}",
     "cv_generated_note": "CV generat des del teu perfil (desa'n un en {{lang}} a El meu perfil per fer-lo servir)",
     "open_email": "Obre al meu email",
     "send_now": "Envia ara",

@@ -43,4 +43,6 @@ export interface UserCv {
   language: string;
   content: string;
   updated_at: string;
+  has_file: boolean;
+  filename: string | null;
 }
