@@ -37,6 +37,9 @@
     </ol>
 
     <h3 class="send-cv__heading">{{ 'send_cv.subject' | translate }}</h3>
+    @if (current.contact_email) {
+      <p class="send-cv__to">{{ 'send_cv.to' | translate: { email: current.contact_email } }}</p>
+    }
     <div class="send-cv__row">
       <mat-form-field appearance="outline" class="send-cv__field">
         <input matInput type="text" readonly [value]="current.email_subject" />

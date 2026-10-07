@@ -74,6 +74,8 @@ export interface ApplyPack {
   language: string | null;
   /** Idioma detectado en la oferta; null = se usó tu idioma. */
   detected_language: string | null;
+  /** Email de contacto extraído de la oferta; null = no lo trae. */
+  contact_email: string | null;
   cv_markdown: string;
   email_subject: string;
   email_body: string;

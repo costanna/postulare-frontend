@@ -283,6 +283,7 @@
     "detected": "Offer language: {{lang}}",
     "fallback": "Language not detected: using yours",
     "checklist_title": "Steps",
+    "to": "To: {{email}}",
     "subject": "Email subject",
     "body": "Email body (letter + CV)",
     "cv": "CV summary",

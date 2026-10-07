@@ -283,6 +283,7 @@
     "detected": "Idioma de la oferta: {{lang}}",
     "fallback": "Idioma no detectado: se usa tu idioma",
     "checklist_title": "Pasos",
+    "to": "Para: {{email}}",
     "subject": "Asunto del email",
     "body": "Cuerpo del email (carta + CV)",
     "cv": "Resumen del CV",
