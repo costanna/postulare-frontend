@@ -58,6 +58,9 @@
     <h3 class="send-cv__heading">{{ 'send_cv.subject' | translate }}</h3>
     @if (current.contact_email) {
       <p class="send-cv__to">{{ 'send_cv.to' | translate: { email: current.contact_email } }}</p>
+      @if (current.contact_source === 'website') {
+        <p class="send-cv__lang">{{ 'send_cv.email_source_web' | translate }}</p>
+      }
     }
     <div class="send-cv__row">
       <mat-form-field appearance="outline" class="send-cv__field">

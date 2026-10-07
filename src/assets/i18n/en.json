@@ -328,6 +328,7 @@
     "letter": "Cover letter (editable)",
     "letter_hint": "Edit it before “Send now”: direct sending will use your version",
     "to": "To: {{email}}",
+    "email_source_web": "Email found on the company's website",
     "subject": "Email subject",
     "body": "Email body (letter + CV)",
     "cv": "CV summary",

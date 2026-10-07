@@ -76,6 +76,8 @@ export interface ApplyPack {
   detected_language: string | null;
   /** Email de contacto extraído de la oferta; null = no lo trae. */
   contact_email: string | null;
+  /** "offer" (en la oferta) | "website" (web de la empresa) | null. */
+  contact_source: string | null;
   /** "saved" = tu CV guardado en ese idioma; "generated" = generado del perfil. */
   cv_source: string;
   cv_markdown: string;

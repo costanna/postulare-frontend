@@ -328,6 +328,7 @@
     "letter": "Carta de presentació (editable)",
     "letter_hint": "Edita-la abans d'«Envia ara»: l'enviament directe farà servir la teva versió",
     "to": "Per a: {{email}}",
+    "email_source_web": "Email trobat al web de l'empresa",
     "subject": "Assumpte de l'email",
     "body": "Cos de l'email (carta + CV)",
     "cv": "Resum del CV",

@@ -328,6 +328,7 @@
     "letter": "Carta de presentación (editable)",
     "letter_hint": "Edítala antes de «Enviar ahora»: el envío directo usará tu versión",
     "to": "Para: {{email}}",
+    "email_source_web": "Email encontrado en la web de la empresa",
     "subject": "Asunto del email",
     "body": "Cuerpo del email (carta + CV)",
     "cv": "Resumen del CV",
