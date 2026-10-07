@@ -253,6 +253,15 @@
                   <button
                     mat-stroked-button
                     type="button"
+                    [attr.title]="'matches.send_cv_hint' | translate"
+                    (click)="openSendCv(match)"
+                  >
+                    <svg lucideSend></svg>
+                    {{ 'matches.send_cv_button' | translate }}
+                  </button>
+                  <button
+                    mat-stroked-button
+                    type="button"
                     [disabled]="convertingIds().has(match.id)"
                     (click)="convert(match)"
                   >
@@ -272,6 +281,15 @@
                       <svg lucideExternalLink></svg>
                       {{ 'matches.apply_button' | translate }}
                     }
+                  </button>
+                  <button
+                    mat-stroked-button
+                    type="button"
+                    [attr.title]="'matches.auto_apply_hint' | translate"
+                    [disabled]="convertingIds().has(match.id)"
+                    (click)="autoApply(match)"
+                  >
+                    {{ 'matches.auto_apply_button' | translate }}
                   </button>
                 </div>
               }

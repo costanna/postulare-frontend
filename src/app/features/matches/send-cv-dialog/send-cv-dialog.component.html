@@ -1,0 +1,101 @@
+<h2 mat-dialog-title>{{ 'send_cv.title' | translate }}</h2>
+
+<mat-dialog-content class="send-cv">
+  <p class="send-cv__offer">
+    {{ data.match.job_offer.title }}
+    @if (data.match.job_offer.company_name) {
+      · {{ data.match.job_offer.company_name }}
+    }
+  </p>
+
+  @if (loading()) {
+    <div class="send-cv__loading" role="status">
+      <mat-spinner diameter="28"></mat-spinner>
+      <span>{{ 'send_cv.loading' | translate }}</span>
+    </div>
+  }
+
+  @if (failed()) {
+    <p class="send-cv__error">{{ 'send_cv.error' | translate }}</p>
+    <button mat-stroked-button type="button" (click)="load()">{{ 'send_cv.retry' | translate }}</button>
+  }
+
+  @if (!loading() && !failed() && pack(); as current) {
+    @if (current.detected_language) {
+      <p class="send-cv__lang">
+        {{ 'send_cv.detected' | translate: { lang: langLabel(current.detected_language) } }}
+      </p>
+    } @else {
+      <p class="send-cv__lang">{{ 'send_cv.fallback' | translate }}</p>
+    }
+
+    <h3 class="send-cv__heading">{{ 'send_cv.checklist_title' | translate }}</h3>
+    <ol class="send-cv__checklist">
+      @for (step of current.checklist; track step) {
+        <li>{{ step }}</li>
+      }
+    </ol>
+
+    <h3 class="send-cv__heading">{{ 'send_cv.subject' | translate }}</h3>
+    <div class="send-cv__row">
+      <mat-form-field appearance="outline" class="send-cv__field">
+        <input matInput type="text" readonly [value]="current.email_subject" />
+      </mat-form-field>
+      <button mat-stroked-button type="button" (click)="copy('subject', current.email_subject)">
+        @if (copiedKey() === 'subject') {
+          <svg lucideCheck></svg>
+          {{ 'send_cv.copied' | translate }}
+        } @else {
+          <svg lucideCopy></svg>
+          {{ 'send_cv.copy' | translate }}
+        }
+      </button>
+    </div>
+
+    <h3 class="send-cv__heading">{{ 'send_cv.body' | translate }}</h3>
+    <mat-form-field appearance="outline" class="send-cv__field">
+      <textarea matInput rows="10" readonly [value]="current.email_body"></textarea>
+    </mat-form-field>
+    <button mat-stroked-button type="button" (click)="copy('body', current.email_body)">
+      @if (copiedKey() === 'body') {
+        <svg lucideCheck></svg>
+        {{ 'send_cv.copied' | translate }}
+      } @else {
+        <svg lucideCopy></svg>
+        {{ 'send_cv.copy' | translate }}
+      }
+    </button>
+
+    <details class="send-cv__cv">
+      <summary>{{ 'send_cv.cv' | translate }}</summary>
+      <mat-form-field appearance="outline" class="send-cv__field">
+        <textarea matInput rows="8" readonly [value]="current.cv_markdown"></textarea>
+      </mat-form-field>
+      <button mat-stroked-button type="button" (click)="copy('cv', current.cv_markdown)">
+        @if (copiedKey() === 'cv') {
+          <svg lucideCheck></svg>
+          {{ 'send_cv.copied' | translate }}
+        } @else {
+          <svg lucideCopy></svg>
+          {{ 'send_cv.copy' | translate }}
+        }
+      </button>
+    </details>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="close()">{{ 'common.close' | translate }}</button>
+  @if (pack(); as current) {
+    @if (current.offer_url) {
+      <a mat-stroked-button [href]="current.offer_url" target="_blank" rel="noopener noreferrer">
+        <svg lucideExternalLink></svg>
+        {{ 'send_cv.view_offer' | translate }}
+      </a>
+    }
+    <a mat-flat-button color="primary" [href]="current.mailto_link">
+      <svg lucideMail></svg>
+      {{ 'send_cv.open_email' | translate }}
+    </a>
+  }
+</mat-dialog-actions>

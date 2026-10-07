@@ -1,0 +1,57 @@
+.send-cv {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: min(560px, 80vw);
+}
+
+.send-cv__offer {
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.send-cv__loading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 0;
+}
+
+.send-cv__error {
+  color: var(--mat-sys-error, #b3261e);
+}
+
+.send-cv__lang {
+  font-style: italic;
+  margin: 0;
+}
+
+.send-cv__heading {
+  font-size: 0.95rem;
+  margin: 0.75rem 0 0.25rem;
+}
+
+.send-cv__checklist {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.send-cv__row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.send-cv__field {
+  flex: 1;
+  width: 100%;
+}
+
+.send-cv__cv {
+  margin-top: 0.75rem;
+}
+
+.send-cv__cv summary {
+  cursor: pointer;
+  font-weight: 600;
+}

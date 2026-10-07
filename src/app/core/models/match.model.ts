@@ -1,3 +1,5 @@
+import type { Application } from './application.model';
+
 export type MatchStatus = 'new' | 'dismissed' | 'converted';
 
 export interface JobOffer {
@@ -63,6 +65,32 @@ export interface ConvertOptions {
 export interface CoverLetterRequest {
   language?: 'ca' | 'es' | 'en';
   regenerate?: boolean;
+}
+
+/** Kit de envío gratuito: carta + CV + email + checklist para completar en el portal. */
+export interface ApplyPack {
+  cover_letter: string;
+  cover_letter_source: string;
+  language: string | null;
+  /** Idioma detectado en la oferta; null = se usó tu idioma. */
+  detected_language: string | null;
+  cv_markdown: string;
+  email_subject: string;
+  email_body: string;
+  mailto_link: string;
+  offer_url: string | null;
+  checklist: string[];
+}
+
+export interface AutoApplyResult {
+  application: Application;
+  pack: ApplyPack;
+  needs_manual_step: boolean;
+}
+
+export interface BulkAutoApplyResult {
+  converted: AutoApplyResult[];
+  skipped: number;
 }
 
 export type DisabilityFilter = 'any' | 'require' | 'exclude';

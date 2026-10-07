@@ -21,6 +21,7 @@ import {
   LucideMapPin,
   LucideRotateCcw,
   LucideSearch,
+  LucideSend,
   LucideSlidersHorizontal,
   LucideTriangleAlert,
   LucideX,
@@ -34,10 +35,19 @@ import { MatchesService } from '../../core/services/matches.service';
 import { keywordTokens, toggleTerm } from '../../core/data/programming-keywords';
 import { KeywordSuggestionsComponent } from '../../shared/ui/keyword-suggestions/keyword-suggestions.component';
 import { CoverLetterDialogComponent, CoverLetterDialogData } from './cover-letter-dialog/cover-letter-dialog.component';
+import { SendCvDialogComponent, SendCvDialogData } from './send-cv-dialog/send-cv-dialog.component';
 
 const FILTERS: MatchStatus[] = ['new', 'converted', 'dismissed'];
 
-const SOURCE_LABELS: Record<string, string> = { adzuna: 'Adzuna', infojobs: 'InfoJobs', demo: 'Demo' };
+const SOURCE_LABELS: Record<string, string> = {
+  adzuna: 'Adzuna',
+  infojobs: 'InfoJobs',
+  eures: 'EURES',
+  remotive: 'Remotive',
+  remoteok: 'RemoteOK',
+  arbeitnow: 'Arbeitnow',
+  demo: 'Demo',
+};
 
 @Component({
   selector: 'app-matches',
@@ -59,6 +69,7 @@ const SOURCE_LABELS: Record<string, string> = { adzuna: 'Adzuna', infojobs: 'Inf
     LucideSlidersHorizontal,
     LucideSearch,
     LucideExternalLink,
+    LucideSend,
     LucideX,
     LucideMapPin,
     LucideBuilding2,
@@ -301,6 +312,34 @@ export class MatchesComponent implements OnInit {
     this.saveAsApplication(match, () => this.notify('matches.convert_success'));
   }
 
+  /** Auto-postulación gratuita: deja candidatura en «aplicada» + kit listo; abre la oferta para el paso manual. */
+  autoApply(match: Match): void {
+    if (this.convertingIds().has(match.id)) return;
+    this.convertingIds.update((ids) => new Set(ids).add(match.id));
+    if (!this.applyFlow.openOffer(match.job_offer.url)) {
+      this.notify('matches.popup_blocked');
+    }
+    this.matchesService.autoApply(match.id).subscribe({
+      next: () => {
+        this.convertingIds.update((ids) => {
+          const next = new Set(ids);
+          next.delete(match.id);
+          return next;
+        });
+        this.matches.update((current) => current.filter((m) => m.id !== match.id));
+        this.notify('matches.auto_apply_success');
+      },
+      error: () => {
+        this.convertingIds.update((ids) => {
+          const next = new Set(ids);
+          next.delete(match.id);
+          return next;
+        });
+        this.notify('common.error_generic');
+      },
+    });
+  }
+
   /** Abre la página de la oferta, la deja guardada como candidatura y pregunta si ya se ha aplicado. */
   apply(match: Match): void {
     if (!this.applyFlow.openOffer(match.job_offer.url)) {
@@ -384,6 +423,17 @@ export class MatchesComponent implements OnInit {
           )
         );
       });
+  }
+
+  /** Enviar el CV: kit en el idioma de la oferta (copiar o abrir en tu email). */
+  openSendCv(match: Match): void {
+    const data: SendCvDialogData = { match };
+    this.dialog.open<SendCvDialogComponent, SendCvDialogData, void>(SendCvDialogComponent, {
+      data,
+      width: '640px',
+      maxWidth: '95vw',
+      autoFocus: 'dialog',
+    });
   }
 
   private notify(key: string, params?: Record<string, unknown>): void {

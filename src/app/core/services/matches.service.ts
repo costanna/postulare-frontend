@@ -5,6 +5,9 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Application } from '../models/application.model';
 import {
+  ApplyPack,
+  AutoApplyResult,
+  BulkAutoApplyResult,
   ConvertOptions,
   CoverLetter,
   CoverLetterRequest,
@@ -49,5 +52,20 @@ export class MatchesService {
 
   coverLetter(matchId: string, request: CoverLetterRequest = {}): Observable<CoverLetter> {
     return this.http.post<CoverLetter>(`${this.baseUrl}/${matchId}/cover-letter`, request);
+  }
+
+  /** Kit listo para enviar sin convertir: carta plantilla + CV + email + checklist. */
+  applyPack(matchId: string): Observable<ApplyPack> {
+    return this.http.get<ApplyPack>(`${this.baseUrl}/${matchId}/apply-pack`);
+  }
+
+  /** Auto-postulación gratuita: convierte a «aplicada» y devuelve el kit de envío. */
+  autoApply(matchId: string): Observable<AutoApplyResult> {
+    return this.http.post<AutoApplyResult>(`${this.baseUrl}/${matchId}/auto-apply`, {});
+  }
+
+  /** Convierte de golpe las mejores ofertas nuevas (por score). */
+  bulkAutoApply(min_score = 60, limit = 5): Observable<BulkAutoApplyResult> {
+    return this.http.post<BulkAutoApplyResult>(`${this.baseUrl}/auto-apply-bulk`, { min_score, limit });
   }
 }
