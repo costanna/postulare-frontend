@@ -28,6 +28,11 @@
     } @else {
       <p class="send-cv__lang">{{ 'send_cv.fallback' | translate }}</p>
     }
+    @if (current.cv_source === 'saved') {
+      <p class="send-cv__lang">{{ 'send_cv.cv_saved_note' | translate: { lang: langLabel(current.language) } }}</p>
+    } @else {
+      <p class="send-cv__lang">{{ 'send_cv.cv_generated_note' | translate: { lang: langLabel(current.language) } }}</p>
+    }
 
     <h3 class="send-cv__heading">{{ 'send_cv.checklist_title' | translate }}</h3>
     <ol class="send-cv__checklist">

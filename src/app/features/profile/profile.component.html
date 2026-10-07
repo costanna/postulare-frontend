@@ -128,5 +128,35 @@
         }
       </button>
     </form>
+
+    <section class="profile-cvs">
+      <h2>{{ 'profile.cvs_title' | translate }}</h2>
+      <p>{{ 'profile.cvs_hint' | translate }}</p>
+      @for (lang of languages; track lang) {
+        <mat-form-field appearance="outline" class="profile-cvs__field">
+          <mat-label>{{ 'profile.cvs_label' | translate: { lang: languageLabels[lang] } }}</mat-label>
+          <textarea
+            matInput
+            rows="6"
+            maxlength="10000"
+            #cvText
+            [value]="cvs()[lang]"
+            [placeholder]="'profile.cvs_placeholder' | translate: { lang: languageLabels[lang] }"
+          ></textarea>
+        </mat-form-field>
+        <button
+          mat-stroked-button
+          type="button"
+          [disabled]="savingCv() === lang"
+          (click)="saveCv(lang, cvText.value)"
+        >
+          @if (savingCv() === lang) {
+            <mat-spinner diameter="18"></mat-spinner>
+          } @else {
+            {{ 'profile.cvs_save' | translate: { lang: languageLabels[lang] } }}
+          }
+        </button>
+      }
+    </section>
   </div>
 }

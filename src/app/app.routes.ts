@@ -75,6 +75,11 @@ export const routes: Routes = [
         loadComponent: () => import('./features/matches/matches.component').then((m) => m.MatchesComponent),
       },
       {
+        path: 'outreach',
+        data: { titleKey: 'nav.outreach' },
+        loadComponent: () => import('./features/outreach/outreach.component').then((m) => m.OutreachComponent),
+      },
+      {
         path: 'profile',
         loadComponent: () => import('./features/profile/profile.component').then((m) => m.ProfileComponent),
       },

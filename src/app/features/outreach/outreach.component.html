@@ -1,0 +1,98 @@
+<div class="outreach-page">
+  <header class="outreach-page__header">
+    <div>
+      <h1>{{ 'nav.outreach' | translate }}</h1>
+      <p>{{ 'outreach.subtitle' | translate }}</p>
+    </div>
+    @if (quota(); as q) {
+      <p class="outreach-page__quota">{{ 'outreach.quota' | translate: { left: q.daily_remaining, total: q.daily_limit } }}</p>
+    }
+  </header>
+
+  <form class="outreach-form" [formGroup]="form" (ngSubmit)="add()">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'outreach.company_name' | translate }}</mat-label>
+      <input matInput type="text" formControlName="name" maxlength="255" placeholder="Nórdica Tech" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'outreach.company_email' | translate }}</mat-label>
+      <input matInput type="email" formControlName="email" maxlength="255" placeholder="jobs@empresa.com" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="outreach-form__lang">
+      <mat-label>{{ 'outreach.language' | translate }}</mat-label>
+      <mat-select formControlName="language">
+        @for (lang of languages; track lang) {
+          <mat-option [value]="lang">{{ languageLabels[lang] }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <button mat-flat-button color="primary" type="submit" [disabled]="saving()">
+      @if (saving()) {
+        <mat-spinner diameter="18"></mat-spinner>
+      } @else {
+        {{ 'outreach.add' | translate }}
+      }
+    </button>
+  </form>
+
+  @if (loading()) {
+    <div class="outreach-loading">
+      <mat-spinner diameter="32"></mat-spinner>
+    </div>
+  } @else if (targets().length === 0) {
+    <p class="outreach-empty">{{ 'outreach.empty' | translate }}</p>
+  } @else {
+    <div class="outreach-actions">
+      <button mat-stroked-button type="button" [disabled]="sendingAll() || sendable().length === 0" (click)="sendAll()">
+        @if (sendingAll()) {
+          <mat-spinner diameter="18"></mat-spinner>
+        } @else {
+          <svg lucideSend></svg>
+          {{ 'outreach.send_all' | translate: { count: sendable().length } }}
+        }
+      </button>
+    </div>
+
+    <ul class="outreach-list">
+      @for (target of targets(); track target.id) {
+        <li class="outreach-card">
+          <div class="outreach-card__info">
+            <strong>{{ target.name }}</strong>
+            <span class="outreach-card__email">
+              <svg lucideMail></svg>
+              {{ target.email }}
+            </span>
+            <span class="outreach-card__lang">{{ languageLabels[target.language] }}</span>
+            @if (!target.can_send) {
+              <span class="outreach-card__cooldown">{{ 'outreach.retry_in' | translate: { days: target.retry_in_days } }}</span>
+            }
+          </div>
+          <div class="outreach-card__buttons">
+            <button
+              mat-icon-button
+              type="button"
+              [attr.aria-label]="'common.delete' | translate"
+              (click)="remove(target)"
+            >
+              <svg lucideTrash2></svg>
+            </button>
+            <button
+              mat-flat-button
+              color="primary"
+              type="button"
+              [disabled]="!target.can_send || sendingIds().has(target.id)"
+              [attr.title]="!target.can_send ? ('outreach.retry_in' | translate: { days: target.retry_in_days }) : null"
+              (click)="send(target)"
+            >
+              @if (sendingIds().has(target.id)) {
+                <mat-spinner diameter="16"></mat-spinner>
+              } @else {
+                {{ 'outreach.send' | translate }}
+              }
+            </button>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</div>

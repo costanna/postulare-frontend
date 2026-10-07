@@ -36,3 +36,9 @@ export interface CvImportResult {
   skills: string[];
   about: string | null;
 }
+
+export interface UserCv {
+  language: string;
+  content: string;
+  updated_at: string;
+}

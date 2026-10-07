@@ -65,6 +65,8 @@ export class ProfileComponent implements OnInit {
   readonly importError = signal<string | null>(null);
   readonly cvApplied = signal(false);
   readonly showWelcome = signal(this.route.snapshot.queryParamMap.get('welcome') === '1');
+  readonly cvs = signal<Record<AppLanguage, string>>({ ca: '', es: '', en: '' });
+  readonly savingCv = signal<AppLanguage | null>(null);
 
   readonly form = this.fb.group({
     full_name: [''],
@@ -104,6 +106,15 @@ export class ProfileComponent implements OnInit {
       error: () => {
         this.loading.set(false);
         this.loadError.set(true);
+      },
+    });
+    this.profileService.getCvs().subscribe({
+      next: (cvs) => {
+        const next = { ca: '', es: '', en: '' } as Record<AppLanguage, string>;
+        for (const cv of cvs) {
+          if (cv.language === 'ca' || cv.language === 'es' || cv.language === 'en') next[cv.language] = cv.content;
+        }
+        this.cvs.set(next);
       },
     });
   }
@@ -186,6 +197,26 @@ export class ProfileComponent implements OnInit {
 
   onLanguageSelected(lang: AppLanguage): void {
     this.language.use(lang);
+  }
+
+  saveCv(lang: AppLanguage, content: string): void {
+    if (this.savingCv()) return;
+    this.savingCv.set(lang);
+    this.profileService.saveCv(lang, content.trim()).subscribe({
+      next: (saved) => {
+        this.savingCv.set(null);
+        this.cvs.update((current) => ({ ...current, [saved.language]: saved.content }));
+        this.notify('profile.cvs_saved');
+      },
+      error: () => {
+        this.savingCv.set(null);
+        this.notify('common.error_generic');
+      },
+    });
+  }
+
+  private notify(key: string): void {
+    this.translate.get(key).subscribe((msg) => this.snackBar.open(msg, undefined, { duration: 3000 }));
   }
 
   submit(): void {
