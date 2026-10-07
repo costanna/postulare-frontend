@@ -26,6 +26,11 @@
         }
       </mat-select>
     </mat-form-field>
+    <mat-form-field appearance="outline" class="outreach-form__tags">
+      <mat-label>{{ 'outreach.tags' | translate }}</mat-label>
+      <input matInput type="text" formControlName="tags" maxlength="200" placeholder="python, backend, remoto" />
+      <mat-hint>{{ 'outreach.tags_hint' | translate }}</mat-hint>
+    </mat-form-field>
     <button mat-flat-button color="primary" type="submit" [disabled]="saving()">
       @if (saving()) {
         <mat-spinner diameter="18"></mat-spinner>
@@ -43,6 +48,23 @@
     <p class="outreach-empty">{{ 'outreach.empty' | translate }}</p>
   } @else {
     <div class="outreach-actions">
+      <button mat-stroked-button type="button" (click)="togglePaused()">
+        {{ (paused() ? 'outreach.resume' : 'outreach.pause') | translate }}
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        [disabled]="autopiloting() || paused() || sendable().length === 0"
+        (click)="runAutopilot()"
+      >
+        @if (autopiloting()) {
+          <mat-spinner diameter="18"></mat-spinner>
+        } @else {
+          <svg lucideSend></svg>
+          {{ 'outreach.autopilot' | translate }}
+        }
+      </button>
       <button mat-stroked-button type="button" [disabled]="sendingAll() || sendable().length === 0" (click)="sendAll()">
         @if (sendingAll()) {
           <mat-spinner diameter="18"></mat-spinner>
@@ -63,6 +85,9 @@
               {{ target.email }}
             </span>
             <span class="outreach-card__lang">{{ languageLabels[target.language] }}</span>
+            @if (target.match_score > 0) {
+              <span class="outreach-card__score">+{{ target.match_score }}</span>
+            }
             @if (!target.can_send) {
               <span class="outreach-card__cooldown">{{ 'outreach.retry_in' | translate: { days: target.retry_in_days } }}</span>
             }

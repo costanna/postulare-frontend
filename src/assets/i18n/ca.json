@@ -132,7 +132,16 @@
     "send_all": "Envia a totes ({{count}})",
     "sent": "Candidatura enviada a {{email}}",
     "bulk_done": "{{ok}} de {{total}} enviades",
-    "retry_in": "Reintent en {{days}} dies"
+    "retry_in": "Reintent en {{days}} dies",
+    "tags": "Etiquetes",
+    "tags_hint": "Separades per comes: el pilot només envia a les que encaixin amb el teu CV",
+    "pause": "Paralitzar automatització",
+    "resume": "Reprendre automatització",
+    "paused": "Automatització paralitzada",
+    "resumed": "Automatització represa",
+    "autopilot": "Envia 5 automàtics",
+    "autopilot_done": "{{ok}} enviades automàticament ({{skipped}} saltades)",
+    "autopilot_paused": "Automatització paralitzada: reprèn-la per fer servir el pilot"
   },
   "status": {
     "saved": "Desada",

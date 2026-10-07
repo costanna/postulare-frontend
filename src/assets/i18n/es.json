@@ -132,7 +132,16 @@
     "send_all": "Enviar a todas ({{count}})",
     "sent": "Candidatura enviada a {{email}}",
     "bulk_done": "{{ok}} de {{total}} enviadas",
-    "retry_in": "Reintento en {{days}} días"
+    "retry_in": "Reintento en {{days}} días",
+    "tags": "Etiquetas",
+    "tags_hint": "Separadas por comas: el piloto solo envía a las que encajen con tu CV",
+    "pause": "Paralizar automatización",
+    "resume": "Reanudar automatización",
+    "paused": "Automatización paralizada",
+    "resumed": "Automatización reanudada",
+    "autopilot": "Enviar 5 automáticos",
+    "autopilot_done": "{{ok}} enviadas automáticamente ({{skipped}} saltadas)",
+    "autopilot_paused": "Automatización paralizada: reactívala para usar el piloto"
   },
   "status": {
     "saved": "Guardada",

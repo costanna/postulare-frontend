@@ -42,6 +42,8 @@
 .outreach-actions {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .outreach-list {
@@ -81,6 +83,12 @@
 .outreach-card__cooldown {
   font-size: 0.85rem;
   opacity: 0.75;
+}
+
+.outreach-card__score {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-accent);
 }
 
 .outreach-card__buttons {

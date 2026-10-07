@@ -132,7 +132,16 @@
     "send_all": "Send to all ({{count}})",
     "sent": "Application sent to {{email}}",
     "bulk_done": "{{ok}} of {{total}} sent",
-    "retry_in": "Retry in {{days}} days"
+    "retry_in": "Retry in {{days}} days",
+    "tags": "Tags",
+    "tags_hint": "Comma-separated: the autopilot only sends to matching ones",
+    "pause": "Pause automation",
+    "resume": "Resume automation",
+    "paused": "Automation paused",
+    "resumed": "Automation resumed",
+    "autopilot": "Auto-send 5",
+    "autopilot_done": "{{ok}} auto-sent ({{skipped}} skipped)",
+    "autopilot_paused": "Automation paused: resume it to use the autopilot"
   },
   "status": {
     "saved": "Saved",

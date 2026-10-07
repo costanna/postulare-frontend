@@ -28,7 +28,7 @@ export class OutreachService {
     return this.http.get<TargetCompany[]>(this.baseUrl);
   }
 
-  create(payload: { name: string; email: string; language: string; notes?: string | null }): Observable<TargetCompany> {
+  create(payload: { name: string; email: string; language: string; tags?: string[] }): Observable<TargetCompany> {
     return this.http.post<TargetCompany>(this.baseUrl, payload);
   }
 
@@ -44,6 +44,13 @@ export class OutreachService {
     return this.http.post<{ sent: TargetSendResult[]; daily_remaining: number }>(
       `${this.baseUrl}/send-bulk`,
       { target_ids: ids }
+    );
+  }
+
+  autopilot(limit = 5): Observable<{ sent: TargetSendResult[]; skipped: number; daily_remaining: number }> {
+    return this.http.post<{ sent: TargetSendResult[]; skipped: number; daily_remaining: number }>(
+      `${this.baseUrl}/autopilot`,
+      { limit }
     );
   }
 }

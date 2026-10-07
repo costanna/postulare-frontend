@@ -4,10 +4,12 @@ export interface TargetCompany {
   email: string;
   language: 'ca' | 'es' | 'en';
   notes: string | null;
+  tags: string[];
   created_at: string;
   last_sent_at: string | null;
   retry_in_days: number;
   can_send: boolean;
+  match_score: number;
 }
 
 export interface TargetSendResult {

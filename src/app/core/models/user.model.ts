@@ -14,6 +14,7 @@ export interface User {
   /** Resumen profesional libre; alimenta las cartas de presentación. */
   about: string | null;
   is_demo: boolean;
+  auto_outreach_paused: boolean;
   created_at: string;
 }
 
@@ -26,6 +27,7 @@ export interface ProfileUpdatePayload {
   min_salary?: number | null;
   preferred_language?: PreferredLanguage;
   about?: string | null;
+  auto_outreach_paused?: boolean;
 }
 
 export interface CvImportResult {

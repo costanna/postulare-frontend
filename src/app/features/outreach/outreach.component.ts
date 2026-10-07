@@ -12,6 +12,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LANGUAGE_LABELS, SUPPORTED_LANGUAGES } from '../../core/i18n/supported-languages';
 import { SendQuota, TargetCompany } from '../../core/models/outreach.model';
 import { OutreachService } from '../../core/services/outreach.service';
+import { ProfileService } from '../../core/services/profile.service';
 
 @Component({
   selector: 'app-outreach',
@@ -34,6 +35,7 @@ import { OutreachService } from '../../core/services/outreach.service';
 export class OutreachComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly outreach = inject(OutreachService);
+  private readonly profile = inject(ProfileService);
   private readonly snackBar = inject(MatSnackBar);
   private readonly translate = inject(TranslateService);
 
@@ -46,6 +48,8 @@ export class OutreachComponent implements OnInit {
   readonly sendingAll = signal(false);
   readonly targets = signal<TargetCompany[]>([]);
   readonly quota = signal<SendQuota | null>(null);
+  readonly paused = signal(false);
+  readonly autopiloting = signal(false);
 
   readonly sendable = computed(() => this.targets().filter((t) => t.can_send));
 
@@ -53,10 +57,14 @@ export class OutreachComponent implements OnInit {
     name: ['', [Validators.required, Validators.maxLength(255)]],
     email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
     language: ['es'],
+    tags: [''],
   });
 
   ngOnInit(): void {
     this.load();
+    this.profile.getProfile().subscribe({
+      next: (user) => this.paused.set(user.auto_outreach_paused),
+    });
   }
 
   load(): void {
@@ -78,12 +86,13 @@ export class OutreachComponent implements OnInit {
     }
     this.saving.set(true);
     const raw = this.form.getRawValue();
+    const tags = (raw.tags ?? '').split(',').map((t) => t.trim()).filter((t) => t.length > 0);
     this.outreach
-      .create({ name: raw.name!.trim(), email: raw.email!.trim(), language: raw.language ?? 'es' })
+      .create({ name: raw.name!.trim(), email: raw.email!.trim(), language: raw.language ?? 'es', tags })
       .subscribe({
         next: (target) => {
           this.saving.set(false);
-          this.form.reset({ name: '', email: '', language: 'es' });
+          this.form.reset({ name: '', email: '', language: 'es', tags: '' });
           this.targets.update((current) => [...current, target].sort((a, b) => a.name.localeCompare(b.name)));
           this.notify('outreach.added');
         },
@@ -137,6 +146,40 @@ export class OutreachComponent implements OnInit {
       error: () => {
         this.sendingAll.set(false);
         this.notify('common.error_generic');
+      },
+    });
+  }
+
+  togglePaused(): void {
+    const next = !this.paused();
+    this.profile.updateProfile({ auto_outreach_paused: next }).subscribe({
+      next: () => {
+        this.paused.set(next);
+        this.notify(next ? 'outreach.paused' : 'outreach.resumed');
+      },
+      error: () => this.notify('common.error_generic'),
+    });
+  }
+
+  runAutopilot(): void {
+    if (this.autopiloting() || this.paused()) return;
+    this.autopiloting.set(true);
+    this.outreach.autopilot(5).subscribe({
+      next: (result) => {
+        this.autopiloting.set(false);
+        const ok = result.sent.filter((r) => r.ok).length;
+        this.notify('outreach.autopilot_done', { ok, skipped: result.skipped });
+        this.load();
+      },
+      error: (err: { status?: number }) => {
+        this.autopiloting.set(false);
+        this.notify(
+          err.status === 409
+            ? 'outreach.autopilot_paused'
+            : err.status === 503
+              ? 'send_cv.error_config'
+              : 'common.error_generic'
+        );
       },
     });
   }
