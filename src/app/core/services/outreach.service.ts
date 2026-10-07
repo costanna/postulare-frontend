@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { Application } from '../models/application.model';
-import { SendQuota, Suggestion, TargetCompany, TargetSendResult } from '../models/outreach.model';
+import { SendQuota, Suggestion, TargetCompany, TargetPreview, TargetSendResult } from '../models/outreach.model';
 
 export interface SpontaneousSendResult {
   application: Application;
@@ -36,8 +36,18 @@ export class OutreachService {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 
-  send(id: string): Observable<SpontaneousSendResult> {
-    return this.http.post<SpontaneousSendResult>(`${this.baseUrl}/${id}/send`, {});
+  send(id: string, coverLetter?: string): Observable<SpontaneousSendResult> {
+    return this.http.post<SpontaneousSendResult>(`${this.baseUrl}/${id}/send`, {
+      cover_letter: coverLetter ?? null,
+    });
+  }
+
+  preview(id: string): Observable<TargetPreview> {
+    return this.http.get<TargetPreview>(`${this.baseUrl}/${id}/preview`);
+  }
+
+  previewAutopilot(limit = 5): Observable<TargetPreview[]> {
+    return this.http.post<TargetPreview[]>(`${this.baseUrl}/autopilot/preview`, { limit });
   }
 
   sendBulk(ids: string[]): Observable<{ sent: TargetSendResult[]; daily_remaining: number }> {

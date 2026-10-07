@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>{{ 'outreach.autopilot_preview_title' | translate }}</h2>
+
+<mat-dialog-content class="autopilot">
+  @if (loading()) {
+    <div class="autopilot__loading" role="status">
+      <mat-spinner diameter="28"></mat-spinner>
+    </div>
+  }
+
+  @if (failed()) {
+    <p class="autopilot__error">{{ 'common.error_generic' | translate }}</p>
+    <button mat-stroked-button type="button" (click)="load()">{{ 'common.retry' | translate }}</button>
+  }
+
+  @if (!loading() && !failed()) {
+    @if (previews().length === 0) {
+      <p>{{ 'outreach.autopilot_preview_empty' | translate }}</p>
+    } @else {
+      @for (preview of previews(); track preview.target.id) {
+        <details class="autopilot__item">
+          <summary>{{ preview.target.name }} · {{ preview.target.email }}</summary>
+          <p class="autopilot__subject">{{ preview.subject }}</p>
+          <pre class="autopilot__letter">{{ preview.cover_letter }}</pre>
+        </details>
+      }
+    }
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="close()">{{ 'common.close' | translate }}</button>
+  @if (previews().length > 0) {
+    <button mat-flat-button color="primary" type="button" (click)="confirm()">
+      <svg lucideSend></svg>
+      {{ 'outreach.autopilot_send' | translate: { count: previews().length } }}
+    </button>
+  }
+</mat-dialog-actions>

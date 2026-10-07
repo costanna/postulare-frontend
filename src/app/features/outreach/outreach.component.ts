@@ -15,6 +15,8 @@ import { SendQuota, Suggestion, TargetCompany } from '../../core/models/outreach
 import { OutreachService } from '../../core/services/outreach.service';
 import { ProfileService } from '../../core/services/profile.service';
 import { ConfirmDialogComponent, ConfirmDialogData } from '../../shared/ui/confirm-dialog/confirm-dialog.component';
+import { TargetPreviewDialogComponent } from './target-preview-dialog/target-preview-dialog.component';
+import { AutopilotDialogComponent } from './autopilot-dialog/autopilot-dialog.component';
 
 @Component({
   selector: 'app-outreach',
@@ -47,7 +49,6 @@ export class OutreachComponent implements OnInit {
 
   readonly loading = signal(true);
   readonly saving = signal(false);
-  readonly sendingIds = signal<Set<string>>(new Set());
   readonly sendingAll = signal(false);
   readonly targets = signal<TargetCompany[]>([]);
   readonly quota = signal<SendQuota | null>(null);
@@ -127,22 +128,21 @@ export class OutreachComponent implements OnInit {
   }
 
   send(target: TargetCompany): void {
-    if (!target.can_send || this.sendingIds().has(target.id)) return;
-    this.sendingIds.update((ids) => new Set(ids).add(target.id));
-    this.outreach.send(target.id).subscribe({
-      next: (result) => {
-        this.finishSending(target.id);
-        this.notify('outreach.sent', { email: result.sent_to });
-        this.load();
-      },
-      error: (err: { status?: number }) => {
-        this.finishSending(target.id);
-        this.notify(
-          err.status === 429 ? 'send_cv.error_limit' : err.status === 503 ? 'send_cv.error_config' : 'common.error_generic'
-        );
-        this.load();
-      },
-    });
+    if (!target.can_send) return;
+    this.dialog
+      .open<TargetPreviewDialogComponent, { targetId: string }, string | undefined>(TargetPreviewDialogComponent, {
+        data: { targetId: target.id },
+        width: '640px',
+        maxWidth: '95vw',
+        autoFocus: 'dialog',
+      })
+      .afterClosed()
+      .subscribe((sentTo) => {
+        if (sentTo) {
+          this.notify('outreach.sent', { email: sentTo });
+          this.load();
+        }
+      });
   }
 
   sendAll(): void {
@@ -184,11 +184,16 @@ export class OutreachComponent implements OnInit {
 
   runAutopilot(): void {
     if (this.autopiloting() || this.paused()) return;
-    this.confirmSend('outreach.confirm_autopilot_title', 'outreach.confirm_autopilot_message', {}).subscribe(
-      (ok) => {
+    this.dialog
+      .open<AutopilotDialogComponent, undefined, boolean>(AutopilotDialogComponent, {
+        width: '640px',
+        maxWidth: '95vw',
+        autoFocus: 'dialog',
+      })
+      .afterClosed()
+      .subscribe((ok) => {
         if (ok) this.doAutopilot();
-      }
-    );
+      });
   }
 
   private confirmSend(titleKey: string, messageKey: string, params: Record<string, unknown>) {
@@ -247,14 +252,6 @@ export class OutreachComponent implements OnInit {
         this.load();
       },
       error: () => this.notify('common.error_generic'),
-    });
-  }
-
-  private finishSending(id: string): void {
-    this.sendingIds.update((ids) => {
-      const next = new Set(ids);
-      next.delete(id);
-      return next;
     });
   }
 

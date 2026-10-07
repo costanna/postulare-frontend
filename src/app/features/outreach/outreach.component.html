@@ -105,15 +105,11 @@
               mat-flat-button
               color="primary"
               type="button"
-              [disabled]="!target.can_send || sendingIds().has(target.id)"
+              [disabled]="!target.can_send"
               [attr.title]="!target.can_send ? ('outreach.retry_in' | translate: { days: target.retry_in_days }) : null"
               (click)="send(target)"
             >
-              @if (sendingIds().has(target.id)) {
-                <mat-spinner diameter="16"></mat-spinner>
-              } @else {
-                {{ 'outreach.send' | translate }}
-              }
+              {{ 'outreach.send' | translate }}
             </button>
           </div>
         </li>

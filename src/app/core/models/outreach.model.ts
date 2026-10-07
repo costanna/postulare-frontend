@@ -19,6 +19,14 @@ export interface TargetSendResult {
   error: string | null;
 }
 
+export interface TargetPreview {
+  target: TargetCompany;
+  subject: string;
+  cover_letter: string;
+  language: string;
+  cv_source: string;
+}
+
 export interface SendQuota {
   daily_limit: number;
   sent_today: number;

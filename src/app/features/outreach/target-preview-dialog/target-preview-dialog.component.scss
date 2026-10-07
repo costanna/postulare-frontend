@@ -1,0 +1,40 @@
+.preview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: min(560px, 80vw);
+}
+
+.preview__loading {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 0;
+}
+
+.preview__error {
+  color: var(--mat-sys-error, #b3261e);
+}
+
+.preview__to {
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+}
+
+.preview__heading {
+  font-size: 0.95rem;
+  margin: 0.5rem 0 0.25rem;
+}
+
+.preview__subject {
+  margin: 0;
+}
+
+.preview__field {
+  width: 100%;
+}
+
+.preview__cv {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin: 0.25rem 0 0;
+}

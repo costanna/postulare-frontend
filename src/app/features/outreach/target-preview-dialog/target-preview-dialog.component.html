@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>{{ 'outreach.preview_title' | translate }}</h2>
+
+<mat-dialog-content class="preview">
+  @if (loading()) {
+    <div class="preview__loading" role="status">
+      <mat-spinner diameter="28"></mat-spinner>
+    </div>
+  }
+
+  @if (failed()) {
+    <p class="preview__error">{{ 'common.error_generic' | translate }}</p>
+    <button mat-stroked-button type="button" (click)="load()">{{ 'common.retry' | translate }}</button>
+  }
+
+  @if (!loading() && !failed() && preview(); as current) {
+    <p class="preview__to">{{ current.target.name }} · {{ current.target.email }}</p>
+
+    <h3 class="preview__heading">{{ 'outreach.preview_subject' | translate }}</h3>
+    <p class="preview__subject">{{ current.subject }}</p>
+
+    <h3 class="preview__heading">{{ 'send_cv.letter' | translate }}</h3>
+    <mat-form-field appearance="outline" class="preview__field">
+      <textarea
+        matInput
+        rows="10"
+        [value]="letter()"
+        (input)="letter.set($any($event.target).value)"
+        [attr.aria-label]="'send_cv.letter' | translate"
+      ></textarea>
+    </mat-form-field>
+
+    <p class="preview__cv">{{ 'outreach.preview_cv' | translate: { source: current.cv_source } }}</p>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="close()">{{ 'common.close' | translate }}</button>
+  @if (preview()) {
+    <button mat-flat-button color="primary" type="button" [disabled]="sending()" (click)="send()">
+      @if (sending()) {
+        <mat-spinner diameter="16"></mat-spinner>
+      } @else {
+        <svg lucideSend></svg>
+        {{ 'outreach.preview_send' | translate }}
+      }
+    </button>
+  }
+</mat-dialog-actions>

@@ -1,0 +1,39 @@
+.autopilot {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: min(560px, 80vw);
+}
+
+.autopilot__loading {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 0;
+}
+
+.autopilot__error {
+  color: var(--mat-sys-error, #b3261e);
+}
+
+.autopilot__item {
+  border: 1px solid var(--mat-sys-outline-variant, #e0e0e0);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+}
+
+.autopilot__item summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.autopilot__subject {
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+}
+
+.autopilot__letter {
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: 0.85rem;
+  margin: 0;
+}
