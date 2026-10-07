@@ -150,7 +150,9 @@
     "suggestions_hint": "De les teves ofertes i del fil mensual de HN. El pilot les importa i envia sol.",
     "import": "Afegeix",
     "import_all": "Afegeix totes",
-    "imported": "{{count}} empreses afegides"
+    "imported": "{{count}} empreses afegides",
+    "source_offers": "Les teves ofertes",
+    "source_hn_hiring": "HN Hiring"
   },
   "status": {
     "saved": "Desada",

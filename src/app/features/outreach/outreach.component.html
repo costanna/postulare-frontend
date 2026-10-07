@@ -146,6 +146,7 @@
                 {{ suggestion.email }}
               </span>
               <span class="outreach-card__score">+{{ suggestion.match_score }}</span>
+              <span class="outreach-card__lang">{{ 'outreach.source_' + suggestion.source | translate }}</span>
             </div>
             <button mat-stroked-button type="button" (click)="importSuggestion(suggestion)">
               {{ 'outreach.import' | translate }}

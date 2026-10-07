@@ -150,7 +150,9 @@
     "suggestions_hint": "From your offers and the monthly HN thread. The autopilot imports and sends on its own.",
     "import": "Add",
     "import_all": "Add all",
-    "imported": "{{count}} companies added"
+    "imported": "{{count}} companies added",
+    "source_offers": "Your offers",
+    "source_hn_hiring": "HN Hiring"
   },
   "status": {
     "saved": "Saved",
