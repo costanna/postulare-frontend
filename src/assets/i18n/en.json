@@ -55,7 +55,8 @@
       "submit": "Create account",
       "has_account": "Already have an account?",
       "login_link": "Log in",
-      "error_email_taken": "That email is already registered"
+      "error_email_taken": "That email is already registered",
+      "error_not_allowed": "Registration restricted to invited users"
     },
     "forgot_password": {
       "title": "Reset your password",

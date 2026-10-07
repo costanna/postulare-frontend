@@ -18,10 +18,12 @@
         <svg lucideSparkles class="shell__nav-icon"></svg>
         <span>{{ 'nav.matches' | translate }}</span>
       </a>
-      <a mat-list-item routerLink="/outreach" routerLinkActive="is-active" (click)="drawer.close()">
-        <svg lucideSend class="shell__nav-icon"></svg>
-        <span>{{ 'nav.outreach' | translate }}</span>
-      </a>
+      @if (!isDemo()) {
+        <a mat-list-item routerLink="/outreach" routerLinkActive="is-active" (click)="drawer.close()">
+          <svg lucideSend class="shell__nav-icon"></svg>
+          <span>{{ 'nav.outreach' | translate }}</span>
+        </a>
+      }
       <mat-divider></mat-divider>
       <a mat-list-item routerLink="/profile" routerLinkActive="is-active" (click)="drawer.close()">
         <svg lucideUser class="shell__nav-icon"></svg>
@@ -53,7 +55,9 @@
         <a routerLink="/kanban" routerLinkActive="is-active">{{ 'nav.kanban' | translate }}</a>
         <a routerLink="/applications" routerLinkActive="is-active">{{ 'nav.applications' | translate }}</a>
         <a routerLink="/matches" routerLinkActive="is-active">{{ 'nav.matches' | translate }}</a>
-        <a routerLink="/outreach" routerLinkActive="is-active">{{ 'nav.outreach' | translate }}</a>
+        @if (!isDemo()) {
+          <a routerLink="/outreach" routerLinkActive="is-active">{{ 'nav.outreach' | translate }}</a>
+        }
       </nav>
 
       <div class="topbar__actions">

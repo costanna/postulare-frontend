@@ -55,7 +55,8 @@
       "submit": "Crear cuenta",
       "has_account": "¿Ya tienes cuenta?",
       "login_link": "Inicia sesión",
-      "error_email_taken": "Ese email ya está registrado"
+      "error_email_taken": "Ese email ya está registrado",
+      "error_not_allowed": "Registro restringido a usuarios invitados"
     },
     "forgot_password": {
       "title": "Recupera tu contraseña",

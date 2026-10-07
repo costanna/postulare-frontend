@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { authGuard } from './core/guards/auth.guard';
 import { guestGuard } from './core/guards/guest.guard';
+import { nonDemoGuard } from './core/guards/non-demo.guard';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
@@ -77,6 +78,7 @@ export const routes: Routes = [
       {
         path: 'outreach',
         data: { titleKey: 'nav.outreach' },
+        canActivate: [nonDemoGuard],
         loadComponent: () => import('./features/outreach/outreach.component').then((m) => m.OutreachComponent),
       },
       {

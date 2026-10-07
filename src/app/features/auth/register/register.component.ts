@@ -71,9 +71,11 @@ export class RegisterComponent {
         this.loading.set(false);
         this.errorMessage.set(err.status === 409
             ? 'auth.register.error_email_taken'
-            : err.status === 429
-              ? 'auth.error_too_many_requests'
-              : 'common.error_generic');
+            : err.status === 403
+              ? 'auth.register.error_not_allowed'
+              : err.status === 429
+                ? 'auth.error_too_many_requests'
+                : 'common.error_generic');
       },
     });
   }

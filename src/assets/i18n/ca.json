@@ -55,7 +55,8 @@
       "submit": "Crea el compte",
       "has_account": "Ja tens compte?",
       "login_link": "Inicia sessió",
-      "error_email_taken": "Aquest email ja està registrat"
+      "error_email_taken": "Aquest email ja està registrat",
+      "error_not_allowed": "Registre restringit a usuaris convidats"
     },
     "forgot_password": {
       "title": "Recupera la contrasenya",
