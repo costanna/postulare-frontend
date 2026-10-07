@@ -123,6 +123,8 @@ export interface SearchFilters {
   disability: DisabilityFilter;
   /** remote / hybrid piden que la oferta lo diga; onsite incluye las que no dicen nada. */
   work_mode: WorkModeFilter;
+  /** Solo España: quita ofertas con ubicación concreta fuera (remotas se conservan). */
+  spain_only: boolean;
   max_days_old: number | null;
   min_score: number;
 }

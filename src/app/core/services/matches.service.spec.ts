@@ -27,6 +27,22 @@ describe('MatchesService', () => {
     req.flush({});
   });
 
+  it('applyPackPreview() POSTs the edited letter to /matches/:id/apply-pack', () => {
+    service.applyPackPreview('m1', 'Mi carta').subscribe();
+    const req = httpMock.expectOne(`${baseUrl}/m1/apply-pack`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({ cover_letter: 'Mi carta' });
+    req.flush({});
+  });
+
+  it('bulkConvert() POSTs ids to /matches/convert-bulk', () => {
+    service.bulkConvert(['m1', 'm2']).subscribe();
+    const req = httpMock.expectOne(`${baseUrl}/convert-bulk`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({ match_ids: ['m1', 'm2'] });
+    req.flush({ converted: [], skipped: 0 });
+  });
+
   it('saveFilters() PUTs the filters to /matches/filters', () => {
     const filters = {
       keywords: 'angular react',
@@ -34,6 +50,7 @@ describe('MatchesService', () => {
       radius_km: 50,
       exclude: 'php',
       exclude_other_levels: true,
+      spain_only: false,
       disability: 'any' as const,
       work_mode: 'any' as const,
       max_days_old: 14,

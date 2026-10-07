@@ -54,7 +54,7 @@ describe('MatchesComponent convert actions', () => {
     fixture.detectChanges();
     httpMock.expectOne((r) => r.url === `${API}/matches` && r.params.get('status') === 'new').flush([match('m1'), match('m2')]);
     httpMock.expectOne(`${API}/matches/filters`).flush({
-      filters: { keywords: null, location: null, radius_km: 30, exclude: null, exclude_other_levels: true, disability: 'any', work_mode: 'any', max_days_old: null, min_score: 0 },
+      filters: { keywords: null, location: null, radius_km: 30, exclude: null, exclude_other_levels: true, spain_only: false, disability: 'any', work_mode: 'any', max_days_old: null, min_score: 0 },
       effective_query: 'angular',
       effective_location: null,
       daily_remaining: null,
@@ -206,6 +206,31 @@ describe('MatchesComponent convert actions', () => {
 
     it('offers the three choices in the filters panel', () => {
       expect(fixture.componentInstance.disabilityOptions).toEqual(['any', 'require', 'exclude']);
+    });
+  });
+
+  describe('spain only filter', () => {
+    it('is off by default', () => {
+      expect(fixture.componentInstance.searchForm.controls.spain_only.value).toBe(false);
+    });
+
+    it('is saved with the rest of the filters', () => {
+      fixture.componentInstance.searchForm.controls.spain_only.setValue(true);
+      fixture.componentInstance.saveFilters();
+      const req = httpMock.expectOne(`${API}/matches/filters`);
+      expect(req.request.body.spain_only).toBe(true);
+      req.flush({ filters: { ...req.request.body }, effective_query: 'angular', effective_location: null, daily_remaining: null });
+      expect(fixture.componentInstance.searchForm.controls.spain_only.value).toBe(true);
+    });
+
+    it('older saved filters without the field load as off', () => {
+      fixture.componentInstance.searchForm.controls.spain_only.setValue(true);
+      fixture.componentInstance.resetFilters();
+      const req = httpMock.expectOne(`${API}/matches/filters`);
+      expect(req.request.body.spain_only).toBe(false);
+      const { spain_only: _omitted, ...withoutField } = req.request.body;
+      req.flush({ filters: withoutField, effective_query: '', effective_location: null, daily_remaining: null });
+      expect(fixture.componentInstance.searchForm.controls.spain_only.value).toBe(false);
     });
   });
 

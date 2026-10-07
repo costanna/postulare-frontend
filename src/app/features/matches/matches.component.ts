@@ -95,6 +95,7 @@ export class MatchesComponent implements OnInit {
   readonly matches = signal<Match[]>([]);
   readonly convertingIds = signal<Set<string>>(new Set());
   readonly dismissingIds = signal<Set<string>>(new Set());
+  readonly bulkConverting = signal(false);
 
   readonly radiusOptions = [10, 30, 50, 100];
   readonly daysOptions: (number | null)[] = [null, 7, 14, 30, 60];
@@ -107,6 +108,7 @@ export class MatchesComponent implements OnInit {
     radius_km: [30],
     exclude: [''],
     exclude_other_levels: [true],
+    spain_only: [false],
     disability: ['any' as DisabilityFilter],
     work_mode: ['any' as WorkModeFilter],
     max_days_old: [null as number | null],
@@ -147,6 +149,7 @@ export class MatchesComponent implements OnInit {
         radius_km: f.radius_km,
         exclude: f.exclude ?? '',
         exclude_other_levels: f.exclude_other_levels,
+        spain_only: f.spain_only ?? false,
         disability: f.disability ?? 'any',
         work_mode: f.work_mode ?? 'any',
         max_days_old: f.max_days_old,
@@ -165,6 +168,7 @@ export class MatchesComponent implements OnInit {
       radius_km: v.radius_km ?? 30,
       exclude: v.exclude?.trim() || null,
       exclude_other_levels: v.exclude_other_levels ?? true,
+      spain_only: v.spain_only ?? false,
       disability: v.disability ?? 'any',
       work_mode: v.work_mode ?? 'any',
       max_days_old: v.max_days_old,
@@ -205,6 +209,7 @@ export class MatchesComponent implements OnInit {
       radius_km: 30,
       exclude: '',
       exclude_other_levels: true,
+      spain_only: false,
       disability: 'any',
       work_mode: 'any',
       max_days_old: null,
@@ -310,6 +315,24 @@ export class MatchesComponent implements OnInit {
 
   convert(match: Match): void {
     this.saveAsApplication(match, () => this.notify('matches.convert_success'));
+  }
+
+  /** Guarda de golpe las ofertas nuevas visibles como candidaturas. */
+  bulkConvert(): void {
+    const ids = this.visibleMatches().filter((m) => m.status === 'new').map((m) => m.id);
+    if (ids.length === 0 || this.bulkConverting()) return;
+    this.bulkConverting.set(true);
+    this.matchesService.bulkConvert(ids).subscribe({
+      next: (result) => {
+        this.bulkConverting.set(false);
+        this.notify('matches.bulk_convert_success', { count: result.converted.length });
+        this.load();
+      },
+      error: () => {
+        this.bulkConverting.set(false);
+        this.notify('common.error_generic');
+      },
+    });
   }
 
   /** Auto-postulación gratuita: deja candidatura en «aplicada» + kit listo; abre la oferta para el paso manual. */

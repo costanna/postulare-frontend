@@ -84,6 +84,17 @@ export class SendCvDialogComponent implements OnInit {
     });
   }
 
+  /** Reconstruye mailto/copias con la carta editada (sin guardar ni convertir). */
+  refreshPack(): void {
+    const edited = this.letter().trim();
+    const original = (this.pack()?.cover_letter ?? '').trim();
+    if (!edited || edited === original) return;
+    this.matchesService.applyPackPreview(this.data.match.id, edited).subscribe({
+      next: (pack) => this.pack.set(pack),
+      error: () => this.snackBar.open(this.translate.instant('common.error_generic'), undefined, { duration: 4000 }),
+    });
+  }
+
   copy(key: string, text: string): void {
     navigator.clipboard.writeText(text).then(
       () => {

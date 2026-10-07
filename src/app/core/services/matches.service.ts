@@ -47,6 +47,14 @@ export class MatchesService {
     return this.http.post<Application>(`${this.baseUrl}/${matchId}/convert`, options);
   }
 
+  /** Guarda de golpe varias ofertas como candidaturas (estado guardada). */
+  bulkConvert(matchIds: string[]): Observable<{ converted: Application[]; skipped: number }> {
+    return this.http.post<{ converted: Application[]; skipped: number }>(
+      `${this.baseUrl}/convert-bulk`,
+      { match_ids: matchIds }
+    );
+  }
+
   dismiss(matchId: string): Observable<Match> {
     return this.http.post<Match>(`${this.baseUrl}/${matchId}/dismiss`, {});
   }
@@ -58,6 +66,13 @@ export class MatchesService {
   /** Kit listo para enviar sin convertir: carta plantilla + CV + email + checklist. */
   applyPack(matchId: string): Observable<ApplyPack> {
     return this.http.get<ApplyPack>(`${this.baseUrl}/${matchId}/apply-pack`);
+  }
+
+  /** Reconstruye el kit con la carta editada (sin guardar ni convertir). */
+  applyPackPreview(matchId: string, coverLetter: string): Observable<ApplyPack> {
+    return this.http.post<ApplyPack>(`${this.baseUrl}/${matchId}/apply-pack`, {
+      cover_letter: coverLetter,
+    });
   }
 
   /** Auto-postulación gratuita: convierte a «aplicada» y devuelve el kit de envío. */

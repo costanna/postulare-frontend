@@ -99,6 +99,10 @@
         {{ 'matches.filter_exclude_levels' | translate }}
       </mat-slide-toggle>
 
+      <mat-slide-toggle formControlName="spain_only">
+        {{ 'matches.filter_spain_only' | translate }}
+      </mat-slide-toggle>
+
       <div class="search-filters__score">
         <span class="search-filters__score-label">
           {{ 'matches.filter_min_score' | translate }}: <strong>{{ searchForm.controls.min_score.value }}%</strong>
@@ -147,6 +151,18 @@
 
   @if (hiddenCount() > 0) {
     <p class="matches-hidden">{{ 'matches.hidden_by_score' | translate: { count: hiddenCount(), score: minScore() } }}</p>
+  }
+
+  @if (filter() === 'new' && visibleMatches().length > 0) {
+    <div class="matches-bulk">
+      <button mat-stroked-button type="button" [disabled]="bulkConverting()" (click)="bulkConvert()">
+        @if (bulkConverting()) {
+          <mat-spinner diameter="18"></mat-spinner>
+        } @else {
+          {{ 'matches.bulk_convert_button' | translate: { count: visibleMatches().length } }}
+        }
+      </button>
+    </div>
   }
 
   @if (loading()) {
