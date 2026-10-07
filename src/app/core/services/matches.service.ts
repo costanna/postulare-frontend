@@ -75,9 +75,9 @@ export class MatchesService {
     });
   }
 
-  /** Auto-postulación gratuita: convierte a «aplicada» y devuelve el kit de envío. */
-  autoApply(matchId: string): Observable<AutoApplyResult> {
-    return this.http.post<AutoApplyResult>(`${this.baseUrl}/${matchId}/auto-apply`, {});
+  /** Auto-postulación: deja la candidatura guardada con el kit (solo es "aplicada" si lo confirmas). */
+  autoApply(matchId: string, options: ConvertOptions = {}): Observable<AutoApplyResult> {
+    return this.http.post<AutoApplyResult>(`${this.baseUrl}/${matchId}/auto-apply`, options);
   }
 
   /** Convierte de golpe las mejores ofertas nuevas (por score). */

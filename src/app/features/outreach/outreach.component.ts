@@ -1,6 +1,7 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -13,6 +14,7 @@ import { LANGUAGE_LABELS, SUPPORTED_LANGUAGES } from '../../core/i18n/supported-
 import { SendQuota, Suggestion, TargetCompany } from '../../core/models/outreach.model';
 import { OutreachService } from '../../core/services/outreach.service';
 import { ProfileService } from '../../core/services/profile.service';
+import { ConfirmDialogComponent, ConfirmDialogData } from '../../shared/ui/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-outreach',
@@ -36,6 +38,7 @@ export class OutreachComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly outreach = inject(OutreachService);
   private readonly profile = inject(ProfileService);
+  private readonly dialog = inject(MatDialog);
   private readonly snackBar = inject(MatSnackBar);
   private readonly translate = inject(TranslateService);
 
@@ -145,6 +148,14 @@ export class OutreachComponent implements OnInit {
   sendAll(): void {
     const ids = this.sendable().map((t) => t.id);
     if (ids.length === 0 || this.sendingAll()) return;
+    this.confirmSend('outreach.confirm_bulk_title', 'outreach.confirm_bulk_message', { count: ids.length }).subscribe(
+      (ok) => {
+        if (ok) this.doSendAll(ids);
+      }
+    );
+  }
+
+  private doSendAll(ids: string[]): void {
     this.sendingAll.set(true);
     this.outreach.sendBulk(ids).subscribe({
       next: (result) => {
@@ -173,6 +184,29 @@ export class OutreachComponent implements OnInit {
 
   runAutopilot(): void {
     if (this.autopiloting() || this.paused()) return;
+    this.confirmSend('outreach.confirm_autopilot_title', 'outreach.confirm_autopilot_message', {}).subscribe(
+      (ok) => {
+        if (ok) this.doAutopilot();
+      }
+    );
+  }
+
+  private confirmSend(titleKey: string, messageKey: string, params: Record<string, unknown>) {
+    const data: ConfirmDialogData = {
+      title: this.translate.instant(titleKey),
+      message: this.translate.instant(messageKey, params),
+      confirmLabelKey: 'outreach.confirm_send',
+    };
+    return this.dialog
+      .open<ConfirmDialogComponent, ConfirmDialogData, boolean>(ConfirmDialogComponent, {
+        data,
+        width: '90%',
+        maxWidth: '440px',
+      })
+      .afterClosed();
+  }
+
+  private doAutopilot(): void {
     this.autopiloting.set(true);
     this.outreach.autopilot(5).subscribe({
       next: (result) => {

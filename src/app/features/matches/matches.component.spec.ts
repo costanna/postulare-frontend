@@ -135,6 +135,21 @@ describe('MatchesComponent convert actions', () => {
       expect(fixture.componentInstance.convertingIds().size).toBe(0);
     });
 
+    it('auto-apply saves (never as applied) and then asks whether you applied', () => {
+      spyOn(applyFlow, 'openOffer').and.returnValue(true);
+      const confirm = spyOn(applyFlow, 'confirmApplied').and.returnValue(of(null));
+
+      fixture.componentInstance.autoApply(offerWithUrl());
+
+      const req = httpMock.expectOne(`${API}/matches/m1/auto-apply`);
+      expect(req.request.body).toEqual({});
+      req.flush({ id: 'a1', company_name: 'TechCorp', position: 'Angular Dev', status: 'saved' });
+
+      expect(confirm).toHaveBeenCalledTimes(1);
+      expect(confirm.calls.mostRecent().args[0].id).toBe('a1');
+      expect(fixture.componentInstance.matches().map((m) => m.id)).toEqual(['m2']);
+    });
+
     it('shows Apply, Save and Dismiss on each new card and no "mark as applied"', () => {
       fixture.detectChanges();
       const labels = Array.from<HTMLButtonElement>(

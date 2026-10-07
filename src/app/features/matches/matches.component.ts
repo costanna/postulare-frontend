@@ -335,7 +335,7 @@ export class MatchesComponent implements OnInit {
     });
   }
 
-  /** Auto-postulación gratuita: deja candidatura en «aplicada» + kit listo; abre la oferta para el paso manual. */
+  /** Auto-postulación: abre la oferta, la deja guardada con el kit y pregunta si ya se ha aplicado. */
   autoApply(match: Match): void {
     if (this.convertingIds().has(match.id)) return;
     this.convertingIds.update((ids) => new Set(ids).add(match.id));
@@ -343,14 +343,17 @@ export class MatchesComponent implements OnInit {
       this.notify('matches.popup_blocked');
     }
     this.matchesService.autoApply(match.id).subscribe({
-      next: () => {
+      next: (result) => {
         this.convertingIds.update((ids) => {
           const next = new Set(ids);
           next.delete(match.id);
           return next;
         });
         this.matches.update((current) => current.filter((m) => m.id !== match.id));
-        this.notify('matches.auto_apply_success');
+        this.applyFlow.confirmApplied(result.application).subscribe({
+          next: (updated) => this.notify(updated ? 'apply_dialog.marked' : 'apply_dialog.kept_saved'),
+          error: () => this.notify('common.error_generic'),
+        });
       },
       error: () => {
         this.convertingIds.update((ids) => {
