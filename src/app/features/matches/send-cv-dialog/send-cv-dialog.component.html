@@ -96,9 +96,26 @@
         {{ 'send_cv.view_offer' | translate }}
       </a>
     }
-    <a mat-flat-button color="primary" [href]="current.mailto_link">
-      <svg lucideMail></svg>
-      {{ 'send_cv.open_email' | translate }}
-    </a>
+    @if (!isDemo() && current.contact_email && !sentTo()) {
+      <button mat-flat-button color="primary" type="button" [disabled]="sending()" (click)="sendNow()">
+        @if (sending()) {
+          <mat-spinner diameter="16"></mat-spinner>
+        } @else {
+          <svg lucideSend></svg>
+        }
+        {{ 'send_cv.send_now' | translate }}
+      </button>
+    }
+    @if (sentTo(); as sent) {
+      <span class="send-cv__sent">
+        <svg lucideCheck></svg>
+        {{ 'send_cv.sent' | translate: { email: sent } }}
+      </span>
+    } @else {
+      <a mat-stroked-button [href]="current.mailto_link">
+        <svg lucideMail></svg>
+        {{ 'send_cv.open_email' | translate }}
+      </a>
+    }
   }
 </mat-dialog-actions>

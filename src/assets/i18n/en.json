@@ -291,6 +291,10 @@
     "copied": "Copied",
     "copy_failed": "Could not copy",
     "open_email": "Open in my email",
+    "send_now": "Send now",
+    "sent": "Email sent to {{email}}",
+    "error_config": "Sending not configured on the server (SMTP).",
+    "error_limit": "You have reached the daily sending limit.",
     "view_offer": "View offer"
   },
   "demo": {

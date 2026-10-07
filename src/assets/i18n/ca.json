@@ -291,6 +291,10 @@
     "copied": "Copiat",
     "copy_failed": "No s'ha pogut copiar",
     "open_email": "Obre al meu email",
+    "send_now": "Envia ara",
+    "sent": "Email enviat a {{email}}",
+    "error_config": "Enviament no configurat al servidor (SMTP).",
+    "error_limit": "Has arribat al límit diari d'enviaments.",
     "view_offer": "Veure l'oferta"
   },
   "demo": {

@@ -16,6 +16,7 @@ import {
   MatchStatus,
   SearchFilters,
   SearchFiltersState,
+  SendEmailResult,
 } from '../models/match.model';
 
 @Injectable({ providedIn: 'root' })
@@ -67,5 +68,10 @@ export class MatchesService {
   /** Convierte de golpe las mejores ofertas nuevas (por score). */
   bulkAutoApply(min_score = 60, limit = 5): Observable<BulkAutoApplyResult> {
     return this.http.post<BulkAutoApplyResult>(`${this.baseUrl}/auto-apply-bulk`, { min_score, limit });
+  }
+
+  /** Envío directo al email de la oferta (solo cuentas reales; la demo responde 403). */
+  sendEmail(matchId: string): Observable<SendEmailResult> {
+    return this.http.post<SendEmailResult>(`${this.baseUrl}/${matchId}/send-email`, {});
   }
 }

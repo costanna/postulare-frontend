@@ -95,6 +95,14 @@ export interface BulkAutoApplyResult {
   skipped: number;
 }
 
+export interface SendEmailResult {
+  application: Application;
+  sent_to: string;
+  subject: string;
+  language: string | null;
+  detected_language: string | null;
+}
+
 export type DisabilityFilter = 'any' | 'require' | 'exclude';
 
 export type DetectedWorkMode = 'remote' | 'hybrid' | 'onsite';
