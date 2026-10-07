@@ -141,7 +141,12 @@
     "resumed": "Automatización reanudada",
     "autopilot": "Enviar 5 automáticos",
     "autopilot_done": "{{ok}} enviadas automáticamente ({{skipped}} saltadas)",
-    "autopilot_paused": "Automatización paralizada: reactívala para usar el piloto"
+    "autopilot_paused": "Automatización paralizada: reactívala para usar el piloto",
+    "suggestions_title": "Descubiertas solas",
+    "suggestions_hint": "De tus ofertas y del hilo mensual de HN. El piloto las importa y envía solo.",
+    "import": "Añadir",
+    "import_all": "Añadir todas",
+    "imported": "{{count}} empresas añadidas"
   },
   "status": {
     "saved": "Guardada",

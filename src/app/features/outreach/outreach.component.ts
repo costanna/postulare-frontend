@@ -10,7 +10,7 @@ import { LucideMail, LucideSend, LucideTrash2 } from '@lucide/angular';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 import { LANGUAGE_LABELS, SUPPORTED_LANGUAGES } from '../../core/i18n/supported-languages';
-import { SendQuota, TargetCompany } from '../../core/models/outreach.model';
+import { SendQuota, Suggestion, TargetCompany } from '../../core/models/outreach.model';
 import { OutreachService } from '../../core/services/outreach.service';
 import { ProfileService } from '../../core/services/profile.service';
 
@@ -50,6 +50,8 @@ export class OutreachComponent implements OnInit {
   readonly quota = signal<SendQuota | null>(null);
   readonly paused = signal(false);
   readonly autopiloting = signal(false);
+  readonly suggestions = signal<Suggestion[]>([]);
+  readonly loadingSuggestions = signal(false);
 
   readonly sendable = computed(() => this.targets().filter((t) => t.can_send));
 
@@ -77,6 +79,14 @@ export class OutreachComponent implements OnInit {
       error: () => this.loading.set(false),
     });
     this.outreach.quota().subscribe({ next: (quota) => this.quota.set(quota) });
+    this.loadingSuggestions.set(true);
+    this.outreach.suggestions().subscribe({
+      next: (result) => {
+        this.suggestions.set([...result.from_offers, ...result.from_hn]);
+        this.loadingSuggestions.set(false);
+      },
+      error: () => this.loadingSuggestions.set(false),
+    });
   }
 
   add(): void {
@@ -181,6 +191,28 @@ export class OutreachComponent implements OnInit {
               : 'common.error_generic'
         );
       },
+    });
+  }
+
+  importSuggestion(suggestion: Suggestion): void {
+    this.outreach.importSuggestions([suggestion]).subscribe({
+      next: (result) => {
+        this.notify('outreach.imported', { count: result.imported });
+        this.load();
+      },
+      error: () => this.notify('common.error_generic'),
+    });
+  }
+
+  importAllSuggestions(): void {
+    const items = this.suggestions();
+    if (items.length === 0) return;
+    this.outreach.importSuggestions(items).subscribe({
+      next: (result) => {
+        this.notify('outreach.imported', { count: result.imported });
+        this.load();
+      },
+      error: () => this.notify('common.error_generic'),
     });
   }
 

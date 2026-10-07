@@ -141,7 +141,12 @@
     "resumed": "Automatització represa",
     "autopilot": "Envia 5 automàtics",
     "autopilot_done": "{{ok}} enviades automàticament ({{skipped}} saltades)",
-    "autopilot_paused": "Automatització paralitzada: reprèn-la per fer servir el pilot"
+    "autopilot_paused": "Automatització paralitzada: reprèn-la per fer servir el pilot",
+    "suggestions_title": "Descobertes soles",
+    "suggestions_hint": "De les teves ofertes i del fil mensual de HN. El pilot les importa i envia sol.",
+    "import": "Afegeix",
+    "import_all": "Afegeix totes",
+    "imported": "{{count}} empreses afegides"
   },
   "status": {
     "saved": "Desada",

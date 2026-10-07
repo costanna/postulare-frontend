@@ -24,3 +24,13 @@ export interface SendQuota {
   sent_today: number;
   daily_remaining: number;
 }
+
+export interface Suggestion {
+  name: string;
+  email: string;
+  language: string | null;
+  tags: string[];
+  match_score: number;
+  offers_count: number;
+  source: string;
+}

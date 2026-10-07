@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { Application } from '../models/application.model';
-import { SendQuota, TargetCompany, TargetSendResult } from '../models/outreach.model';
+import { SendQuota, Suggestion, TargetCompany, TargetSendResult } from '../models/outreach.model';
 
 export interface SpontaneousSendResult {
   application: Application;
@@ -52,5 +52,25 @@ export class OutreachService {
       `${this.baseUrl}/autopilot`,
       { limit }
     );
+  }
+
+  suggestions(): Observable<{ from_offers: Suggestion[]; from_hn: Suggestion[] }> {
+    return this.http.get<{ from_offers: Suggestion[]; from_hn: Suggestion[] }>(
+      `${this.baseUrl}/suggestions`
+    );
+  }
+
+  importSuggestions(items: Suggestion[]): Observable<{ imported: number; skipped: number }> {
+    return this.http.post<{ imported: number; skipped: number }>(`${this.baseUrl}/import`, {
+      items: items.map((s) => ({
+        name: s.name,
+        email: s.email,
+        language: s.language ?? 'es',
+        tags: s.tags,
+        match_score: s.match_score,
+        offers_count: s.offers_count,
+        source: s.source,
+      })),
+    });
   }
 }

@@ -141,7 +141,12 @@
     "resumed": "Automation resumed",
     "autopilot": "Auto-send 5",
     "autopilot_done": "{{ok}} auto-sent ({{skipped}} skipped)",
-    "autopilot_paused": "Automation paused: resume it to use the autopilot"
+    "autopilot_paused": "Automation paused: resume it to use the autopilot",
+    "suggestions_title": "Auto-discovered",
+    "suggestions_hint": "From your offers and the monthly HN thread. The autopilot imports and sends on its own.",
+    "import": "Add",
+    "import_all": "Add all",
+    "imported": "{{count}} companies added"
   },
   "status": {
     "saved": "Saved",

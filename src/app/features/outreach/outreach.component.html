@@ -120,4 +120,39 @@
       }
     </ul>
   }
+
+  @if (loadingSuggestions()) {
+    <div class="outreach-loading">
+      <mat-spinner diameter="24"></mat-spinner>
+    </div>
+  } @else if (suggestions().length > 0) {
+    <section class="outreach-suggestions">
+      <div class="outreach-suggestions__header">
+        <div>
+          <h2>{{ 'outreach.suggestions_title' | translate }}</h2>
+          <p>{{ 'outreach.suggestions_hint' | translate }}</p>
+        </div>
+        <button mat-stroked-button type="button" (click)="importAllSuggestions()">
+          {{ 'outreach.import_all' | translate }}
+        </button>
+      </div>
+      <ul class="outreach-list">
+        @for (suggestion of suggestions(); track suggestion.email) {
+          <li class="outreach-card">
+            <div class="outreach-card__info">
+              <strong>{{ suggestion.name }}</strong>
+              <span class="outreach-card__email">
+                <svg lucideMail></svg>
+                {{ suggestion.email }}
+              </span>
+              <span class="outreach-card__score">+{{ suggestion.match_score }}</span>
+            </div>
+            <button mat-stroked-button type="button" (click)="importSuggestion(suggestion)">
+              {{ 'outreach.import' | translate }}
+            </button>
+          </li>
+        }
+      </ul>
+    </section>
+  }
 </div>
