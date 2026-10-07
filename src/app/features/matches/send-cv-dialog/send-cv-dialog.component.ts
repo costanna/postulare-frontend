@@ -57,6 +57,7 @@ export class SendCvDialogComponent implements OnInit {
   readonly sending = signal(false);
   readonly sentTo = signal<string | null>(null);
   readonly pack = signal<ApplyPack | null>(null);
+  readonly letter = signal('');
 
   /** La demo no puede enviar emails (el backend responde 403): se oculta el botón. */
   readonly isDemo = computed(() => this.auth.currentUser()?.is_demo ?? true);
@@ -73,6 +74,7 @@ export class SendCvDialogComponent implements OnInit {
     this.matchesService.applyPack(this.data.match.id).subscribe({
       next: (pack) => {
         this.pack.set(pack);
+        this.letter.set(pack.cover_letter);
         this.loading.set(false);
       },
       error: () => {
@@ -100,7 +102,9 @@ export class SendCvDialogComponent implements OnInit {
   sendNow(): void {
     if (this.sending() || !this.pack()?.contact_email) return;
     this.sending.set(true);
-    this.matchesService.sendEmail(this.data.match.id).subscribe({
+    const edited = this.letter().trim();
+    const original = (this.pack()?.cover_letter ?? '').trim();
+    this.matchesService.sendEmail(this.data.match.id, edited && edited !== original ? edited : undefined).subscribe({
       next: (result) => {
         this.sending.set(false);
         this.sentTo.set(result.sent_to);

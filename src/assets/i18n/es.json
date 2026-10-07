@@ -41,8 +41,7 @@
       "password": "Contraseña",
       "submit": "Entrar",
       "forgot_password": "¿Has olvidado tu contraseña?",
-      "no_account": "¿Aún no tienes cuenta?",
-      "register_link": "Regístrate",
+      "owner_only": "¿Eres visitante? Usa «Prueba la demo»: el registro es solo con invitación.",
       "error_invalid_credentials": "Email o contraseña incorrectos"
     },
     "register": {
@@ -326,6 +325,8 @@
     "detected": "Idioma de la oferta: {{lang}}",
     "fallback": "Idioma no detectado: se usa tu idioma",
     "checklist_title": "Pasos",
+    "letter": "Carta de presentación (editable)",
+    "letter_hint": "Edítala antes de «Enviar ahora»: el envío directo usará tu versión",
     "to": "Para: {{email}}",
     "subject": "Asunto del email",
     "body": "Cuerpo del email (carta + CV)",

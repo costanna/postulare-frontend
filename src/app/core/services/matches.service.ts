@@ -71,7 +71,9 @@ export class MatchesService {
   }
 
   /** Envío directo al email de la oferta (solo cuentas reales; la demo responde 403). */
-  sendEmail(matchId: string): Observable<SendEmailResult> {
-    return this.http.post<SendEmailResult>(`${this.baseUrl}/${matchId}/send-email`, {});
+  sendEmail(matchId: string, coverLetter?: string): Observable<SendEmailResult> {
+    return this.http.post<SendEmailResult>(`${this.baseUrl}/${matchId}/send-email`, {
+      cover_letter: coverLetter ?? null,
+    });
   }
 }

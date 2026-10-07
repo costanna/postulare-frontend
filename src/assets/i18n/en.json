@@ -41,8 +41,7 @@
       "password": "Password",
       "submit": "Log in",
       "forgot_password": "Forgot your password?",
-      "no_account": "Don't have an account yet?",
-      "register_link": "Sign up",
+      "owner_only": "Just visiting? Use “Try the demo”: registration is by invitation only.",
       "error_invalid_credentials": "Incorrect email or password"
     },
     "register": {
@@ -326,6 +325,8 @@
     "detected": "Offer language: {{lang}}",
     "fallback": "Language not detected: using yours",
     "checklist_title": "Steps",
+    "letter": "Cover letter (editable)",
+    "letter_hint": "Edit it before “Send now”: direct sending will use your version",
     "to": "To: {{email}}",
     "subject": "Email subject",
     "body": "Email body (letter + CV)",

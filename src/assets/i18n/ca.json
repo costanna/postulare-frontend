@@ -41,8 +41,7 @@
       "password": "Contrasenya",
       "submit": "Entra",
       "forgot_password": "Has oblidat la contrasenya?",
-      "no_account": "Encara no tens compte?",
-      "register_link": "Registra't",
+      "owner_only": "Ets visitant? Fes servir «Prova la demo»: el registre és només amb invitació.",
       "error_invalid_credentials": "Email o contrasenya incorrectes"
     },
     "register": {
@@ -326,6 +325,8 @@
     "detected": "Idioma de l'oferta: {{lang}}",
     "fallback": "Idioma no detectat: es fa servir el teu",
     "checklist_title": "Passos",
+    "letter": "Carta de presentació (editable)",
+    "letter_hint": "Edita-la abans d'«Envia ara»: l'enviament directe farà servir la teva versió",
     "to": "Per a: {{email}}",
     "subject": "Assumpte de l'email",
     "body": "Cos de l'email (carta + CV)",
